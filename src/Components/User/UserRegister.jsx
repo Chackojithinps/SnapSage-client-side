@@ -1,43 +1,103 @@
 import React from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function UserRegister() {
+ const [input,setInput ] = useState()
+ const [passMessage,setPassMessage] = useState('')
+ const [isChecked,setIsChecked] =useState(false)
+ const navigate= useNavigate()
+  const handleChange=(e)=>{
+    setInput((prev)=>({
+        ...prev,
+        [e.target.name] : e.target.value,
+    }))
+    console.log(`${e.target.name} : ${e.target.value}`);
+  }
+ console.log("input",input)
+  const handleSubmit=async()=>{
+     try {
+      if(isChecked){
+        if(input.password===input.confirmpass){
+
+        const res= await axios.post("http://localhost:5000/register",{
+          message:"hello",
+          fname:input.firstname,
+          lname:input.lastname,
+          phone:input.phone,
+          email:input.email,
+          password:input.password,
+          confirmpass:input.confirmpass
+       })
+       if(res){
+        console.log("response otp : ",res.data)
+        //  toast.success(res.data.message)
+        navigate('/getotp')
+       }
+      }else{
+         setPassMessage("password doesn't match")
+         toast.error("password missmatch")
+         setTimeout(() => {
+           setPassMessage("");
+         }, 5000);
+         return;
+      }
+    }
+     } catch (error) {
+      console.log("registerfrontend",error.message)
+     }
+  }
+
   return (
-    <div>
-    <div className='min-h-screen py-28' style={{backgroundImage:'url(dhttps://dvyvvujm9h0uq.cloudfront.net/com/articles/1543483387-reinhart-julian-1145947-unsplash.jpg)',backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>
-     <div className='container mx-auto'>
-       <div className='bg-white w-10/12 lg:w-8/12 mx-auto flex-col lg:flex-row shadow-lg overflow-hidden flex'>
-         <div className='w-full lg:w-1/2 text-white flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center'  style={{backgroundImage:'url(https://dvyvvujm9h0uq.cloudfront.net/com/articles/1543483387-reinhart-julian-1145947-unsplash.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
-            <h2 >Welcome</h2>
-            <p className='w-10/12'>nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem</p>
-         </div>
-         <div className='w-full lg:w-1/2 py-16 px-12'>
-           <h2 className='text-1xl mb-4'>Register</h2>
-           <p className='mb-4'>Create Your Accunt.it will take only one minute</p>
-           <form action=''>
-             <div className='grid grid-cols-2 gap-2'>
-               <input type='text' placeholder='First Name' className='border border-gray-400 py-1 px-2 outline-blue-300'/>
-               <input type='text' placeholder='SurName' className='border border-gray-400 py-1 px-2 outline-blue-300'/>
+    <>
+
+<section className='w-full h-screen bg-no-repeat bg-cover bg-center py-40 sm:py-52 flex' style={{backgroundImage:'url(https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg)'}}>
+     {/* https://iso.500px.com/wp-content/uploads/2021/08/Hobby-photographer-waiting-for-beautiful-sunset-By-Jarom%C3%ADr-Chalabala-2.jpg */}
+     {/* https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg */}
+        <div className='container mx-5 lg:mx-36  w-full'>
+          <div className='mb-5 text-[15px] text-white font-bold md:text-[20px]'>
+          <h1>Become a part of our shutterbug family. Sign up and snap away!</h1>
+
+          </div>
+            <div className='flex gap-4'> 
+               <input type='text' placeholder='First Name *' name='firstname' onChange={handleChange}  className='py-2 px-2 outline-green-200 rounded w-full  md:w-80' />
+               <input type='text' placeholder='Last Name *' name='lastname' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />
+            </div>
+            <div className='flex gap-4 my-3'>
+               <input type='text' placeholder='Phone Number *' name='phone' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded  w-full md:w-80' />
+               <input type='text' placeholder='Email Address *' name='email' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full md:w-80' /> 
+            </div>
+            <div className='flex gap-4 my-3'>
+               <input type='password' placeholder='Password *' name='password' onChange={handleChange} className={`py-2 px-2 ${passMessage?'outline-red-600':'outline-green-200'}  rounded w-full md:w-80`}  />
+               <input type='password' placeholder='Confirm Password *' name='confirmpass' onChange={handleChange} className={`py-2 px-2 ${passMessage?'outline-red-600':'outline-green-200'} rounded  w-full sm:w-80`} />
+               
+            </div>
+            <p className='text-red-600'>{passMessage}</p>
             
-             </div>
-             <div>
-             <input type='text' placeholder='email' className='border border-gray-400 py-1 px-2 my-2 w-full outline-blue-300'/>
-             <input type='text' placeholder='phone' className='border border-gray-400 py-1 px-2 my-1 w-full outline-blue-300' />
-             <input type='text' placeholder='password' className='border border-gray-400 py-1 px-2 my-1 w-full outline-blue-300' />
-             <input type='text' placeholder='Confirm password' className='border border-gray-400 py-1 px-2 my-1 w-full outline-blue-300' />
-             <input type='checkbox' className='border border-gray-400 my-4'/>
-             <span className='mx-2'>I accept the <a href='#' className='text-purple-500'>Terms of use</a>T & <a href='#' className='text-purple-500'>privacy policy</a></span>
-             </div>
-             <div className='flex items-center justify-center my-6'>
-                 <button className='border border-gray-500 py-1 px-2 w-full bg-purple-500 text-white rounded text-center '>Register</button>
+            <div className='w-full md:w-[41rem] sm:flex  gap-4 my-8 '>
+              <div className='my-2'>
 
-             </div>
-           </form>
-         </div>
-       </div>
-
-     </div>
-  </div>
- </div>
+              <input
+                  type='checkbox'
+                  className='h-5 w-5'
+                  checked={isChecked}
+                  onChange={(e) => setIsChecked(e.target.checked)}
+              />
+              </div>
+              <div className='sm:w-[30rem]  '>
+                
+              <span className='ms-2 font-300 text-white'>By submitting and sharing your information you agree to WeddingPro’s <span className='text-blue-800'>terms of use</span> and <span className='text-blue-800'> privacy policy.</span></span>
+            </div>
+             
+              <button onClick={handleSubmit} className='border border-black-500 h-14 w-full px-10 my-2 sm:w-64 hover:bg-white hover:text-cyan-300 bg-cyan-300 rounded font-bold outline-none'>Get in Touch</button>
+            </div>
+        </div>
+        
+     </section>
+     </>
   )
 }
 

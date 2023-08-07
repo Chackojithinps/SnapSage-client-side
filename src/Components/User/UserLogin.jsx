@@ -1,52 +1,72 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
+import axios from 'axios'
 function UserLogin() {
+  const [email,setEmail] = useState()
+  const [password,setPassword] = useState()
+  const [checked,setCheckbox] =  useState(false)
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (checked) {
+        const res = await axios.post("http://localhost:5000/login", {
+          email: email,
+          password: password
+        });
+  
+        if (res.status === 200) {
+          toast.success(res.data.message);
+          navigate('/')
+        } else {
+          // If the response status is not 200, show an error toast with the message from the backend
+          toast.error(res.data.message);
+        }
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log("userlogin", error.message);
+      toast.error("Something went wrong");
+    }
+  };
+  const navigate = useNavigate()
   return (
    <>
-     <section className='w-full h-screen bg-no-repeat bg-cover bg-center py-40 flex' style={{backgroundImage:'url(https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg)'}}>
-     {/* https://iso.500px.com/wp-content/uploads/2021/08/Hobby-photographer-waiting-for-beautiful-sunset-By-Jarom%C3%ADr-Chalabala-2.jpg */}
-        <div className='container mx-5 lg:mx-36  w-full'>
-            <div className='flex gap-4'> 
-               <input type='text' placeholder='First Name *' className='py-2 px-2 outline-green-200 rounded w-full  md:w-80'/>
-               <input type='text' placeholder='Last Name *' className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />
-            </div>
-            <div className='flex gap-4 my-3'>
-               <input type='text' placeholder='Phone Number *' className='py-2 px-2 outline-green-200 rounded  w-full md:w-80' />
-               <input type='text' placeholder='Email Address *' className='py-2 px-2 outline-green-200 rounded w-full md:w-80' /> 
-            </div>
-            <div className='flex gap-4 my-3'>
-               <input type='text' placeholder='Company Name *' className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />
-               {/* <input type='tdext' placeholder='Company Location *' className='py-2 px-2 outline-green-200 rounded w-2/5' />  */}
-               <select name="district" id="lang" placeholder='District' className='py-2 px-2  w-full md:w-80 rounded outline-green-200'>
-                <option value="javascript">Kozhikode</option>
-                <option value="php">Kannur</option>
-                <option value="java">Java</option>
-                <option value="golang">Golang</option>
-                <option value="python">Python</option>
-                <option value="c#">C#</option>  
-                <option value="C++">C++</option>
-                <option value="erlang">Erlang</option>
-              </select>
-            </div>
-            <div className='flex gap-3'>
-               <input type='text' placeholder='Password *' className='py-2 px-2 outline-green-200 rounded  w-full sm:w-80' />
-            </div>
-            <div className='w-full md:w-[41rem] sm:flex  gap-4 my-8 '>
-              <div>
+    <div className='min-h-screen py-28' style={{backgroundImage:'url(https://img.freepik.com/premium-photo/vivid-view-blue-sky-through-opening-trees-thick-forest-low-angle_634053-2388.jpg?w=2000)',backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>
+     <div className='container mx-auto'>
+       <div className='bg-white w-10/12 lg:w-8/12 mx-auto flex-col lg:flex-row shadow-lg overflow-hidden flex'>
+         <div className='w-full lg:w-1/2 text-white flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center'  style={{backgroundImage:'url(https://dvyvvujm9h0uq.cloudfront.net/com/articles/1543483387-reinhart-julian-1145947-unsplash.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
+            <h2 >Welcome</h2>
+            <p className='w-10/12'>nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem</p>
+         </div>
+         <div className='w-full lg:w-1/2 py-16 px-12'>
+           <h2 className='text-3xl font-bold mb-4 text-center'>User Login</h2>
+           <p className='mb-4 text-center'>Hey,Enter your details to get sign in to your account</p>
+           <form action=''>
+             <div className='grid grid-cols-2 gap-2'>
+            
+             </div>
+             <div>
+             <input type='text' onChange={(e)=>setEmail(e.target.value)} placeholder='Enter Email/Phone no' className='border border-gray-400 py-2 px-3 my-2 rounded w-full outline-blue-300'/>
+             <input type='password' onChange={(e)=>setPassword(e.target.value)} placeholder='Passcode' className='border border-gray-400 py-2 px-3 rounded my-1 w-full outline-blue-300' />
+             <input type='checkbox' onChange={(e)=>setCheckbox(e.target.checked)} className='border border-gray-400 my-4'/>
+             <span className='mx-2'>I accept the <span  className='text-purple-500'>Terms of use</span>T & <span  className='text-purple-500'>privacy policy</span></span>
+             </div>
+             <div className='flex items-center justify-center my-6'>
+                 <button className='border border-gray-500 py-1 px-2 w-full bg-purple-500 text-white rounded text-center ' onClick={handleSubmit}>Login</button>
 
-              <input type='checkbox'/> 
-              </div>
-              <div className='sm:w-[30rem]  '>
-                
-              <span className='ms-2 font-300 text-white'>By submitting and sharing your information you agree to WeddingPro’s <a href='' className='text-blue-800'>terms of use</a> and <a href="" className='text-blue-800'> privacy policy.</a></span>
-            </div>
-             
-              <button className='border border-black-500 h-14 w-full px-10 my-2 sm:w-64 hover:bg-white hover:text-cyan-300 bg-cyan-300 rounded font-bold outline-none'>Get in Touch</button>
-            </div> 
-        </div>
-        
-     </section>
-   </>
+             </div>
+             <p className='my-3 text-center'>Don't you have an account? <span className='font-bold hover:text-blue-500 hover:cursor-pointer' onClick={()=>navigate('/register')}>register</span> now</p>
+           </form>
+         </div>
+       </div>
+
+     </div>
+  </div>
+  </>
   )
 }
 
