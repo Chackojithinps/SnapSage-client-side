@@ -24,7 +24,6 @@ function UserRegister() {
         if(input.password===input.confirmpass){
 
         const res= await axios.post("http://localhost:5000/register",{
-          message:"hello",
           fname:input.firstname,
           lname:input.lastname,
           phone:input.phone,

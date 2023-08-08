@@ -1,17 +1,16 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom';
 
 function UserOtp() {
-
-
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const navigate= useNavigate()
   const inputRefs = useRef([...Array(6)].map(() => React.createRef()));
-
   const handleChange = (index, value) => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
-
     if (value.length === 1 && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].current.focus();
     }
@@ -23,9 +22,15 @@ function UserOtp() {
     const res= await axios.post("http://localhost:5000/verifyOtp",{
         otp:enteredOTP
     })
+
     if(res){
         console.log("res is there" , res)
+        toast.success(res.data.message)
+        navigate('/')
+    }else{
+      toast.error("somthing wrong")
     }
+
   };
 
 
