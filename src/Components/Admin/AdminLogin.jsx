@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import axios from 'axios'
-function UserLogin() {
+function AdminLogin() {
   const [email,setEmail] = useState()
   const [password,setPassword] = useState()
   const [checked,setCheckbox] =  useState(false)
@@ -12,14 +12,14 @@ function UserLogin() {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await axios.post("http://localhost:5000/login", {
+        const res = await axios.post("http://localhost:5000/admin/login", {
           email: email,
           password: password
         });
   
         if (res.status === 200) {
           toast.success(res.data.message);
-          navigate('/')
+          navigate('/admin')
         } else {
           // If the response status is not 200, show an error toast with the message from the backend
           toast.error(res.data.message);
@@ -35,7 +35,7 @@ function UserLogin() {
   const navigate = useNavigate()
   return (
    <>
-    <div className='min-h-screen py-28' style={{backgroundImage:'url(1https://img.freepik.com/premium-photo/vivid-view-blue-sky-through-opening-trees-thick-forest-low-angle_634053-2388.jpg?w=2000)',backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>
+    <div className='min-h-screen py-28' style={{backgroundImage:'url(https://img.freepik.com/premium-photo/vivid-view-blue-sky-through-opening-trees-thick-forest-low-angle_634053-2388.jpg?w=2000)',backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>
      <div className='container mx-auto'>
        <div className='bg-white w-10/12 lg:w-8/12 mx-auto flex-col lg:flex-row shadow-lg overflow-hidden flex'>
          <div className='w-full lg:w-1/2 text-white flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center'  style={{backgroundImage:'url(https://dvyvvujm9h0uq.cloudfront.net/com/articles/1543483387-reinhart-julian-1145947-unsplash.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
@@ -70,4 +70,4 @@ function UserLogin() {
   )
 }
 
-export default UserLogin
+export default AdminLogin
