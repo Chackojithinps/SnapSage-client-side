@@ -6,7 +6,7 @@ import AdminRouter from './Router/AdminRouter';
 
 function App() {
   return (
-   <div>
+   <div >
       <Toaster className="mx-10"
   position="top-center"
   reverseOrder={false}

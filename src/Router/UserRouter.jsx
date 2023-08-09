@@ -4,6 +4,7 @@ import UserHomepage from '../Pages/UserPages/UserHomepage'
 import RegisterPage from '../Pages/UserPages/RegisterPage'
 import UserLoginpage from '../Pages/UserPages/UserLoginpage'
 import UserotpPage from '../Pages/UserPages/UserotpPage'
+import ProfilePage from '../Pages/UserPages/ProfilePage'
 function UserRouter() {
   return (
     <div>
@@ -12,6 +13,7 @@ function UserRouter() {
             <Route path='/login' element={<UserLoginpage/>}/>
             <Route path='/register' element={<RegisterPage/>} />
             <Route path='/getotp' element={<UserotpPage/>} />
+            <Route path='/profile' element={<ProfilePage/>} />
             
         </Routes>
     </div>

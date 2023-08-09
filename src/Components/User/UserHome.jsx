@@ -5,7 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 function UserHome() {
   const [open,setOpen] = useState(false)
   return (
-    <nav className="md:flex w-full justify-evenly h-10 items-center bg-white border border-red-600 md:h-24">
+    <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24">
       <div className="flex justify-center px-7 md:">
         <h1 className="font-bold text-2xl">SNAPSAGE</h1>
       </div>
@@ -19,7 +19,7 @@ function UserHome() {
       <div className={`absolute top-10 bg-white md:static transition-all duration-500 Alegreya-Sans-SC px-6 h-[100vh] md:h-auto w-80 md:w-auto ${open?'left-0':'left-[-123rem]'}`}>
        
       
-        <ul className="md:flex md:gap-10" style={{ fontFamily: 'Kanit' }}>
+        <ul className="md:flex md:gap-10" style={{ fontFamily: 'Noto Serif' }}>
           <li className="hover:text-red-400  my-7 md:my-0 md:ms-0   Alegreya-Sans-SC   hover:cursor-pointer">
             HOME
           </li>
