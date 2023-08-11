@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 import toast from 'react-hot-toast'
 
 import axios from 'axios'
+import { adduserDetails } from '../../Store/userAuth'
 function UserLogin() {
+  console.log("Entered login for trying")
+
   const [email,setEmail] = useState()
   const [password,setPassword] = useState()
   const [checked,setCheckbox] =  useState(false)
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     try {
@@ -18,10 +25,14 @@ function UserLogin() {
         });
   
         if (res.status === 200) {
+
+          console.log("Data passing from login backend : ",res.data)
+          localStorage.setItem("token",res.data.userDetail.token)
+          dispatch(adduserDetails({name:res.data.userDetail.userName,token:res.data.userDetail.token}))
           toast.success(res.data.message);
           navigate('/')
+
         } else {
-          // If the response status is not 200, show an error toast with the message from the backend
           toast.error(res.data.message);
         }
       } else {
@@ -32,7 +43,6 @@ function UserLogin() {
       toast.error("Something went wrong");
     }
   };
-  const navigate = useNavigate()
   return (
    <>
     <div className='min-h-screen py-28' style={{backgroundImage:'url(1https://img.freepik.com/premium-photo/vivid-view-blue-sky-through-opening-trees-thick-forest-low-angle_634053-2388.jpg?w=2000)',backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useNavigate } from 'react-router-dom'
+
 function UserHome() {
   const [open,setOpen] = useState(false)
+  const navigate = useNavigate()
   return (
     <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24">
       <div className="flex justify-center px-7 md:">
@@ -20,10 +23,10 @@ function UserHome() {
        
       
         <ul className="md:flex md:gap-10" style={{ fontFamily: 'Noto Serif' }}>
-          <li className="hover:text-red-400  my-7 md:my-0 md:ms-0   Alegreya-Sans-SC   hover:cursor-pointer">
+          <li className="hover:text-red-400  my-7 md:my-0 md:ms-0   Alegreya-Sans-SC   hover:cursor-pointer" onClick={()=>navigate('/')}>
             HOME
           </li>
-          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  Alegreya Sans SC hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  Alegreya Sans SC hover:cursor-pointer" onClick={()=>navigate('/profile')}>
             PROFILE
           </li>
           <li className="hover:text-red-400 my-7 md:my-0 md:ms-0 hover:underline hover:cursor-pointer">
@@ -45,9 +48,9 @@ function UserHome() {
       </div>
       <div>
         <p className="hidden md:block">ARE YOU A VENDOR?</p>
-        <div className="gap-5 hidden md:flex-row">
-          <p>LOG IN</p>
-          <p>SIGN UP</p>
+        <div className="gap-5 hidden  md:flex md:flex-row ">
+          <p className="cursor-pointer" onClick={()=>navigate('/login')}>LOG IN</p>
+          <p className="cursor-pointer" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
       </div>
     </nav>

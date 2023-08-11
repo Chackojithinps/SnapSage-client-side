@@ -4,6 +4,7 @@ import Dashboard from '../Pages/VendorPages/Dashboard'
 import LoginPage from '../Pages/VendorPages/LoginPage'
 import RegisterPage from '../Pages/VendorPages/RegisterPage'
 import OtpPage from '../Pages/VendorPages/OtpPage'
+import ProfilePage from '../Pages/VendorPages/ProfilePage'
 
 function VendorRouter() {
   return (
@@ -13,6 +14,7 @@ function VendorRouter() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/getOtp' element={<OtpPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
       </Routes>
     </div>
   )

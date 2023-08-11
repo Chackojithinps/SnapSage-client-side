@@ -1,10 +1,11 @@
 import React from 'react'
-import VendorHome from '../../Components/Vendor/VendorHome'
+import VendorHome from '../../Components/Vendor/VendorSidebar'
+import VendorSidebar from '../../Components/Vendor/VendorSidebar'
 
 function Dashboard() {
   return (
     <div>
-      <VendorHome/>
+      <VendorSidebar/>
     </div>
   )
 }
