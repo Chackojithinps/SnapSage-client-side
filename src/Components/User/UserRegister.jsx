@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-
+import { UserApi } from '../../Apis/UserApi'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ function UserRegister() {
       if(isChecked){
         if(input.password===input.confirmpass){
 
-        const res= await axios.post("http://localhost:5000/register",{
+        const res= await axios.post(`${UserApi}/register`,{
           fname:input.firstname,
           lname:input.lastname,
           phone:input.phone,

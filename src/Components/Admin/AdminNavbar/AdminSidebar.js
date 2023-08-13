@@ -1,11 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function VendorSidebar() {
-  const navigate = useNavigate()
+function AdminSidebar() {
+    const navigate = useNavigate()
   return (
-    
-      <div className="bg-gray-800 text-white w-64 min-h-screen p-4">
+    <div className="bg-gray-800 text-white w-64 min-h-screen p-4">
         <nav>
           <ul className="space-y-2">
             <li className="opcion-con-desplegable">
@@ -21,9 +20,9 @@ function VendorSidebar() {
             </li>
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
+                <div onClick={()=>navigate('/admin/vendorlists')} className="flex items-center">
                   <i className="fas fa-money-bill-wave mr-2"></i>
-                  <span>Contabilidad</span>
+                  <span>Partner</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
@@ -33,7 +32,7 @@ function VendorSidebar() {
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                 <div className="flex items-center">
                   <i className="fas fa-chart-bar mr-2"></i>
-                  <span onClick={()=>navigate('/vendor/profile')}>Profile</span>
+                  <span onClick={()=>navigate('/admin/category')}>Categories</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
@@ -54,9 +53,9 @@ function VendorSidebar() {
             </li>
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
+                <div onClick={()=>navigate('/admin/userlists')} className="flex items-center">
                   <i className="fas fa-file-alt mr-2"></i>
-                  <span>Documentación</span>
+                  <span>User Lists</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
@@ -70,7 +69,7 @@ function VendorSidebar() {
                 <li>
                   <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
                     <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                    Documentos
+                     Userlists
                   </a>
                 </li>
               </ul>
@@ -78,7 +77,7 @@ function VendorSidebar() {
           </ul>
         </nav>
       </div>
-      )
+  )
 }
 
-      export default VendorSidebar
+export default AdminSidebar

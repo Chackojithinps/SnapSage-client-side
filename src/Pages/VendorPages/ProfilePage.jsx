@@ -1,11 +1,11 @@
 import React from 'react'
-import VendorSidebar from '../../Components/Vendor/VendorSidebar'
 import VendorProfile from '../../Components/Vendor/VendorProfile/VendorProfile'
+import VendorNav from '../../Components/Vendor/VendorNav'
 
 function ProfilePage() {
   return (
     <div className=''>
-      <VendorSidebar/>
+      <VendorNav/>
       <VendorProfile/>
     </div>
   )

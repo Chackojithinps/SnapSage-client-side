@@ -1,25 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
 import toast from "react-hot-toast";
-
 import axios from "axios";
+import { VendorApi } from "../../Apis/UserApi";
+import { addvendorDetails } from "../../Store/vendorAuth";
 function VendorLogin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [checked, setCheckbox] = useState(false);
+  
+  const dispatch = useDispatch()
+
 
   // -------------------------------------------HandleSubmit Funciton ------------------------->
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await axios.post("http://localhost:5000/vendor/login", {
+        const res = await axios.post(`${VendorApi}/login`, {
           email: email,
           password: password,
         });
 
-        if (res.status === 200) {
+        if (res.status === 200){
+          console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
+          localStorage.setItem("vendorToken",res.data.vendorDetail.token)
+          dispatch(addvendorDetails({ name: res.data.vendorDetail.userName, token: res.data.vendorDetail.token }))
           navigate("/vendor");
         } else {
           toast.error(res.data.message);
@@ -55,14 +63,14 @@ function VendorLogin() {
                 backgroundSize: "cover",
               }}
             >
-              <h2>Welcome</h2>
+              {/* <h2>Welcome</h2>
               <p className="w-10/12">
                 nly five centuries, but also the leap into electronic
                 typesetting, remaining essentially unchanged. It was popularised
                 in the 1960s with the release of Letraset sheets containing
                 Lorem Ipsum passages, and more recently with desktop publishing
                 software like Aldus PageMaker including versions of Lorem
-              </p>
+              </p> */}
             </div>
             <div className="w-full lg:w-1/2 py-16 px-12">
               <h2 className="text-3xl font-bold mb-4 text-center">
@@ -109,7 +117,7 @@ function VendorLogin() {
                   Don't you have an account?{" "}
                   <span
                     className="font-bold hover:text-blue-500 hover:cursor-pointer"
-                    onClick={() => navigate("/register")}
+                    onClick={() => navigate("/vendor/register")}
                   >
                     register
                   </span>{" "}

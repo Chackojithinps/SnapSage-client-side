@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { UserApi } from '../../../Apis/UserApi'
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
@@ -11,7 +12,7 @@ function ProfileNav() {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await axios.post('http://localhost:5000/upload', formData, {
+            const res = await axios.post(`${UserApi}/upload`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -27,7 +28,7 @@ function ProfileNav() {
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/profile', {
+            const res = await axios.get(`${UserApi}/profile`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
