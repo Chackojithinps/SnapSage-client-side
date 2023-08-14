@@ -5,7 +5,6 @@ import { AdminApi } from '../../../Apis/UserApi'
 function UserLists() {
     const [userList, setUserList] = useState([])
     const [status,setStatus] = useState(false)
-    console.log("userList :  __ : ",userList)
 
     const handleBlock = async(userId) =>{
         try {
@@ -31,11 +30,7 @@ function UserLists() {
     }
     const getData = async () => {
         try {
-            const res = await axios.get(`${AdminApi}/userlists`, {
-                // headers: {
-                //     Authorization: `Bearer ${localStorage.getItem('vendorToken')}`
-                // }
-            })
+            const res = await axios.get(`${AdminApi}/userlists`)
             if (res.data.success) {
                 console.log("userLists : ", res.data.UserLists)
                 setUserList(res.data.UserLists)
@@ -57,7 +52,7 @@ function UserLists() {
             </div>
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-200">
                         <tr>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Name</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">status</th>

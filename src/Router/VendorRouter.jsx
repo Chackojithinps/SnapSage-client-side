@@ -11,9 +11,10 @@ function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
      const vendorDetails = JSON.parse(localStorage.getItem('vendorDetails'))
-     console.log("vendorDetails: " ,vendorDetails)
-     dispatch(addvendorDetails({ name: vendorDetails.vendorName, token:vendorDetails.vendorToken }))
-
+     if(vendorDetails){
+        console.log("vendorDetails: " ,vendorDetails)
+        dispatch(addvendorDetails({ name: vendorDetails.vendorName, token:vendorDetails.vendorToken }))
+     }
   },[])
   
   const vendorToken = useSelector((state)=>state.vendor.vendorToken)
