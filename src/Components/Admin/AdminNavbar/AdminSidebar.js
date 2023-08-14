@@ -36,7 +36,7 @@ function AdminSidebar() {
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                 <div className="flex items-center">
                   <i className="fas fa-chart-bar mr-2"></i>
-                  <span onClick={()=>navigate('/admin/category')}>Categories</span>
+                  <span onClick={()=>navigate('/admin/categories')}>Categories</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>

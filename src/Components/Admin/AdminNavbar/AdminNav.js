@@ -3,7 +3,7 @@ import React from 'react'
 function AdminNav() {
   return (
     
-        <div className=''>
+     <div className=''>
       <nav className="bg-yellow-500 p-4 flex items-center justify-between">
         <div>
           <h1 className="text-blacki text-xl font-semibold">Admin Side</h1>
@@ -13,7 +13,6 @@ function AdminNav() {
           <i className="fas fa-user-circle text-white text-2xl"></i>
         </div>
       </nav>
-
     </div>
     
   )

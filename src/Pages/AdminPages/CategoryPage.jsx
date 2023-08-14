@@ -1,15 +1,15 @@
 import React from 'react'
-// import AdminHome from '../../Components/Admin/AdminHome'
+import AddCategory from '../../Components/Admin/Categories/AddCategory'
 import AdminNav from '../../Components/Admin/AdminNavbar/AdminNav'
 import AdminSidebar from '../../Components/Admin/AdminNavbar/AdminSidebar'
 
-function AdminhomePage() {
+function CategoryPage() {
   return (
     <div>
-       <AdminNav/>
-       <AdminSidebar/>
+      <AdminNav/>
+      <AddCategory/>
     </div>
   )
 }
 
-export default AdminhomePage
+export default CategoryPage
