@@ -19,7 +19,7 @@ function UserRouter() {
             <Route path='/register' element={userToken?<UserHomepage /> :<RegisterPage/>} />
             <Route path='/getotp' element={<UserotpPage/>} />
             {/* <Route  path='/profile' element={userToken?<ProfilePage/>:navigate('/login')} /> */}
-              <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
+            <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
             
         </Routes>
     </div>

@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from '../Pages/VendorPages/Dashboard'
 import LoginPage from '../Pages/VendorPages/LoginPage'
 import RegisterPage from '../Pages/VendorPages/RegisterPage'
 import OtpPage from '../Pages/VendorPages/OtpPage'
 import ProfilePage from '../Pages/VendorPages/ProfilePage'
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addvendorDetails } from '../Store/vendorAuth'
 function VendorRouter() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+     const vendorDetails = JSON.parse(localStorage.getItem('vendorDetails'))
+     console.log("vendorDetails: " ,vendorDetails)
+     dispatch(addvendorDetails({ name: vendorDetails.vendorName, token:vendorDetails.vendorToken }))
+
+  },[])
+  
   const vendorToken = useSelector((state)=>state.vendor.vendorToken)
   console.log("vendorToken : ",vendorToken)
+
   return (
     <div>
       <Routes>

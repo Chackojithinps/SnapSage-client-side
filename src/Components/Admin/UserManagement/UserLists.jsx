@@ -55,51 +55,53 @@ function UserLists() {
             <div >
                 <AdminSidebar />
             </div>
-            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
-                <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead class="bg-gray-50">
+            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
+                <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                    <thead className="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">status</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">phone</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">email</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">action</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Name</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">status</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">phone</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">email</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">action</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                    <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                         {userList.map(user => (
-                            <tr key={user._id} class="hover:bg-gray-50">
-                                <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-                                    <div class="relative h-10 w-10">
+                            <tr key={user._id} className="hover:bg-gray-50">
+                                <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                                    <div className="relative h-10 w-10">
                                         <img
-                                            class="h-full w-full rounded-full object-cover object-center"
+                                            className="h-full w-full rounded-full object-cover object-center"
                                             src={`http://localhost:5000/Images/${user.image}`}
                                             alt=""
                                         />
-                                        <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
                                     </div>
-                                    <div class="text-sm">
-                                        <div class="font-medium text-gray-700">{user.fname} {user.lname}</div>
-                                        <div class="text-gray-400">{user.email}</div>
+                                    <div className="text-sm">
+                                        <div className="font-medium text-gray-700">{user.fname} {user.lname}</div>
+                                        <div className="text-gray-400">{user.email}</div>
                                     </div>
                                 </th>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
+                                <td className="px-6 py-4">
+                                    {!user.status?<span
+                                        className="inline-flex items-center gap-1 w-16 px-3 rounded-full text-center bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
                                     >
-                                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                                         Active
-                                    </span>
+                                    </span>:<span
+                                        className="inline-flex items-center gap-1 text-center rounded-full  bg-red-100 px-2 py-1 text-xs font-semibold text-red-600"
+                                    >
+                                        Blocked
+                                    </span>}
                                 </td>
-                                <td class="px-6 py-4">{user.phone}</td>
+                                <td className="px-6 py-4">{user.phone}</td>
                       
                                 <td>
                                     {user.email}
                                 </td>
              
                                 <td>
-                                    {!user.status?<button className='bg-red-500 text-white hover:text-black hover:bg-white py-2 px-3 border border-gray-500 rounded'
-                                     onClick={()=>handleBlock(user._id)}>block</button>:<button className='bg-red-500 text-white hover:text-black hover:bg-white py-2 px-3 border border-gray-500 rounded'
+                                    {!user.status?<button className='bg-red-500 text-white hover:text-black font-bold hover:bg-white py-1 px-3 border rounded w-20'
+                                     onClick={()=>handleBlock(user._id)}>block</button>:<button className='bg-green-500 font-bold text-white hover:text-black hover:bg-white outline-none w-20 py-1 px-3 border rounded'
                                      onClick={()=>handleUnblock(user._id)}>unblock</button>}
                                 </td>
                             </tr>

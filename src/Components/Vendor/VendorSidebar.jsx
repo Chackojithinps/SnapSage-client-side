@@ -5,12 +5,12 @@ function VendorSidebar() {
   const navigate = useNavigate()
   return (
     
-      <div className="bg-gray-800 text-white w-64 min-h-screen p-4">
+      <div className="bg-white text-black w-64 min-h-full p-4">
         <nav>
           <ul className="space-y-2">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
+                <div onClick={()=>navigate('/vendor')} className="flex items-center">
                   <i className="fas fa-calendar-alt mr-2"></i>
                   <span>Dashboard
                   </span>
@@ -54,9 +54,9 @@ function VendorSidebar() {
             </li>
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                <div className="flex items-center">
+                <div onClick={()=>navigate('/vendor/studio')} className="flex items-center">
                   <i className="fas fa-file-alt mr-2"></i>
-                  <span>Documentación</span>
+                  <span>Studios</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>

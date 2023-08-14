@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom'
 function AdminSidebar() {
     const navigate = useNavigate()
   return (
-    <div className="bg-gray-800 text-white w-64 min-h-screen p-4">
+    <div>
+     <div>
+        
+     </div>
+    <div className="bg-blue-400 text-white w-64 min-h-screen p-4">
         <nav>
           <ul className="space-y-2">
             <li className="opcion-con-desplegable">
@@ -77,6 +81,8 @@ function AdminSidebar() {
           </ul>
         </nav>
       </div>
+    </div>
+
   )
 }
 

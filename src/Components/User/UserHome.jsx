@@ -3,10 +3,13 @@ import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 function UserHome() {
+  
   const [open,setOpen] = useState(false)
   const navigate = useNavigate()
+  const userName = useSelector((state)=>state.user.userName)
   return (
     <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24">
       <div className="flex justify-center px-7 md:">
@@ -46,13 +49,15 @@ function UserHome() {
           </li>
         </ul>
       </div>
-      <div>
+      {!userName?<div>
         <p className="hidden md:block">ARE YOU A VENDOR?</p>
         <div className="gap-5 hidden  md:flex md:flex-row ">
           <p className="cursor-pointer" onClick={()=>navigate('/login')}>LOG IN</p>
           <p className="cursor-pointer" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
-      </div>
+      </div>:<div>
+        <p className="uppercase text-red-500 font-bold">{userName}</p>
+        </div>}
     </nav>
   );
 }

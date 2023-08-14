@@ -13,8 +13,12 @@ const vendorAuth = createSlice({
             state.vendorName = vendorDetails.name;
             console.log("vendorDetails in redux : ",vendorDetails)
             console.log("vendorToken",state.vendorToken)
+        },
+        vendorLogout(state,action){
+            state.vendorToken = ""
+            state.vendorName = ""
         }
     }
 })
-export const {addvendorDetails} = vendorAuth.actions;
+export const {addvendorDetails,vendorLogout} = vendorAuth.actions;
 export default vendorAuth

@@ -13,10 +13,11 @@ function VendorProfile() {
       try {
           const formData = new FormData();
           formData.append('file', file);
-
+          const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
+          console.log("retrieved token is : ",vendorToken)
           const res = await axios.post('http://localhost:5000/vendor/upload', formData, {
               headers: {
-                  Authorization: `Bearer ${localStorage.getItem('vendorToken')}`
+                  Authorization: `Bearer ${vendorToken}`
               }
           });
 
@@ -30,9 +31,11 @@ function VendorProfile() {
 
   const getData = async () => {
       try {
+        const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
+        console.log("retrieved token is : ",vendorToken)
           const res = await axios.get(`${VendorApi}/profile`, {
               headers: {
-                  Authorization: `Bearer ${localStorage.getItem('vendorToken')}`
+                  Authorization: `Bearer ${vendorToken}`
               }
           })
           if (res.data.success) {
@@ -51,14 +54,14 @@ function VendorProfile() {
       getData()
   }, [])
   return (
-    <div className='flex'>
+    <div className='flex bg-[#f1f5f9]'>
       <div>
         <VendorSidebar />
       </div>
       <div>
         <div className='flex py-10 gap-10 mx-10 justify-center bg-no-repeat h-[40rem] bg-cover bg-center' style={{ fontFamily: 'Noto Serif' }}>
 
-          <div className='md:w-[20rem] flex flex-col  rounded-3xl  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+          <div className='md:w-[20rem] flex bg-white flex-col  rounded-3xl  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
             <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
               <img
                 

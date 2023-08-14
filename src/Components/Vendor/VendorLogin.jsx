@@ -26,7 +26,10 @@ function VendorLogin() {
         if (res.status === 200){
           console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
-          localStorage.setItem("vendorToken",res.data.vendorDetail.token)
+          localStorage.setItem("vendorDetails", JSON.stringify({
+            vendorToken: res.data.vendorDetail.token,
+            vendorNameName: res.data.vendorDetail.userName
+          }));
           dispatch(addvendorDetails({ name: res.data.vendorDetail.userName, token: res.data.vendorDetail.token }))
           navigate("/vendor");
         } else {
