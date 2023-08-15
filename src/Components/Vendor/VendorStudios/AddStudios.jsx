@@ -23,6 +23,7 @@ function AddStudios() {
          description:input.description,
          district:input.district,
          place:input.place,
+         city:input.city,
          zipcode:input.zipcode,
          categories: selectedCategories.map(categoryId => ({
             categoryId,
