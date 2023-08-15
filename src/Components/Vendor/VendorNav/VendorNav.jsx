@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { vendorLogout } from '../../Store/vendorAuth'
+import { vendorLogout } from '../../../Store/vendorAuth'
 function VendorNav() {
   const dispatch = useDispatch()
   const handleLogout=()=>{

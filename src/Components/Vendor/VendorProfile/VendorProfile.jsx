@@ -1,5 +1,5 @@
 import React from 'react'
-import VendorSidebar from '../VendorSidebar'
+import VendorSidebar from '../VendorNav/VendorSidebar'
 import axios from 'axios'
 import { useState ,useEffect} from 'react'
 import { VendorApi } from '../../../Apis/UserApi'
@@ -67,7 +67,7 @@ function VendorProfile() {
                 
                 src={`http://localhost:5000/Images/${userData.image}`}
                 // src={userData.image?`http://localhost:5000/Images/${userData.image}`:""}
-                className='mx-auto h-[12rem] w-[12rem] rounded-full cursor-pointer'
+                className='mx-auto h-[12rem] w-[12rem] rounded-full object-cover object-center cursor-pointer'
                 alt=''
               />
               <label className="absolute inset-0 flex items-center justify-center bg-transparent text-white cursor-pointer opacity-0 hover:opacity-100">

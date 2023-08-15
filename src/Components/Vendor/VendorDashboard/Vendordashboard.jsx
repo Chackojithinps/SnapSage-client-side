@@ -1,5 +1,5 @@
 import React from "react";
-import VendorSidebar from "../VendorSidebar";
+import VendorSidebar from "../VendorNav/VendorSidebar";
 
 function Vendordashboard() {
   return (

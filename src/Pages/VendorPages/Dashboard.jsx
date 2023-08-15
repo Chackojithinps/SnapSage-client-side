@@ -1,9 +1,6 @@
 import React from 'react'
-import VendorHome from '../../Components/Vendor/VendorSidebar'
-import VendorSidebar from '../../Components/Vendor/VendorSidebar'
 import Vendordashboard from '../../Components/Vendor/VendorDashboard/Vendordashboard'
-import VendorNav from '../../Components/Vendor/VendorNav'
-
+import VendorNav from '../../Components/Vendor/VendorNav/VendorNav'
 function Dashboard() {
   return (
     <div>

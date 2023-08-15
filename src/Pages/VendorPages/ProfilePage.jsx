@@ -1,7 +1,6 @@
 import React from 'react'
 import VendorProfile from '../../Components/Vendor/VendorProfile/VendorProfile'
-import VendorNav from '../../Components/Vendor/VendorNav'
-
+import VendorNav from '../../Components/Vendor/VendorNav/VendorNav'
 function ProfilePage() {
   return (
     <div className=''>
