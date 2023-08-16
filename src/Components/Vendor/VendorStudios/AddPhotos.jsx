@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import VendorSidebar from "../VendorNav/VendorSidebar";
 import { VendorApi } from "../../../Apis/UserApi";
 import axios from 'axios'
-function AddStudios() {
+function AddPhotos() {
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([]); //
     const [input,setInput] = useState()
-    const [categoryPrices, setCategoryPrices] = useState({});
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
      
     const handleChange=(e)=>{
@@ -16,30 +15,6 @@ function AddStudios() {
         }))
         console.log(`${e.target.name} : ${e.target.value}`);
       }
-    
-    const handleSubmit =async ()=>{
-       const res = await axios.post(`${VendorApi}/addStudio`,{
-         studioName:input.studioName,
-         description:input.description,
-         district:input.district,
-         place:input.place,
-         city:input.city,
-         zipcode:input.zipcode,
-         categories: selectedCategories.map(categoryId => ({
-            categoryId,
-            price: categoryPrices[categoryId] || 0 // Default to 0 if price not set
-        }))
-    }, {
-        headers: {
-            Authorization: `Bearer ${vendorToken}`
-        }
-    });
-
-    }
-    const handlePriceChange = (category, price) => {
-        setCategoryPrices(prevPrices => ({ ...prevPrices, [category]: price }));
-    };
-    console.log("categoryPrices : ", categoryPrices)
 
     const handleCheckboxChange = (category) => {
         if (selectedCategories.includes(category)) {
@@ -52,7 +27,7 @@ function AddStudios() {
 
     const getCategories = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/getCategories`, {
+            const res = await axios.get(`${VendorApi}/getimageCategories`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }
@@ -93,63 +68,6 @@ function AddStudios() {
 
                                 <div class="lg:col-span-2">
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                        <div class="md:col-span-5">
-                                            <label for="full_name">Studio Name</label>
-                                            <input
-                                                onChange={handleChange}
-                                                type="text"
-                                                name="studioName"
-                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            />
-                                        </div>
-
-                                        <div class="md:col-span-5">
-                                            <label for="email">Description</label>
-                                            <input
-                                                onChange={handleChange}
-
-                                                type="text"
-                                                name="description"
-                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                placeholder="email@domain.com"
-                                            />
-                                        </div>
-
-                                        <div class="md:col-span-3">
-                                            <label for="address">District</label>
-                                            <input
-                                                onChange={handleChange}
-
-                                                type="text"
-                                                name="district"
-                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                placeholder=""
-                                            />
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label for="city">City</label>
-                                            <input
-                                                onChange={handleChange}
-
-                                                type="text"
-                                                name="city"
-                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                placeholder=""
-                                            />
-                                        </div>
-                                        <div class="md:col-span-1">
-                                            <label for="zipcode">Zipcode</label>
-                                            <input
-                                                onChange={handleChange}
-
-                                                type="text"
-                                                name="zipcode"
-                                                id="zipcode"
-                                                class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                placeholder="" />
-                                        </div>
-
-
                                     </div>
                                     <h1 className="font-bold my-7 text-blue-500">Select Category that you can cover from following</h1>
 
@@ -170,8 +88,7 @@ function AddStudios() {
                                                     <input className="py-2 px-4 mt-5 border border-gray-500 bg-gray-50 outline-none"
                                                         type="number"
                                                         placeholder="Enter price"
-                                                        value={categoryPrices[item._id] || ""}
-                                                        onChange={(e) => handlePriceChange(item._id, e.target.value)}
+                                                        
                                                     />
                                                 )}
                                             </div>
@@ -180,7 +97,7 @@ function AddStudios() {
                                     </div>
                                     <div class="md:col-span-5 text-right mb-10">
                                         <div class="inline-flex items-end">
-                                            <button onClick={handleSubmit} class="bg-blue-500 w-44  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            <button class="bg-blue-500 w-44  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                 Submit
                                             </button>
                                         </div>
@@ -195,4 +112,4 @@ function AddStudios() {
     );
 }
 
-export default AddStudios;
+export default AddPhotos;

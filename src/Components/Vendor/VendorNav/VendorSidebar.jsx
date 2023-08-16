@@ -83,7 +83,7 @@ function VendorSidebar() {
             </div>
             </li>
             {submenuStates.studio && (
-              <ul className="desplegable ms-10 flex flex-col">
+              <ul className="desplegable ms-10 flex cursor-pointer flex-col">
                 <li className="hover:bg-[#0ea5e9] h-11 flex items-center">
                   <KeyboardArrowRightIcon color="primary" />
                   View Studios
@@ -92,9 +92,13 @@ function VendorSidebar() {
                   <KeyboardArrowRightIcon color="primary" />
                   Add Studio
                 </li>
+                <li onClick={()=>navigate('/vendor/addPhotos')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                  <KeyboardArrowRightIcon color="primary" />
+                  Add Photots
+                </li>
               </ul>
             )}
-          
+
         </ul>
       </nav>
     </div>

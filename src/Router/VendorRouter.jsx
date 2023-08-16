@@ -8,6 +8,7 @@ import ProfilePage from '../Pages/VendorPages/ProfilePage'
 import { useDispatch, useSelector } from 'react-redux'
 import { addvendorDetails } from '../Store/vendorAuth'
 import AddstudioPage from '../Pages/VendorPages/AddstudioPage'
+import AddphotosPage from '../Pages/VendorPages/AddphotosPage'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -30,6 +31,7 @@ function VendorRouter() {
         <Route path='/getOtp' element={<OtpPage/>}/>
         <Route path='/profile' element={vendorToken?<ProfilePage/>:<LoginPage/>}/>
         <Route path='/addStudio' element={vendorToken?<AddstudioPage/>:<LoginPage/>}/>
+        <Route path='/addPhotos' element={vendorToken?<AddphotosPage/>:<LoginPage/>}/>
       </Routes>
     </div>
 
