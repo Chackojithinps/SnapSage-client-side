@@ -74,7 +74,7 @@ function VendorRegister() {
                <input type='text' placeholder='Company Name *' name='cname' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded  w-full md:w-80' />
                {/* <input type='text' placeholder='District *' name='district' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />  */}
                <select id="cars" name="district" onChange={handleChange} className='py-2 px-2  outline-green-200 rounded  w-full md:w-80' >
-                    <option value="Kannur">Select district</option>
+                    <option value="">Select district</option>
                     <option value="Kannur">Kannur</option>
                     <option value="Kozhikode">Kozhikode</option>
                     <option value="Malappuram">Malappuram</option>

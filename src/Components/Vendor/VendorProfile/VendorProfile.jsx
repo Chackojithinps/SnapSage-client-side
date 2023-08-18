@@ -5,24 +5,27 @@ import { useState ,useEffect} from 'react'
 import { VendorApi } from '../../../Apis/UserApi'
 function VendorProfile() {
   const [file, setFile] = useState()
+  const [img,setImg] = useState(false)
   const [userData, setUserData] = useState({})
-  console.log("userData : ", userData)
-
+  // console.log("userData : ", userData)
+   
   const handleUpload = async (e) => {
       e.preventDefault();
       try {
           const formData = new FormData();
-          formData.append('file', file);
+          formData.append('file', file);  
           const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-          console.log("retrieved token is : ",vendorToken)
-          const res = await axios.post('http://localhost:5000/vendor/upload', formData, {
+          const res = await axios.post(`${VendorApi}/upload`, formData, {
               headers: {
                   Authorization: `Bearer ${vendorToken}`
               }
           });
 
-          if (res.data.success) {
-              setUserData({ ...userData, image: res.data.img }); // Corrected syntax here
+          if (res.status === 200) {
+            setImg(!img)
+            console.log("______________________________")
+            setUserData({ ...userData, image: res.data.image });
+            console.log("res.data.vendorDetaisl : ",res.data.vendorDetails)
           }
       } catch (error) {
           console.log("error message: ", error.message);
@@ -49,6 +52,11 @@ function VendorProfile() {
           console.log("errorHome : ", error.message)
       }
   }
+
+  // const changeFile = (files)=>{
+  //   console.log("files :  ; ; :  ;  : ",files[0])
+  // }
+
   useEffect(() => {
       console.log("EERjerwkljfsfksdfsd")
       getData()
@@ -65,7 +73,7 @@ function VendorProfile() {
             <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
               <img
                 
-                src={`http://localhost:5000/Images/${userData.image}`}
+                src={`${userData.image}`}
                 // src={userData.image?`http://localhost:5000/Images/${userData.image}`:""}
                 className='mx-auto h-[12rem] w-[12rem] rounded-full object-cover object-center cursor-pointer'
                 alt=''
