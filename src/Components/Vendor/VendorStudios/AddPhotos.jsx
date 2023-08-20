@@ -8,41 +8,28 @@ function AddPhotos() {
     const [selectedStudio, setSelectedStudio] = useState(null);
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [files, setFiles] = useState([]);
     const [categoryImages, setCategoryImages] = useState({});
-    console.log("files images : ", files)
-    console.log("type of  : ", typeof (files))
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
+    
+    
     const handleStudioSelection = async (studio) => {
         setSelectedStudio(studio._id);
     };
 
     const handleImageSelection = (category, selectedFiles) => {
+        const filesArray = Array.from(selectedFiles);
+    
+        const updatedFiles = filesArray.map(file => ({
+            file
+        }));
+    
         setCategoryImages(prevState => ({
             ...prevState,
-            [category]: selectedFiles
+            [category]: updatedFiles
         }));
     };
-    console.log("the categoryImages are :   ",categoryImages)
-
-    // const handleSubmit = async () => {
-    //     try {
-
-    //         const formData = new FormData();
-    //         for (let i = 0; i < files.length; i++) {
-    //             formData.append(`file`, files[i]);
-    //         }
-    //         console.log("FormData : ", formData)
-    //         const res = await axios.post(`${VendorApi}/uploadStudioimg`, formData, {
-    //             headers: {
-    //                 Authorization: `Bearer ${vendorToken}`
-    //             },
-    //             'Content-Type': 'multipart/form-data'
-    //         })
-    //     } catch (error) {
-    //         console.log("image upload problem for stuidos : ", error.message)
-    //     }
-    // }
+    
+    console.log("the categoryImages are : ",categoryImages)
 
     const handleSubmit = async () => {
         try {
@@ -50,9 +37,10 @@ function AddPhotos() {
 
             const categoryData = selectedCategories.map(categoryId => ({
                 categoryId,
-                images: Array.from(categoryImages[categoryId] || []).map(file => file.name)
+                images: Array.from(categoryImages[categoryId] || []).map((file)=>file.name)
             }));
-    
+            
+            console.log("))))))))))))))))))))))",categoryData)
             formData.append('categoryData', JSON.stringify(categoryData));
 
             // Append image files to FormData
