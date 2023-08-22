@@ -6,44 +6,73 @@ import axios from 'axios'
 import { toast } from "react-hot-toast";
 function AddPhotos() {
     const [studios, setStudios] = useState([])
+    
     const [selectedStudio, setSelectedStudio] = useState(null);
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [categoryImages, setCategoryImages] = useState({});
+    const [selectedCategoryData, setSelectedCategoryData] = useState(null);
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-    
-    
+    console.log("selectedCategories : ", selectedCategories)
+    console.log("selectedStudio : ", selectedStudio)
+    console.log("studios : ",studios)
+
+
+    const getImagesByCategory = async (studioId) => {
+        try {
+            const res = await axios.get(`${VendorApi}/getStudioImages?id=${studioId}`, {
+                headers: {
+                    Authorization: `Bearer ${vendorToken}`,
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            if (res.data.success) {
+                console.log("this is res.data :", res.data)
+
+                console.log("this is res.data.categoryDatawihtimages :", res.data.categoryDataWithImages)
+                setSelectedCategoryData(res.data.categoryDataWithImages)
+            }
+        } catch (error) {
+            console.log("getImagesByCategory : ", error.message)
+        }
+    }
+    console.log("selelteced category data :  :  : ", selectedCategoryData)
+
+
+
+
     const handleStudioSelection = async (studio) => {
         setSelectedStudio(studio._id);
         setSelectedCategories([])
+        // await getImagesByCategory(studio._id);
     };
 
     const handleImageSelection = (category, selectedFiles) => {
-    
+
         setCategoryImages(prevState => ({
             ...prevState,
             [category]: selectedFiles
         }));
     };
-    
-    console.log("the categoryImages are : ",categoryImages)
+
+    console.log("the categoryImages are : ", categoryImages)
 
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
-            formData.append('studioId',selectedStudio)
+            formData.append('studioId', selectedStudio)
             const categoryData = selectedCategories.map(categoryId => ({
                 categoryId,
-                images: Array.from(categoryImages[categoryId] || []).map((file)=>file.name)
+                images: Array.from(categoryImages[categoryId] || []).map((file) => file.name)
             }));
-            
-            formData.append('categoryData', JSON.stringify(categoryData));
 
+            formData.append('categoryData', JSON.stringify(categoryData));
+            console.log("categoryData :-----------------> ", categoryData)
             // Append image files to FormData
             for (const category of selectedCategories) {
-                console.log("categroy fo seletedeCAtegories : ",category)
+                console.log("categroy fo seletedeCAtegories : ", category)
                 for (const file of categoryImages[category]) {
-                    console.log("file of categoryImages : ",file)
+                    console.log("file of categoryImages : ", file)
                     formData.append('file', file);
                 }
             }
@@ -54,11 +83,13 @@ function AddPhotos() {
                     'Content-Type': 'multipart/form-data'
                 },
             });
-  
+
             console.log("Response from backend: ", res.data);
-            if(res.data.success){
+            if (res.data.success) {
                 console.log("Hello")
                 toast.success("Images addedd Successfully")
+            } else {
+                console.log("somehting wrooooooooooooooooooooooooong")
             }
         } catch (error) {
             toast.error("somehing error")
@@ -72,6 +103,7 @@ function AddPhotos() {
             setSelectedCategories(updatedCategories);
         } else {
             setSelectedCategories([...selectedCategories, category]);
+
         }
     };
 
@@ -95,7 +127,7 @@ function AddPhotos() {
         }
 
     }
-
+    // 
     const getCategories = async () => {
         try {
             const res = await axios.get(`${VendorApi}/getimageCategories?id=${selectedStudio}`, {
@@ -121,6 +153,12 @@ function AddPhotos() {
     useEffect(() => {
         getCategories()
     }, [selectedStudio])
+
+    useEffect(() => {
+        if (selectedCategories.length > 0) {
+            getImagesByCategory(selectedStudio);
+        }
+    }, [selectedCategories, selectedStudio]);
     
     return (
         <div className="flex">
@@ -145,7 +183,7 @@ function AddPhotos() {
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     </div>
                                     <h1 className="font-bold my-7 text-blue-500">Select Category that you can cover from following</h1>
-                                    <div className="grid grid-cols-4">
+                                    {studios?(<div className="grid grid-cols-4">
                                         {studios.map((studio) => (
                                             <div key={studio._id}>
                                                 <input
@@ -159,7 +197,7 @@ function AddPhotos() {
                                                 <br />
                                             </div>
                                         ))}
-                                    </div>
+                                    </div>):(<div className="text-black">There is no studio added</div>)}
 
                                     <div className="border my-10 grid grid-cols-1 gap-8">
                                         {categories.map((item) => (
@@ -175,48 +213,22 @@ function AddPhotos() {
                                                 </label>
 
                                                 {selectedCategories.includes(item._id) && (
-                                                    <div className="grid grid-cols-4 gap-[7rem] h-[20rem] overflow-x-auto overflow-y-hidden">
-                                                        <div>
-                                                            <div className=" my-3 border border-red-500 w-[10rem] h-[10rem]">
-                                                                <img src="" alt=""/>
-                                                            </div>
-                                                            <div className="mx-5 flex w-[10rem]">
+                                                    <div className="flex h-[20rem] overflow-x-auto overflow-y-hidden">
+                                                        {selectedCategoryData &&
+                                                            selectedCategoryData.find(data => data.categoryId._id === item._id)?.photos.map((photoUrl, index) => (
+                                                                <div key={index}>
+                                                                    
+                                                                    <div className="my-3 w-[10rem] h-[10rem]">
+                                                                        <img src={photoUrl} alt="" className="w-[10rem] h-[10rem] object-cover" />
+                                                                    </div>
+                                                                    <div className="mx-5 flex w-[10rem]">
+                                                                        <DeleteForeverIcon color="" className="text-red-500" />
+                                                                        <p className="text-red-500 w-[10rem]">Delete Photo</p>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
 
-                                                                <DeleteForeverIcon color="" className="text-red-500" />
-                                                                <p className="text-red-500 w-[10rem]">Delete Photo</p>
-                                                            </div>
-                                                      </div>
-
-                                                        {/* <div >
-                                                            <div className=" my-3 border border-red-500 w-[10rem] h-[10rem]"></div>
-                                                            <div className="mx-5 flex w-[10rem]">
-
-                                                                <DeleteForeverIcon color="" className="text-red-500" />
-                                                                <p className="text-red-500 w-[10rem]">Delete Photo</p>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div >
-                                                            <div className=" my-3 border border-red-500 w-[10rem] h-[10rem]"></div>
-                                                            <div className="mx-5 flex w-[10rem] cursor-pointer">
-
-                                                                <DeleteForeverIcon color="" className="text-red-500" />
-                                                                <p className="text-red-500 w-[10rem] cursor-pointer">Delete Photo</p>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div >
-                                                            <div className=" my-3 border border-red-500 w-[10rem] h-[10rem]"></div>
-                                                            <div className="mx-5 flex w-[10rem]">
-
-                                                                <DeleteForeverIcon color="" className="text-red-500" />
-                                                                <p className="text-red-500 w-[10rem]">Delete Photo</p>
-                                                            </div>
-
-                                                        </div> */}
-                                                        <div className="bottom-10 left-[25rem] my-[15rem] sticky">
+                                                        <div className=" my-[15rem] absolute right-24 b">
                                                             <input
                                                                 type="file"
                                                                 multiple
