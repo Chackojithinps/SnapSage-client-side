@@ -9,7 +9,7 @@ function VendorLogin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [checked, setCheckbox] = useState(false);
-  
+  const [loader,setLoader] = useState(false)
   const dispatch = useDispatch()
 
 
@@ -18,11 +18,12 @@ function VendorLogin() {
     try {
       e.preventDefault();
       if (checked) {
+        setLoader(true)
         const res = await axios.post(`${VendorApi}/login`, {
           email: email,
           password: password,
         });
-
+        setLoader(false)
         if (res.status === 200){
           console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
@@ -46,7 +47,7 @@ function VendorLogin() {
   const navigate = useNavigate();
   return (
     <>
-      <div
+      {!loader?<div
         className="min-h-screen py-28"
         style={{
           backgroundImage:
@@ -130,7 +131,7 @@ function VendorLogin() {
             </div>
           </div>
         </div>
-      </div>
+      </div>:<div>Loading.......</div>}
     </>
   );
 }

@@ -8,7 +8,7 @@ function VendorProfile() {
   const [img,setImg] = useState(false)
   const [userData, setUserData] = useState({})
   // console.log("userData : ", userData)
-   
+   const [loader,setLoader] = useState(false)
   const handleUpload = async (e) => {
       e.preventDefault();
       try {
@@ -36,11 +36,13 @@ function VendorProfile() {
       try {
         const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
         console.log("retrieved token is : ",vendorToken)
+        setLoader(true)
           const res = await axios.get(`${VendorApi}/profile`, {
               headers: {
                   Authorization: `Bearer ${vendorToken}`
               }
           })
+          setLoader(false)
           if (res.data.success) {
               console.log("userDetaisln infdjf ", res.data.vendorDetail)
               setUserData(res.data.vendorDetail)
@@ -62,22 +64,23 @@ function VendorProfile() {
       getData()
   }, [])
   return (
-    <div className='flex bg-[#f1f5f9]'>
+    <div className={`flex ${loader ? 'bg-white' : 'bg-[#f1f5f9]'}`}>
       <div>
         <VendorSidebar />
       </div>
-      <div>
+      <div >
+      {!loader?
         <div className='flex py-10 gap-10 mx-10 justify-center bg-no-repeat h-[40rem] bg-cover bg-center' style={{ fontFamily: 'Noto Serif' }}>
-
+          
           <div className='md:w-[20rem] flex bg-white flex-col  rounded-3xl  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
             <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
-              <img
+              {userData.image?<img
                 
                 src={`${userData.image}`}
                 // src={userData.image?`http://localhost:5000/Images/${userData.image}`:""}
                 className='mx-auto h-[12rem] w-[12rem] rounded-full object-cover object-center cursor-pointer'
                 alt=''
-              />
+              />:<img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Picture.png' alt=''/>}
               <label className="absolute inset-0 flex items-center justify-center bg-transparent text-white cursor-pointer opacity-0 hover:opacity-100">
                 <input
                   className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
@@ -136,7 +139,9 @@ function VendorProfile() {
               
             </div>
            </div>
-        </div>
+        </div>:<div className='w-full h-[35rem] ms-[16rem]  flex justify-center items-center'>
+        <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
+        </div>}
       </div>
     </div>
   )
