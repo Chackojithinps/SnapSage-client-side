@@ -5,7 +5,7 @@ import { AdminApi } from '../../../Apis/UserApi'
 function UserLists() {
     const [userList, setUserList] = useState([])
     const [status,setStatus] = useState(false)
-
+    const [loading,setLoading] = useState(false)
     const handleBlock = async(userId) =>{
         try {
             const res = await axios.patch(`${AdminApi}/blockUser?id=${userId}`,{})
@@ -30,7 +30,9 @@ function UserLists() {
     }
     const getData = async () => {
         try {
+            setLoading(true)
             const res = await axios.get(`${AdminApi}/userlists`)
+            setLoading(false)
             if (res.data.success) {
                 console.log("userLists : ", res.data.UserLists)
                 setUserList(res.data.UserLists)
@@ -50,6 +52,7 @@ function UserLists() {
             <div >
                 <AdminSidebar />
             </div>
+            {!loading?
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead className="bg-gray-200">
@@ -68,7 +71,7 @@ function UserLists() {
                                     <div className="relative h-10 w-10">
                                         <img
                                             className="h-full w-full rounded-full object-cover object-center"
-                                            src={`http://localhost:5000/Images/${user.image}`}
+                                            src={`${user.image}`}
                                             alt=""
                                         />
                                     </div>
@@ -103,7 +106,9 @@ function UserLists() {
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div>:<div className='w-full h-[35rem]  flex justify-center items-center'>
+        <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
+        </div>}
         </div>
 
     )

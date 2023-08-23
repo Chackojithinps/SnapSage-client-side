@@ -4,6 +4,7 @@ import { UserApi } from '../../../Apis/UserApi'
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
+    const [loader,setLoader] =  useState(false)
     console.log("userData : ", userData)
 
     const handleUpload = async (e) => {
@@ -28,11 +29,13 @@ function ProfileNav() {
 
     const getData = async () => {
         try {
+            setLoader(true)
             const res = await axios.get(`${UserApi}/profile`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
+            setLoader(false)
             if (res.data.success) {
                 console.log("userDetaisln infdjf ", res.data.userDetail)
                 setUserData(res.data.userDetail)
@@ -50,6 +53,7 @@ function ProfileNav() {
     }, [])
     return (
         <>
+        {!loader?
             <div className='flex py-10 gap-10 justify-center bg-no-repeat h-[35rem] bg-cover bg-center' style={{ fontFamily: 'Noto Serif' }}>
 
                 <div className='md:w-[20rem] flex flex-col  rounded-3xl  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
@@ -104,7 +108,9 @@ function ProfileNav() {
                     <button className='border border-gray-500 py-2 px-4 rounded  bg-green-700 text-white'>Edit Profile</button>
                 </div>
             </div>
-            {/* </div> */}
+            :<div className='w-full h-[35rem]   flex justify-center items-center'>
+            <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
+            </div>}
         </>
     )
 }

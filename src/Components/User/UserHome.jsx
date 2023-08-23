@@ -49,8 +49,8 @@ function UserHome() {
           </li>
         </ul>
       </div>
-      {!userName?<div>
-        <p className="hidden md:block">ARE YOU A VENDOR?</p>
+      {!userName?<div className="flex flex-col gap-1">
+        <p className="hidden md:block text-red-500 cursor-pointer" onClick={()=>navigate('/vendor')}>ARE YOU A VENDOR?</p>
         <div className="gap-5 hidden  md:flex md:flex-row ">
           <p className="cursor-pointer" onClick={()=>navigate('/login')}>LOG IN</p>
           <p className="cursor-pointer" onClick={()=>navigate('/register')}>SIGN UP</p>

@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { addRegisterDetail } from '../../Store/vendorAuth';
 function VendorOtp() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const navigate= useNavigate()
   const inputRefs = useRef([...Array(6)].map(() => React.createRef()));
+  const dispatch = useDispatch()
   const handleChange = (index, value) => {
     const newOtp = [...otp];
     newOtp[index] = value;
@@ -25,6 +27,7 @@ function VendorOtp() {
     if(res){
         console.log("res is there" , res)
         toast.success(res.data.message)
+        dispatch(addRegisterDetail({ message:"Thank you! A local rep will reach out soon with next steps." }))
         navigate('/vendor')
     }else{
       toast.error("somthing wrong")

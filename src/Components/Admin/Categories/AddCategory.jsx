@@ -9,10 +9,9 @@ function AddCategory() {
    const [category,setCategory] = useState()
    const [categories,setCategories] = useState([])
    const [edit,setEdit] = useState(false)
-
+   const [id,setId] = useState(null)
    const handleSubmit = async()=>{
-    try{
-        
+    try{ 
         const res = await axios.post(`${AdminApi}/addCategory`,{  
            category:category
         })
@@ -27,10 +26,11 @@ function AddCategory() {
     }
    }
     
-   const handleEdit = (category)=>{
+   const handleEdit = (category,id)=>{
        setCategory(category)
        setEdit(true)
-   }
+       setId(id)
+       }
 
    const handleClearedit = ()=>{
       setCategory("")
@@ -39,8 +39,8 @@ function AddCategory() {
 
    const editCategory = async()=>{
      try {
-         const res = await axios.patch(`${AdminApi}/editCategory`,{
-            category:category
+         const res = await axios.patch(`${AdminApi}/editCategory?id=${id}`,{
+            category
          })
          if (res.status === 200) {
             toast.success(res.data.message);
@@ -109,7 +109,7 @@ function AddCategory() {
                                         <td>
                                             <button className='py-1 px-3 border bg-red-200 hover:bg-white border-gray-200'>Block</button>
                                         </td>
-                                        <td onClick={()=>handleEdit(item.categoryName)} className='text-red cursor-pointer'>
+                                        <td onClick={()=>handleEdit(item.categoryName,item._id)} className='text-red cursor-pointer'>
                                             <EditNoteRoundedIcon/>
                                         </td>
                                     </div>

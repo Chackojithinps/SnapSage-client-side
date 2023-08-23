@@ -6,6 +6,7 @@ import UserLoginpage from '../Pages/UserPages/UserLoginpage'
 import UserotpPage from '../Pages/UserPages/UserotpPage'
 import ProfilePage from '../Pages/UserPages/ProfilePage'
 import { useSelector } from 'react-redux'
+import StudiodetailsPage from '../Pages/UserPages/StudiodetailsPage'
 function UserRouter() {
   const userToken = useSelector((state)=>state.user.userToken)
   console.log("userToken page : " ,userToken)
@@ -20,6 +21,7 @@ function UserRouter() {
             <Route path='/getotp' element={<UserotpPage/>} />
             {/* <Route  path='/profile' element={userToken?<ProfilePage/>:navigate('/login')} /> */}
             <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
+            <Route path='/studioDetails' element={<StudiodetailsPage/>}/> 
             
         </Routes>
     </div>
