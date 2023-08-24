@@ -5,7 +5,7 @@ import AdminSidebar from '../../Components/Admin/AdminNavbar/AdminSidebar'
 
 function AdminhomePage() {
   return (
-    <div>
+    <div style={{ fontFamily: 'Noto Serif' }}>
        <AdminNav/>
        <AdminSidebar/>
     </div>

@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import axios from 'axios'
+import VendorVerify from './VendorVerify'
+import { AdminApi } from '../../../Apis/UserApi'
 function VendorLists() {
     const [vendorList, setVendorList] = useState([])
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/admin/vendorlists', {
-                
+            const res = await axios.get(`${AdminApi}/vendorlists`, {
+
             })
             if (res.data.success) {
                 console.log("vendorLists :  ", res.data.Vendorlists)
@@ -20,24 +22,24 @@ function VendorLists() {
         }
     }
     useEffect(() => {
-        console.log("EERjerwkljfsfksdfsd")
         getData()
     }, [])
-  return (
-    <div className='flex'>
-            <div >
-                <AdminSidebar />
+    return (
+        <div className='flex flex-col'>
+            <div className='ms-5 mt-5' >
+                <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' placeholder='Search here ' />
             </div>
-            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
+
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-white">
                         <tr>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">status</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">phone</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">email</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">company name</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">action</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Name</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">status</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">phone</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">email</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">company name</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
@@ -65,14 +67,14 @@ function VendorLists() {
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">{user.phone}</td>
-                      
+
                                 <td>
                                     {user.email}
                                 </td>
                                 <td>
                                     {user.companyName}
                                 </td>
-             
+
                                 <td>
                                     <button className='bg-red-500 text-white hover:text-black hover:bg-white py-2 px-3 border border-gray-500 rounded'>block</button>
                                 </td>
@@ -82,7 +84,7 @@ function VendorLists() {
                 </table>
             </div>
         </div>
-  )
+    )
 }
 
 export default VendorLists

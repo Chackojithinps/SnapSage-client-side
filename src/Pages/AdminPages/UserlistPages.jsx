@@ -4,8 +4,9 @@ import AdminNav from '../../Components/Admin/AdminNavbar/AdminNav'
 
 function UserlistPages() {
   return (
-    <div>
+    <div style={{ fontFamily: 'Noto Serif' }}>
        <AdminNav/>
+       
        <UserLists/>
     </div>
   )

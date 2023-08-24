@@ -5,6 +5,7 @@ import AdminhomePage from '../Pages/AdminPages/AdminhomePage'
 import UserlistPages from '../Pages/AdminPages/UserlistPages'
 import VendorlistPage from '../Pages/AdminPages/VendorlistPage'
 import CategoryPage from '../Pages/AdminPages/CategoryPage'
+import VendorvarifyPage from '../Pages/AdminPages/VendorvarifyPage'
 
 function AdminRouter() {
   return (
@@ -15,6 +16,7 @@ function AdminRouter() {
         <Route path='/userlists' element={<UserlistPages/>}/>
         <Route path='/vendorlists' element={<VendorlistPage/>}/>
         <Route path='/categories' element={<CategoryPage/>} />
+        <Route path='/vendorRequests' element={<VendorvarifyPage/>} />
       </Routes>
     </div>
   )
