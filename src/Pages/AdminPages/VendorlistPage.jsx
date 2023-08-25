@@ -1,7 +1,6 @@
 import React from 'react'
 import AdminNav from '../../Components/Admin/AdminNavbar/AdminNav'
 import VendorLists from '../../Components/Admin/VendorManagement/VendorLists'
-import VendorVerify from '../../Components/Admin/VendorManagement/VendorVerify'
 import AdminSidebar from '../../Components/Admin/AdminNavbar/AdminSidebar'
 
 function VendorlistPage() {

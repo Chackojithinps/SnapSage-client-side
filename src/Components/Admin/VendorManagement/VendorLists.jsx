@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import axios from 'axios'
-import VendorVerify from './VendorVerify'
 import { AdminApi } from '../../../Apis/UserApi'
+
 function VendorLists() {
     const [vendorList, setVendorList] = useState([])
+    const [searchInput, setSearchInput] = useState("")
+    const [message, setMessage] = useState("")
+
     const getData = async () => {
         try {
-            const res = await axios.get(`${AdminApi}/vendorlists`, {
+            const res = await axios.get(`${AdminApi}/vendorlists?search=${searchInput}`, {
 
             })
             if (res.data.success) {
-                console.log("vendorLists :  ", res.data.Vendorlists)
-                setVendorList(res.data.Vendorlists)
+                if(res.data.message){
+                    setMessage(res.data.message)
+                }else{
+                    setMessage("")
+                    setVendorList(res.data.Vendorlists)
+                }
 
             } else {
-                console.log("somthing fishy")
+                console.log("somthing errorr in getdata")
             }
         } catch (error) {
             console.log("errorHome : ", error.message)
@@ -23,14 +29,14 @@ function VendorLists() {
     }
     useEffect(() => {
         getData()
-    }, [])
+    }, [searchInput])
     return (
         <div className='flex flex-col'>
             <div className='ms-5 mt-5' >
-                <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' placeholder='Search here ' />
+                <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' placeholder='Search here ' onChange={(e)=>setSearchInput(e.target.value)} />
             </div>
 
-            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
+            {!message?<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead class="bg-white">
                         <tr>
@@ -42,7 +48,7 @@ function VendorLists() {
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">action</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                   <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                         {vendorList.map(user => (
                             <tr class="hover:bg-gray-50">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
@@ -83,6 +89,12 @@ function VendorLists() {
                     </tbody>
                 </table>
             </div>
+            :
+            <div className='w-full'>
+                <p className='mt-5 text-center'>
+                    {message}
+                </p>
+            </div>}
         </div>
     )
 }

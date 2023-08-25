@@ -3,23 +3,45 @@ import axios from 'axios'
 import { AdminApi } from '../../../Apis/UserApi'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-
+import { toast } from 'react-hot-toast';
 function VendorVerify() {
     const [vendorList, setVendorList] = useState([])
-    const [varify,setVarify] = useState(false)
-
-    const handleVarify= async (id) =>{
-         const res=await axios.patch(`${AdminApi}/verifyVendor?id=${id}`)
-         if(res.data.success){
+    const [varify, setVarify] = useState(false)
+    const [vendorRejected,setVendorRejected] = useState(false)
+    const [message,setMessage] = useState("")
+    const [searchInput, setSearchInput] = useState("")
+    const handleVarify = async (id) => {
+        const res = await axios.patch(`${AdminApi}/verifyVendor?id=${id}`)
+        if (res.data.success) {
+            toast.success("Request accepted")
             setVarify(!varify)
-         }
+        
+        }
+    }
+
+    const handleReject = async(id)=>{
+        try {
+            const res = await axios.post(`${AdminApi}/rejectVendor?id=${id}`)
+            if (res.data.success) {
+             toast.error("Request rejected")
+            //  setVarify(!varify)
+             setVendorRejected(!vendorRejected)
+            }
+        } catch (error) {
+            console.log("handle reject : ",error.message)
+        }
     }
 
     const getUnVerifiedreq = async () => {
         try {
-            const res = await axios.get(`${AdminApi}/getUnverified`)
+            const res = await axios.get(`${AdminApi}/getUnverified?search=${searchInput}`)
             if (res.data.success) {
-                setVendorList(res.data.unVarifiedUser)
+                if(res.data.message){
+                    setMessage(res.data.message)
+                }else{
+                    setMessage("")
+                    setVendorList(res.data.Vendorlists)
+                }
             }
         } catch (error) {
             console.log("getunverified : ", error.message)
@@ -27,25 +49,26 @@ function VendorVerify() {
     }
     useEffect(() => {
         getUnVerifiedreq()
-    }, [varify])
+    }, [varify,vendorRejected,searchInput])
     return (
         <>
             <div className='flex flex-col'>
                 <div className='ms-5 mt-5' >
-                   <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' placeholder='Search here '/>
+                    <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' onChange={(e)=>setSearchInput(e.target.value)} placeholder='Search here ' />
                 </div>
-                
-                <div className='flex flex-col '>
+
+                {!message?<div className='flex flex-col '>
                     <div class="overflow-hidden rounded-lg shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                         <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
                             <thead class="bg-white">
                                 <tr className='font-bold'>
                                     <th scope="col" class="px-6 py-4 font-bold text-gray-900">Name</th>
-                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">status</th>
-                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">phone</th>
-                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">email</th>
-                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">company name</th>
-                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">action</th>
+                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">Phone</th>
+                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">Email</th>
+                                    <th scope="col" class=" py-4 font-bold text-gray-900">Company name</th>
+                                    <th scope="col" class="mx-3 py-4 font-bold text-gray-900">View</th>
+
+                                    <th scope="col" class="px-6 py-4 font-bold text-gray-900">Accept/Reject</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 border-t border-gray-100">
@@ -64,14 +87,7 @@ function VendorVerify() {
                                                 <div class="text-gray-400">{user.email}</div>
                                             </div>
                                         </th>
-                                        <td class="px-6 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
-                                            >
-                                                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                                                Active
-                                            </span>
-                                        </td>
+
                                         <td class="px-6 py-4">{user.phone}</td>
 
                                         <td>
@@ -80,28 +96,36 @@ function VendorVerify() {
                                         <td>
                                             {user.companyName}
                                         </td>
-                                      <div className='flex flex-row gap-4'>
+                                        <td>
+                                            <button>View</button>
+                                        </td>
+                                        <div className='flex flex-row gap-4 mx-8 cursor-pointer'>
 
-                                        <td className='flex'>
-                                            {/* <button className='bg-green-500 text-white hover:text-black hover:bg-white py-1 w-20 px-3 border border-gray-500 rounded' 
-                                             onClick={()=>handleVarify(user._id)}>Verify</button> */}
-                                             <TaskAltSharpIcon color='success'/>
-                                             <p>Accept</p>
-                                        </td>
-                                        <td className='flex'>
-                                            {/* <button className='bg-red-500 text-white hover:text-black hover:bg-white  py-1 w-20 px-3  border border-gray-500 rounded'>Reject</button> */}
-                                            <CloseSharpIcon style={{ color: 'red' }} />
-                                            <p>reject</p>
-                                        </td>
-                                      </div>
+                                            <td className=''>
+                                                <div className='flex' >
+                                                    <TaskAltSharpIcon color='success' onClick={() => handleVarify(user._id)} />
+
+                                                </div>
+
+                                            </td>
+                                            <td className='flex'>
+                                                <CloseSharpIcon style={{ color: 'red' }} onClick={()=>handleReject(user._id)}/>
+                                            </td>
+                                        </div>
 
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                   
+
                 </div>
+                :
+                <div className='w-full'>
+                    <p className='mt-5 text-center'>
+                        {message}
+                    </p>
+                </div>}
             </div>
         </>
     )
