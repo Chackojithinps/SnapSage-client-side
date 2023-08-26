@@ -7,6 +7,7 @@ function AddStudios() {
     const [selectedCategories, setSelectedCategories] = useState([]); //
     const [input,setInput] = useState()
     const [categoryPrices, setCategoryPrices] = useState({});
+    const [pageReload,setPageReload] = useState(false)
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
      
     const handleChange=(e)=>{
@@ -22,6 +23,7 @@ function AddStudios() {
          studioName:input.studioName,
          description:input.description,
          district:input.district,
+         email:input.email,
          place:input.place,
          city:input.city,
          zipcode:input.zipcode,
@@ -34,6 +36,9 @@ function AddStudios() {
             Authorization: `Bearer ${vendorToken}`
         }
     });
+    if(res.data.success){
+       setPageReload(!pageReload)
+    }
 
     }
     const handlePriceChange = (category, price) => {
@@ -71,7 +76,7 @@ function AddStudios() {
 
     useEffect(() => {
         getCategories()
-    }, [])
+    }, [pageReload])
     return (
         <div className="flex">
             <div>
@@ -111,12 +116,23 @@ function AddStudios() {
                                                 type="text"
                                                 name="description"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                placeholder="email@domain.com"
                                             />
                                         </div>
 
                                         <div class="md:col-span-3">
-                                            <label for="address">District</label>
+                                            <label for="address">Email of the company</label>
+                                            <input
+                                                onChange={handleChange}
+
+                                                type="text"
+                                                name="email"
+                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                placeholder=""
+                                            />
+                                        </div>
+                                       
+                                        <div class="md:col-span-2">
+                                            <label for="city">District</label>
                                             <input
                                                 onChange={handleChange}
 
@@ -126,8 +142,8 @@ function AddStudios() {
                                                 placeholder=""
                                             />
                                         </div>
-                                        <div class="md:col-span-2">
-                                            <label for="city">City</label>
+                                        <div class="md:col-span-3">
+                                            <label for="address">City</label>
                                             <input
                                                 onChange={handleChange}
 

@@ -26,7 +26,7 @@ function VendorRouter() {
   return (
     <div>
       <Routes>
-        {/* <Route path='/' element={vendorToken?<Dashboard/>:<LoginPage/>}/> */}
+        <Route path='/' element={vendorToken?<Dashboard/>:<JoinusPage/>}/>
         <Route path='/login' element={vendorToken?<Dashboard/>:<LoginPage/>}/>
         <Route path='/register' element={vendorToken?<Dashboard/>:<RegisterPage/>}/>
         <Route path='/getOtp' element={<OtpPage/>}/>

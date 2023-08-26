@@ -13,6 +13,8 @@ function AddPhotos() {
     const [categoryImages, setCategoryImages] = useState({});
     const [selectedCategoryData, setSelectedCategoryData] = useState(null);
     const [loader, setLoader] = useState(false)
+    const [imageLoader, setImageLoader] = useState(false)
+    const [imageRefresh,setImageRefresh] =useState(false)
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
     console.log("selectedCategories : ", selectedCategories)
     console.log("selectedStudio : ", selectedStudio)
@@ -21,12 +23,14 @@ function AddPhotos() {
 
     const getImagesByCategory = async (studioId) => {
         try {
+            setImageLoader(true)
             const res = await axios.get(`${VendorApi}/getStudioImages?id=${studioId}`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`,
                     'Content-Type': 'multipart/form-data'
                 },
             })
+            setImageLoader(false)
             if (res.data.success) {
                 console.log("this is res.data :", res.data)
 
@@ -61,6 +65,7 @@ function AddPhotos() {
 
     const handleSubmit = async () => {
         try {
+            window.location.reload()
             const formData = new FormData();
             formData.append('studioId', selectedStudio)
             const categoryData = selectedCategories.map(categoryId => ({
@@ -78,7 +83,6 @@ function AddPhotos() {
                     formData.append('file', file);
                 }
             }
-
             const res = await axios.post(`${VendorApi}/uploadStudioimg`, formData, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`,
@@ -89,6 +93,7 @@ function AddPhotos() {
             console.log("Response from backend: ", res.data);
             if (res.data.success) {
                 console.log("Hello")
+                setImageRefresh(!imageRefresh)
                 toast.success("Images addedd Successfully")
             } else {
                 console.log("somehting wrooooooooooooooooooooooooong")
@@ -138,6 +143,7 @@ function AddPhotos() {
                     Authorization: `Bearer ${vendorToken}`
                 },
             })
+            console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
             setLoader(false)
             if (res.status === 200) {
                 console.log(res.data.categoryDatas)
@@ -155,14 +161,17 @@ function AddPhotos() {
     }, [])
 
     useEffect(() => {
-        getCategories()
+        if (selectedStudio) {
+
+            getCategories()
+        }
     }, [selectedStudio])
 
     useEffect(() => {
         if (selectedCategories.length > 0) {
             getImagesByCategory(selectedStudio);
         }
-    }, [selectedCategories, selectedStudio]);
+    }, [selectedCategories, selectedStudio,imageRefresh]);
 
     return (
         <div className="flex">
@@ -187,52 +196,59 @@ function AddPhotos() {
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     </div>
                                     <h1 className="font-bold my-7 text-blue-500">Select Category that you can cover from following</h1>
-                                    {studios ? (<div className="grid grid-cols-4">
+                                    {studios ? (<div className="grid grid-cols-4 ">
                                         {studios.map((studio) => (
                                             <div key={studio._id}>
                                                 <input
+                                                    className="cursor-pointer"
                                                     type="radio"
                                                     id={studio._id}
                                                     name="selectedStudio"
                                                     value={studio.companyName}
                                                     onChange={() => handleStudioSelection(studio)} // Call this function when the radio button changes
                                                 />
-                                                <label htmlFor={studio._id}>{studio.companyName}</label>
+                                                <label htmlFor={studio._id} className="mx-1 cursor-pointer">{studio.city}</label>
                                                 <br />
                                             </div>
                                         ))}
                                     </div>) : (<div className="text-black">There is no studio added</div>)}
 
-                                    {!loader ? <div className="border my-10 grid grid-cols-1 gap-8">
+                                    {!loader ? <div className="my-10 grid grid-cols-1 gap-8">
                                         {categories.map((item) => (
                                             <div key={item._id} className="">
                                                 <label className="flex items-center">
                                                     <input
                                                         type="checkbox"
-                                                        className="w-5 h-5"
+                                                        className="w-5 h-5 cursor-pointer "
                                                         checked={selectedCategories.includes(item._id)}
                                                         onChange={() => handleCheckboxChange(item._id)}
                                                     />
-                                                    <span className="ms-4 text-black">{item.categoryName}</span>
+                                                    <span className="ms-4 text-black cursor-pointer ">{item.categoryName}</span>
                                                 </label>
 
                                                 {selectedCategories.includes(item._id) && (
                                                     <div className="flex h-[20rem] overflow-x-auto overflow-y-hidden">
-                                                        {selectedCategoryData &&
+                                                        {selectedCategoryData ?
                                                             selectedCategoryData.find(data => data.categoryId._id === item._id)?.photos.map((photoUrl, index) => (
-                                                                <div key={index}>
-
-                                                                    <div className="my-3 w-[10rem] h-[10rem]">
+                                            
+                                                                <div key={index} className="h-[20rem]">
+                                                                    {!imageLoader ? <div className="my-3 w-[10rem] h-[10rem]">
                                                                         <img src={photoUrl} alt="" className="w-[10rem] h-[10rem] object-cover" />
-                                                                    </div>
+                                                                    </div> : <div role="status">
+                                                                        <svg aria-hidden="true" className=" my-16 mx-14 w-10 h-10 mr-2 text-gray-200  animate-spin dark:text--600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                                                                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                                                                        </svg>
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>}
                                                                     <div className="mx-5 flex w-[10rem]">
                                                                         <DeleteForeverIcon color="" className="text-red-500" />
                                                                         <p className="text-red-500 w-[10rem]">Delete Photo</p>
                                                                     </div>
                                                                 </div>
-                                                            ))}
+                                                            )) : <div className="mx-auto h-[5rem] text-red-500 mt-10"></div>}
 
-                                                        <div className=" my-[15rem] absolute right-24 b">
+                                                        {selectedCategoryData ? <div className=" my-[15rem] absolute right-24 b">
                                                             <input
                                                                 type="file"
                                                                 multiple
@@ -240,7 +256,15 @@ function AddPhotos() {
                                                                 onChange={(e) => handleImageSelection(item._id, e.target.files)}
                                                                 className=""
                                                             />
-                                                        </div>
+                                                        </div> : <div className="my-[2rem]">
+                                                            <input
+                                                                type="file"
+                                                                multiple
+                                                                name="file"
+                                                                onChange={(e) => handleImageSelection(item._id, e.target.files)}
+                                                                className=""
+                                                            />
+                                                        </div>}
                                                     </div>
 
 

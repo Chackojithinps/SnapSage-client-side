@@ -11,7 +11,7 @@ function UserHome() {
   const navigate = useNavigate()
   const userName = useSelector((state)=>state.user.userName)
   return (
-    <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24">
+    <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24" style={{ fontFamily: 'Noto Serif' }}>
       <div className="flex justify-center px-7 md:">
         <h1 className="font-bold text-2xl">SNAPSAGE</h1>
       </div>
@@ -32,28 +32,28 @@ function UserHome() {
           <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  Alegreya Sans SC hover:cursor-pointer" onClick={()=>navigate('/profile')}>
             PROFILE
           </li>
-          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0 hover:underline hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:cursor-pointer">
             STUDIOS
           </li>
-          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:underline hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0   hover:cursor-pointer">
             ABOUT
           </li>
-          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0 hover:underline hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:cursor-pointer">
             CONTACT
           </li>
-          <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0  hover:underline hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer">
             LOG IN
           </li>
-          <li  className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0  hover:underline hover:cursor-pointer">
+          <li  className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer">
             SIGN UP
           </li>
         </ul>
       </div>
       {!userName?<div className="flex flex-col gap-1">
-        <p className="hidden md:block text-red-500 cursor-pointer" onClick={()=>navigate('/vendor')}>ARE YOU A VENDOR?</p>
+        <p className="hidden md:block text-[12px] text-black cursor-pointer hover:underline" onClick={()=>navigate('/vendor')}>ARE YOU A VENDOR?</p>
         <div className="gap-5 hidden  md:flex md:flex-row ">
-          <p className="cursor-pointer" onClick={()=>navigate('/login')}>LOG IN</p>
-          <p className="cursor-pointer" onClick={()=>navigate('/register')}>SIGN UP</p>
+          <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/login')}>LOG IN</p>
+          <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
       </div>:<div>
         <p className="uppercase text-red-500 font-bold">{userName}</p>
