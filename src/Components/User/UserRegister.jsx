@@ -54,8 +54,9 @@ function UserRegister() {
     <>
 
 <section className='w-full h-screen bg-no-repeat bg-cover bg-center py-40 sm:py-52 flex' style={{backgroundImage:'url(https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg)'}}>
-     {/* https://iso.500px.com/wp-content/uploads/2021/08/Hobby-photographer-waiting-for-beautiful-sunset-By-Jarom%C3%ADr-Chalabala-2.jpg */}
-     {/* https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg */}
+        <div className='absolute top-3 right-10 '>
+           <button className='font-bold border-2 border-green-300 py-1 px-2 w-20 cursor-pointer rounded-3xl' onClick={()=>navigate('/login')}>Login</button>
+        </div>
         <div className='container mx-5 lg:mx-36  w-full'>
           <div className='mb-5 text-[15px] text-white font-bold md:text-[20px]'>
           <h1>Become a part of our shutterbug family. Sign up and snap away!</h1>
