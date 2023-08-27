@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import RecentActorsIcon from '@mui/icons-material/RecentActors'; 
-import HandshakeIcon from '@mui/icons-material/Handshake'; 
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ClassIcon from '@mui/icons-material/Class';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 function AdminSidebar() {
@@ -44,6 +44,16 @@ function AdminSidebar() {
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
               
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-100">
+                <div className="flex items-center">
+                  <AddAPhotoIcon  color='' />
+                  <span className='mx-2' onClick={()=>navigate('/admin/studioVarify')}>Studio Requests</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+             
             </li>
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-100">

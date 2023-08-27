@@ -5,6 +5,7 @@ function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
     const [loader,setLoader] =  useState(false)
+    const [status,setStatus] = useState(false)
     console.log("userData : ", userData)
 
     const handleUpload = async (e) => {

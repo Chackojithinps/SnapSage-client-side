@@ -1,23 +1,30 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
-
 import axios from 'axios'
+import { AdminApi } from '../../../Apis/UserApi'
+import { useDispatch } from 'react-redux'
+import { addAdminDetails } from '../../../Store/AdminAuth'
+
+
 function AdminLogin() {
   const [email,setEmail] = useState()
   const [password,setPassword] = useState()
   const [checked,setCheckbox] =  useState(false)
-
+ 
+  const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await axios.post("http://localhost:5000/admin/login", {
+        const res = await axios.post(`${AdminApi}/login`, {
           email: email,
           password: password
         });
   
         if (res.status === 200) {
+          localStorage.setItem("AdminToken",res.data.AdminToken)
+          dispatch(addAdminDetails({token:res.data.AdminToken}))
           toast.success(res.data.message);
           navigate('/admin')
         } else {
