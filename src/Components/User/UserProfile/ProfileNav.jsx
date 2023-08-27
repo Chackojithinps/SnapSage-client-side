@@ -58,11 +58,14 @@ function ProfileNav() {
 
                 <div className='md:w-[20rem] flex flex-col  rounded-3xl bg-white  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
                     <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
-                        <img
-                            src={`http://localhost:5000/Images/${userData.image}`}
-                            className='mx-auto h-[12rem] w-[12rem] rounded-full cursor-pointer'
+                        {userData.image?<img
+                            src={`${userData.image}`}
+                            className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
                             alt=''
-                        />
+                        />:<img
+                        src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+                        className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
+                        alt='' />}
                         <label className="absolute inset-0 flex items-center justify-center bg-transparent text-white cursor-pointer opacity-0 hover:opacity-100">
                             <input
                                 className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
