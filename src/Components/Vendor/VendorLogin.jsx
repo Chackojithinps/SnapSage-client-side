@@ -49,12 +49,7 @@ function VendorLogin() {
     <>
       {!loader?<div
         className="min-h-screen py-28"
-        // style={{
-        //   backgroundImage:
-        //     "url(https://img.freepik.com/premium-photo/vivid-view-blue-sky-through-opening-trees-thick-forest-low-angle_634053-2388.jpg?w=2000)",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundSize: "cover",
-        // }}
+       
       >
         <div className="container mx-auto">
           <div className="bg-white w-10/12 lg:w-8/12 mx-auto flex-col lg:flex-row shadow-lg overflow-hidden flex">
@@ -67,18 +62,10 @@ function VendorLogin() {
                 backgroundSize: "cover",
               }}
             >
-              {/* <h2>Welcome</h2>
-              <p className="w-10/12">
-                nly five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised
-                in the 1960s with the release of Letraset sheets containing
-                Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem
-              </p> */}
             </div>
             <div className="w-full lg:w-1/2 py-16 px-12">
               <h2 className="text-3xl font-bold mb-4 text-center">
-                User Login
+                Vendor Login
               </h2>
               <p className="mb-4 text-center">
                 Hey,Enter your details to get sign in to your account
