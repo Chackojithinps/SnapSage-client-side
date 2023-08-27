@@ -4,17 +4,33 @@ import axios from 'axios'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { AdminApi } from '../../../Apis/UserApi'
+import { toast } from 'react-hot-toast';
 
 function StudioUnvarified() {
     const [studios,setStudios] = useState([])
     const [searchInput,setSearchInput] = useState("")
     const [message,setMessage] = useState("")
-     
-    const handleVarify = () =>{
+    const [varify,setVarify] = useState(false)
+    const [studioRejected,setStudioRejected] = useState(false)
 
+    const handleVarify =async (id) =>{
+        const res = await axios.patch(`${AdminApi}/verifyStudio?id=${id}`)
+        if (res.data.success) {
+            toast.success( "Request accepted ")
+            setVarify(!varify)
+        }
     }
-    const handleReject = () => {
-
+    const handleReject =async (id) => {
+        try {
+            const res = await axios.post(`${AdminApi}/rejectStudio?id=${id}`)
+            if (res.data.success) {
+             toast.error("Request rejected")
+            //  setVarify(!varify)
+             setStudioRejected(!studioRejected)
+            }
+        } catch (error) {
+            console.log("handle reject : ",error.message)
+        }
     }
     const getUnvarifiedStudios=async()=>{
         try {
@@ -32,7 +48,7 @@ function StudioUnvarified() {
     }
     useEffect(()=>{
         getUnvarifiedStudios()
-    },[searchInput])
+    },[searchInput,varify,studioRejected])
   return (
     <div className='flex' style={{ fontFamily: 'Noto Serif' }}>
     <div >
