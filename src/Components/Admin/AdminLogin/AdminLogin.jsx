@@ -43,7 +43,7 @@ function AdminLogin() {
             <p className='w-10/12'>nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem</p>
          </div>
          <div className='w-full lg:w-1/2 py-16 px-12'>
-           <h2 className='text-3xl font-bold mb-4 text-center'>User Login</h2>
+           <h2 className='text-3xl font-bold mb-4 text-center'>Admin Login</h2>
            <p className='mb-4 text-center'>Hey,Enter your details to get sign in to your account</p>
            <form action=''>
              <div className='grid grid-cols-2 gap-2'>
