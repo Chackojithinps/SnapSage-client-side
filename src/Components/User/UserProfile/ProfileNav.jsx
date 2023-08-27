@@ -54,9 +54,9 @@ function ProfileNav() {
     return (
         <>
         {!loader?
-            <div className='flex py-10 gap-10 justify-center bg-no-repeat h-[35rem] bg-cover bg-center' style={{ fontFamily: 'Noto Serif' }}>
+            <div className='flex py-10 gap-10 justify-center bg-no-repeat h-[35rem] bg-cover bg-center ' style={{ fontFamily: 'Noto Serif' }}>
 
-                <div className='md:w-[20rem] flex flex-col  rounded-3xl  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+                <div className='md:w-[20rem] flex flex-col  rounded-3xl bg-white  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
                     <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
                         <img
                             src={`http://localhost:5000/Images/${userData.image}`}

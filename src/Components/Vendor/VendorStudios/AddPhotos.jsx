@@ -65,7 +65,7 @@ function AddPhotos() {
 
     const handleSubmit = async () => {
         try {
-            window.location.reload()
+            // window.location.reload()
             const formData = new FormData();
             formData.append('studioId', selectedStudio)
             const categoryData = selectedCategories.map(categoryId => ({

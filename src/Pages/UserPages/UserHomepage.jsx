@@ -3,6 +3,7 @@ import UserHome from '../../Components/User/UserHome'
 import SectionOne from '../../Components/User/UserHome/SectionOne'
 import SectionTwo from '../../Components/User/UserHome/SectionTwo'
 import SectionThree from '../../Components/User/UserHome/SectionThree'
+import UsersideFooter from '../../Components/User/Footer/UsersideFooter'
 
 function UserHomepage() {
   return (
@@ -11,6 +12,7 @@ function UserHomepage() {
        <SectionOne/>
        <SectionTwo/>
        <SectionThree/>
+       <UsersideFooter/>
     </div>
   )
 }
