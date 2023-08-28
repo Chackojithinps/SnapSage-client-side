@@ -3,13 +3,20 @@ import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../../Store/userAuth";
 
 function UserHome() {
   
   const [open,setOpen] = useState(false)
   const navigate = useNavigate()
   const userName = useSelector((state)=>state.user.userName)
+  const dispatch = useDispatch()
+  const handleLogout =()=>{
+    dispatch(userLogout())
+    localStorage.removeItem("token")
+    navigate('/login')
+  }
   return (
     <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24" style={{ fontFamily: 'Noto Serif' }}>
       <div className="flex justify-center px-7 md:">
@@ -55,8 +62,9 @@ function UserHome() {
           <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/login')}>LOG IN</p>
           <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
-      </div>:<div>
+      </div>:<div className="flex gap-10">
         <p className="uppercase text-red-500 font-bold">{userName}</p>
+        <button className="ms-10" onClick={handleLogout}>Logout</button>
         </div>}
     </nav>
   );

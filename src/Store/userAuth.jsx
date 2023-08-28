@@ -13,8 +13,12 @@ const UserAuth = createSlice({
             state.userName = userDetails.name
             console.log("userDetails in redux : ",userDetails)
             console.log("userToken",state.userToken)
+        },
+        userLogout(state,action){
+            state.userToken = ""
+            state.userName = ""
         }
     }
 })
-export const {adduserDetails} = UserAuth.actions;
+export const {adduserDetails,userLogout} = UserAuth.actions;
 export default UserAuth

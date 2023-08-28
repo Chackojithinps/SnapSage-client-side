@@ -132,12 +132,7 @@ function VendorProfile() {
 
                 <button className='border border-gray-500 py-2  px-4 rounded  bg-green-700 text-white'>Edit Profile</button>
             </div>
-            <div className='mt-5'>
-              <p>You are not Varified? Upload your document here to varify </p>
-              <p className='text-[12px] text-red-500 w-[28rem]'> We're required by state law to verify you are who you say you are. Dont worry.our site is secure and we never store social security information</p>
-              <button className='border mt-3 border-gray-500 py-2  px-4 rounded  bg-green-700 text-white'>Upload Document</button>
-              
-            </div>
+         
            </div>
         </div>:<div className='w-full h-[35rem] ms-[16rem]  flex justify-center items-center'>
         <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
