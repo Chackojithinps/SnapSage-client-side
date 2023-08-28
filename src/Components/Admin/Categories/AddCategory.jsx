@@ -10,13 +10,25 @@ function AddCategory() {
    const [categories,setCategories] = useState([])
    const [edit,setEdit] = useState(false)
    const [id,setId] = useState(null)
+   const [message,setMessage] = useState("")
+
    const handleSubmit = async()=>{
     try{ 
         const res = await axios.post(`${AdminApi}/addCategory`,{  
            category:category
         })
         if (res.status === 200) {
-            toast.success(res.data.message);
+            if(res.data.exists){
+                setMessage(res.data.message)
+
+                setTimeout(()=>{
+                    setMessage("")
+
+                },3000)
+            }else{
+
+                toast.success(res.data.message);
+            }
             setCategory("")
         } else {
             toast.error("Something error happened");
@@ -43,7 +55,16 @@ function AddCategory() {
             category
          })
          if (res.status === 200) {
-            toast.success(res.data.message);
+            if(res.data.exists){
+                setMessage(res.data.message)
+
+                setTimeout(()=>{
+                    setMessage("")
+
+                },3000)
+            }else{
+               toast.success(res.data.message);
+            }
             setCategory("")
         } else {
             toast.error("Something error happened");
@@ -85,6 +106,7 @@ function AddCategory() {
                </div>:null}
               {!edit?<button className='border border-gray-500 bg-red-500 text-white font-bold py-3 px-3 ' onClick={handleSubmit}>Add category</button>:
               <button className='border border-gray-500 bg-green-700 text-white font-bold py-3 px-3 ' onClick={editCategory}>Edit Category</button>}
+              {message?<p className='text-center text-red-500 mt-5 '>{message}</p>:<p></p>}
           </div>
           <div className='flex flex-col items-center w-[62%] ms-6 mb-10'>
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-full">
