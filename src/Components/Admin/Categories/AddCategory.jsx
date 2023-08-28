@@ -14,24 +14,37 @@ function AddCategory() {
 
    const handleSubmit = async()=>{
     try{ 
-        const res = await axios.post(`${AdminApi}/addCategory`,{  
-           category:category
-        })
-        if (res.status === 200) {
-            if(res.data.exists){
-                setMessage(res.data.message)
+        const lowerCaseCategory = category.toLowerCase();
+        const categoryExists = categories.some(
+           item => item.categoryName.toLowerCase() === lowerCaseCategory
+        );
+        if(categoryExists){
+            setMessage("Category already Exists")
+            setTimeout(()=>{
+                setMessage("")
 
-                setTimeout(()=>{
-                    setMessage("")
-
-                },3000)
-            }else{
-
-                toast.success(res.data.message);
+            },3000)
+        }else{
+            
+            const res = await axios.post(`${AdminApi}/addCategory`,{  
+               category:category
+            })
+            if (res.status === 200) {
+                if(res.data.exists){
+                    setMessage(res.data.message)
+    
+                    setTimeout(()=>{
+                        setMessage("")
+    
+                    },3000)
+                }else{
+    
+                    toast.success(res.data.message);
+                }
+                setCategory("")
+            } else {
+                toast.error("Something error happened");
             }
-            setCategory("")
-        } else {
-            toast.error("Something error happened");
         }
     }catch(err){
         console.log("addCategory : ",err.message)
@@ -51,23 +64,36 @@ function AddCategory() {
 
    const editCategory = async()=>{
      try {
-         const res = await axios.patch(`${AdminApi}/editCategory?id=${id}`,{
-            category
-         })
-         if (res.status === 200) {
-            if(res.data.exists){
-                setMessage(res.data.message)
+        const lowerCaseCategory = category.toLowerCase();
+        const categoryExists = categories.some(
+           item => item.categoryName.toLowerCase() === lowerCaseCategory
+        );
+        if(categoryExists){
+            setMessage("Category already Exists")
+            setTimeout(()=>{
+                setMessage("")
 
-                setTimeout(()=>{
-                    setMessage("")
+            },3000)
+        }else{
 
-                },3000)
-            }else{
-               toast.success(res.data.message);
-            }
-            setCategory("")
-        } else {
-            toast.error("Something error happened");
+            const res = await axios.patch(`${AdminApi}/editCategory?id=${id}`,{
+               category
+            })
+            if (res.status === 200) {
+               if(res.data.exists){
+                   setMessage(res.data.message)
+   
+                   setTimeout(()=>{
+                       setMessage("")
+   
+                   },3000)
+               }else{
+                  toast.success(res.data.message);
+               }
+               setCategory("")
+           } else {
+               toast.error("Something error happened");
+           }
         }
      } catch (error) {
         console.log(error.message)
