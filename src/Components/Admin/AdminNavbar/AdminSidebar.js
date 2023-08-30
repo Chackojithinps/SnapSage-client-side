@@ -15,8 +15,9 @@ function AdminSidebar() {
           <ul className="space-y-2">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-100">
-                <div className="flex items-center">
+                <div className="flex items-center relative">
                   <DashboardIcon  color='primary'/>
+
                   <span className='mx-2'>Dashboard
                   </span>
                 </div>

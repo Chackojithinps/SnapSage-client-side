@@ -63,7 +63,7 @@ function StudioUnvarified() {
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead className="bg-gray-200">
                         <tr className='font-bold'>
-                            <th scope="col" className="px-6 py-4 font-bold text-gray-900">Name</th>
+                            <th scope="col" className="px-6 py-4 font-bold text-gray-900">Company Name</th>
                             <th scope="col" className="px-6 py-4 font-bold text-gray-900">District</th>
                             <th scope="col" className="px-6 py-4 font-bold text-gray-900">City</th>
                             <th scope="col" className="px-6 py-4 font-bold text-gray-900">Email</th>

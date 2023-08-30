@@ -41,10 +41,10 @@ function VendorLists() {
                     <thead class="bg-white">
                         <tr>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Name</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">status</th>
+                            <th scope="col" class="px-3py-4 font-bold text-gray-900">company name</th>
+                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">status</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">phone</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">email</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">company name</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">action</th>
                         </tr>
                     </thead>
@@ -64,6 +64,9 @@ function VendorLists() {
                                         <div class="text-gray-400">{user.email}</div>
                                     </div>
                                 </th>
+                                <td>
+                                    {user.companyName}
+                                </td>
                                 <td class="px-6 py-4">
                                     <span
                                         class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
@@ -77,9 +80,7 @@ function VendorLists() {
                                 <td>
                                     {user.email}
                                 </td>
-                                <td>
-                                    {user.companyName}
-                                </td>
+                               
 
                                 <td>
                                     <button className='bg-red-500 text-white hover:text-black hover:bg-white py-2 px-3 border border-gray-500 rounded'>block</button>
