@@ -1,8 +1,10 @@
 import React from 'react'
-
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 function StudioImages() {
   return (
     <>
+     <div className='flex' >
       <div className='w-3/5 flex  -red-500 h-[27rem] ms-24 my-3'>
           <div className='w-[27rem]  -green-500 h-[27rem]'>
              <img className='object-cover h-[27rem] rounded-tl-xl rounded-bl-xl' src='https://images.pexels.com/photos/610293/pexels-photo-610293.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200' alt='' />
@@ -22,10 +24,24 @@ function StudioImages() {
              </div>
           </div>
       </div>
-      <div>
+      <div className='border border-red-500 w-[25rem] mx-10 h-[27rem] my-4'>
+         <div className='flex flex-col gap-3'>
+            <p className='font-bold text-[22px]'>Pappilo Studio</p>
+            <p>rating</p>
+            <div className='flex gap-2'>
 
+            <AddLocationAltOutlinedIcon color='action'/> 
+            <p className='text-gray-700 hover:underline'>Location,Lcoation</p>
+            </div>
+            <div className='flex gap-2'>
+              <LocalOfferOutlinedIcon color='action'/>
+              <p className='text-red-500 hover:underline'>20% discount</p>
+            </div>
+            <button>Request Pricing</button>
+            
+         </div>
       </div>
-
+      </div>
     </>
   )
 }

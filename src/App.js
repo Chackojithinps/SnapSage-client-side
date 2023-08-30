@@ -6,7 +6,7 @@ import AdminRouter from './Router/AdminRouter';
 
 function App() {
    return (
-      <div >
+      <div style={{ fontFamily: 'Noto Serif' }}>
          <Toaster className="mx-10"
             position="top-center"
             reverseOrder={false}
