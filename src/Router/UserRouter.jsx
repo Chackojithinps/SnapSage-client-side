@@ -21,7 +21,7 @@ function UserRouter() {
             <Route path='/getotp' element={<UserotpPage/>} />
             {/* <Route  path='/profile' element={userToken?<ProfilePage/>:navigate('/login')} /> */}
             <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
-            <Route path='/studioDetails' element={<StudiodetailsPage/>}/> 
+            <Route path='/studioDetails/:id' element={<StudiodetailsPage/>}/> 
             
         </Routes>
     </div>
