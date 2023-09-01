@@ -2,7 +2,7 @@ import React from 'react'
 
 function Review() {
     return (
-        <div className='mx-24 w-3/5 h-[27rem] ' style={{ fontFamily: 'Noto Serif' }}>
+        <div className='mx-24 w-[48rem] h-[27rem] ' style={{ fontFamily: 'Noto Serif' }}>
             <p className='underline' style={{ fontFamily: 'Noto Serif' }} >Reviews</p>
             <div className='flex gap-7 my-5 w-[55rem]  overflow-x-auto'>
                 <div className='border border-gray-500 rounded w-[20rem] h-[25rem]'>
