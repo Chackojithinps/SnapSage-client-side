@@ -11,6 +11,19 @@ function Booking({studio}) {
     const [price, setPrice] = useState(false)
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const handleCheckboxChange = (categoryName, price) => {
+        if (selectedCategories.includes(categoryName)) {
+          setSelectedCategories((prevSelected) =>
+            prevSelected.filter((selected) => selected !== categoryName)
+          );
+          setTotalPrice((prevTotal) => prevTotal - price);
+        } else {
+          setSelectedCategories((prevSelected) => [...prevSelected, categoryName]);
+          setTotalPrice((prevTotal) => prevTotal + price);
+        }
+      };
+      
   return (
     <>
      <div className={`rounded-2xl px-7 py-7 w-[25rem]  my-4 sticky top-16 right-5 ${price ? 'h-[38rem]' : 'h-[27rem]'}`} style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
@@ -66,8 +79,8 @@ function Booking({studio}) {
                                  <input
                                     type="checkbox"
                                     className="w-3 h-3"
-                                 //  checked={selectedCategories.includes(item._id)}
-                                 //  onChange={() => handleCheckboxChange(item._id)}
+                                    checked={selectedCategories.includes(category.categories.categoryName)}
+                                    onChange={() => handleCheckboxChange(category.categories.categoryName, category.price)}
                                  />
                                  <span className="ms-2 text-[12px]">{category.categories.categoryName}</span>
                               </label>
@@ -79,7 +92,7 @@ function Booking({studio}) {
                      ))}
                   </div> : <div></div>}
                  <div>
-                  <p className='font-bold'>Total Rs : <span className='text-red-500'>Rs 60000</span></p>
+                  <p className='font-bold'>Total Rs : <span className='text-red-500'>Rs {totalPrice}</span></p>
                   </div>
 
                   <div className='flex items-center justify-center'>
@@ -108,11 +121,11 @@ function Booking({studio}) {
                   </div>
                   <p className='text-[23px] font-bold' style={{ fontFamily: 'Noto Serif' }}>Request Pricing</p>
                   
-                
-                  <div>
-                     <p className='mt-2 font-bold' style={{ fontFamily: 'Noto Serif' }}> Total Price : <span className='text-red-600'>Rs:599999</span></p>
+                  <div className=''>
+                     <p className='mt-2 font-bold' style={{ fontFamily: 'Noto Serif' }}> Total Price : <span className='text-red-600 text-[20px]'>Rs {totalPrice}</span></p>
                   </div>
-                  <p className='text-gray-500 mt-2 text-[12px]'>Fill this form and Go Glam Makeup Studio will contact you shortly. All the information provided will be treated confidentially.</p>
+                  
+                  <p className='text-gray-500 mt-4 text-[12px]'>Fill this form and Go Glam Makeup Studio will contact you shortly. All the information provided will be treated confidentially.</p>
                   <div className='flex flex-col mt-3 gap-3'>
                      <div>
                         <textarea type='text' placeholder='Write your message' className='border h-20 px-2 py-1 w-full outline-none rounded-[5px]' />
@@ -128,6 +141,7 @@ function Booking({studio}) {
                         <input type='date' placeholder='Event date' className='border py-2 w-[285px] text-gray-500 rounded-[5px] outline-none px-2' />
                      </div>
                   </div>
+                  
                   <p className='text-gray-500 text-[12px] mt-3'>By clicking "Send request" you agree to sign up and accept WeddingWire's <span className='text-blue-500'>Terms of Use.</span></p>
                   <button className='border border-red-500 py-2 mt-3 rounded-[5px] bg-red-600 text-white font-bold hover:bg-red-500'>Send</button>
                </div>
