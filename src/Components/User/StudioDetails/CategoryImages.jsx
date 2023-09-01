@@ -18,7 +18,7 @@ function CategoryImages({ studio }) {
 
    //  console.log("categoryImages : : : : ",categoryImages)
    return (
-      <div className='ms-24 my-8 w-3/5 ' >
+      <div className='ms-24 my-8 w-3/5 '  style={{ fontFamily: 'Noto Serif' }}>
          <p className='underline'>Projects</p>
          <div className='h-16 flex  items-center '>
             <ul className='flex gap-5' >

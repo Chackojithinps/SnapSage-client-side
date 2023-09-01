@@ -3,14 +3,14 @@ import TourOutlinedIcon from '@mui/icons-material/TourOutlined';
 function StudioAbout({studio}) {
     return (
         <div>
-            <div className='w-3/5 ms-24 flex flex-col gap-3'  style={{ fontFamily: 'Noto Serif' }}>
+            <div className='w-3/5 ms-24 flex flex-col gap-3'  >
                 <h1 className='underline' style={{ fontFamily: 'Noto Serif' }}>About</h1>
                 <div className='flex gap-1 '>
 
                     <TourOutlinedIcon color='action' />
                     <p className='text-gray-800'>On SNAPSAGE.in since 2018</p>
                 </div>
-                <p className='text-[15px] text-gray-800'>{studio.description}
+                <p className='text-[15px] text-gray-800 '>{studio.description}
                 </p>
                 {/* <h1>Services offered</h1>
                 <ul className='text-[14px] text-gray-800 custom-list'>
