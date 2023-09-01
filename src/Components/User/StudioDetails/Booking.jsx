@@ -9,6 +9,8 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 function Booking({studio}) {
     const [open, setOpen] = useState(false)
     const [price, setPrice] = useState(false)
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
   return (
     <>
      <div className={`rounded-2xl px-7 py-7 w-[25rem]  my-4 sticky top-16 right-5 ${price ? 'h-[38rem]' : 'h-[27rem]'}`} style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
@@ -57,7 +59,7 @@ function Booking({studio}) {
                   </div>
                   {price ? <div className='grid grid-cols-2 gap-2 mt-3'>
                      {studio.category.map((category) => (
-                        // <p className='text-[12px]'>{category.categories.categoryName}</p>
+                       
                         <div className='flex flex-col bg-gray-50'>
                            <div>
                               <label className="flex items-center">
@@ -71,7 +73,7 @@ function Booking({studio}) {
                               </label>
                            </div>
                            <div>
-                              <p className='text-gray-500 ms-4 text-[12px]'>Rs 30000</p>
+                              <p className='text-gray-500 ms-5 text-[12px]'>Rs ₹{category.price}</p>
                            </div>
                         </div>
                      ))}
@@ -98,7 +100,7 @@ function Booking({studio}) {
 
       {/* -----------------------------------------------------Modal----------------------------------------- */}
         {open ?
-            <div className=' absolute top-[5rem] px-8 py-5 rounded-xl left-[26rem] bg-white w-[40rem] h-[35rem] ' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+            <div className=' absolute top-[5rem] px-8 py-5 rounded-xl left-[26rem]  bg-white w-[40rem] h-[35rem] ' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
                <div className='flex flex-col'>
                   <div className='flex justify-between'>
                      <p className='text-gray-500'>Studio Name</p>
