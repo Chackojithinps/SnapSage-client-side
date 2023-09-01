@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 function StudioImages({ studio }) {
+   const [open, setOpen] = useState(false)
    return (
       <>
-         <div className='flex' style={{ fontFamily: 'Noto Serif' }}>
+         <div className={open?'flex opacity-20 ':'flex'} style={{ fontFamily: 'Noto Serif' }}>
             <div className='w-3/5 flex  -red-500 h-[27rem] ms-24 my-3'>
                <div className='w-[27rem]  -green-500 h-[27rem]'>
                   <img className='object-cover h-[27rem] rounded-tl-xl rounded-bl-xl' src={studio.images.images[0].photos[0]} alt='' />
@@ -61,23 +63,58 @@ function StudioImages({ studio }) {
                      <LocalOfferOutlinedIcon color='action' />
                      <p className='text-red-500 hover:underline'>20% discount</p>
                   </div>
-                  
+
                   <div className='flex items-center justify-center'>
                      <p className='text-center text-[12px]'>Responds within 24 hours </p>
-                     <BoltOutlinedIcon color='warning' style={{height:'17px'}}/>
+                     <BoltOutlinedIcon color='warning' style={{ height: '17px' }} />
                   </div>
-                  <button className='py-2 px-2 2-full bg-red-600 text-white rounded-[3px] hover:bg-red-500'>Request Pricing</button>
+                  <button className='py-2 px-2 2-full bg-red-600 text-white rounded-[3px] hover:bg-red-500' onClick={() => setOpen(true)}>Request Pricing</button>
                   <div className='flex gap-2'>
-                     <TrendingUpIcon color='success'/>
-                  <p className='text-[13px]'>Popular in your area</p>
+                     <TrendingUpIcon color='success' />
+                     <p className='text-[13px]'>Popular in your area</p>
                   </div>
-                  <div className='flex gap-2 '>
-                     <StarBorderOutlinedIcon color='warning'/>
+                  <div className='flex gap-2'>
+                     <StarBorderOutlinedIcon color='warning' />
                      <p className='text-[13px]'>Highly recommended in your area</p>
                   </div>
                </div>
             </div>
+
+
          </div>
+         {/* -----------------------------------Modal--------------------------------------- */}
+
+         {open ?
+            <div className=' absolute top-[5rem] px-8 py-5 rounded-xl left-[26rem] bg-white w-[40rem] h-[35rem] ' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+               <div className='flex flex-col'>
+                  <div className='flex justify-between'>
+                     <p className='text-gray-500'>Studio Name</p>
+                     <CloseOutlinedIcon color='action' style={{ fontSize: '30px',cursor:'pointer'}} onClick={()=>setOpen(false)}/>
+                  </div>
+                  <p className='text-[23px] font-bold' style={{ fontFamily: 'Noto Serif' }}>Request Pricing</p>
+                  <p className='text-gray-500 mt-2 text-[12px]'>Fill this form and Go Glam Makeup Studio will contact you shortly. All the information provided will be treated confidentially.</p>
+                  <div className='flex flex-col mt-3 gap-3'>
+                     <div>
+                        <textarea type='text' placeholder='Write your message' className='border h-20 px-2 py-1 w-full outline-none rounded-[5px]' />
+                     </div>
+                     <div>
+                        <input type='text' placeholder='Name and Surname' className='border py-2 w-full px-2 rounded-[5px] outline-none' />
+                     </div>
+                     <div className='flex gap-2 '>
+                        <input type='email' placeholder='Email' className='border py-2 px-2 w-[18rem] rounded-[5px] outline-none' />
+                        <input type='number' placeholder='Phone' className='border py-2 px-2 w-[18rem] rounded-[5px] outline-none' />
+                     </div>
+                     <div>
+                        <input type='date' placeholder='Event date' className='border py-2 w-[285px] text-gray-500 rounded-[5px] outline-none px-2' />
+                     </div>
+                  </div>
+                  <p className='text-gray-500 text-[12px] mt-3'>By clicking "Send request" you agree to sign up and accept WeddingWire's <span className='text-blue-500'>Terms of Use.</span></p>
+                  <button className='border border-red-500 py-2 mt-3 rounded-[5px] bg-red-600 text-white font-bold hover:bg-red-500'>Send</button>
+               </div>
+            </div> :
+            <div>
+            </div>
+         }
       </>
    )
 }

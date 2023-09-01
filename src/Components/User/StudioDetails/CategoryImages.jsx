@@ -22,11 +22,11 @@ function CategoryImages({ studio }) {
          <p className='underline'>Projects</p>
          <div className='h-16 flex  items-center '>
             <ul className='flex gap-5' >
-               <li   className={`cursor-pointer ${selectedCategory === "all" ? 'font-bold text-red-500' : ''}`} onClick={()=>setSelectedCategory('all')}>All</li>
+               <li   className={`cursor-pointer border py-2 px-4 rounded-[5px] border-red-500 ${selectedCategory === "all" ? 'font-bold text-white bg-orange-500' : ''}`} onClick={()=>setSelectedCategory('all')}>All</li>
                {studio.images.images.map((category) => (
-                  <li
+                  <li 
                   key={category.categoryId}
-                  className={`hover:text-blue- cursor-pointer ${selectedCategory === category.categoryId ? 'font-bold text-red-500' : ''}`}
+                  className={`border py-2 px-4 rounded-[5px] cursor-pointer ${selectedCategory === category.categoryId ? 'font-bold text-white bg-orange-500' : ''}`}
                   onClick={() => handleCategoryClick(category.categoryId)}>{category.categoryId.categoryName}</li>
                ))}
             </ul>
