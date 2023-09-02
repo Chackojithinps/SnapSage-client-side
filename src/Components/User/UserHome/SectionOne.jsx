@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SectionOne() {
+function SectionOne({profileOpen}) {
   return (
     <>
       <div className='flex flex-col-reverse md:flex-row md:h-[24rem] w-full overscroll-none'>
@@ -26,7 +26,19 @@ function SectionOne() {
         </div>
         <div className='w-full h-[20rem] border  md:h-[24rem] md:w-[55%] bg-cover bg-center rounded-bl-[10rem] rounded-tr-[10rem]' style={{ backgroundImage: 'url(https://cdn1.weddingwire.in/assets/img/home/bg_home2.jpg)' }}>
         </div>
+        
       </div>
+      {
+          profileOpen ? <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+             <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{fontFamily:'Noto Serif'}}>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Profile</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Bookings</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Booking History</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
+
+             </ul>
+          </div>:<div></div>
+        }
     </>
   );
 }

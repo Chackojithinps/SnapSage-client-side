@@ -9,9 +9,10 @@ import { userLogout } from "../../Store/userAuth";
 import axios from "axios";
 import { UserApi } from "../../Apis/UserApi";
 
-function UserHome() {
+function UserHome({profileOpen,setProfileopen}) {
   
   const [open,setOpen] = useState(false)
+  const [userData,setUserData] = useState({})
   const navigate = useNavigate()
   const userName = useSelector((state)=>state.user.userName)
   const dispatch = useDispatch()
@@ -21,7 +22,15 @@ function UserHome() {
     navigate('/login')
   }
   const getProfile = async() =>{
-     const res = await axios.get(`${UserApi}/getProfileData`)
+     const res = await axios.get(`${UserApi}/getProfileData`,{
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+  })
+     if(res.data.success){
+      console.log("userDetail : ",res.data.userDetail)
+         setUserData(res.data.userDetail)
+     }
   }
   useEffect(()=>{
      getProfile()
@@ -74,11 +83,14 @@ function UserHome() {
       </div>:<div className="flex gap-10">
         {/* <p className="uppercase text-red-500 font-bold">{userName}</p>
         <button className="ms-10" onClick={handleLogout}>Logout</button> */}
-         <div className="flex gap-2">
-            <img src="" alt="" className="border border-red-500 w-[3rem] h-[3rem] rounded-full"/>
+         <div className="flex gap-2 cursor-pointer" onClick={()=>setProfileopen(!profileOpen)}>
+            <img src={userData.image} alt="" className=" w-[40px] h-[40px] rounded-full"/>
             <ArrowDropDownIcon color="action" style={{marginTop:'10px'}}/>
          </div>
+         <button className="border border--500 py-2 px-5 rounded-[5px]">Logout</button>
         </div>}
+        
+        
     </nav>
   );
 }
