@@ -9,6 +9,9 @@ function Bookings() {
     const [searchInput, setSearchInput] = useState("")
     const [message, setMessage] = useState("")
     console.log("bookingLists : ", bookingList)
+    const handleAccept = async(id) =>{
+       const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
+    }
     const getData = async () => {
         try {
             const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`)
@@ -102,7 +105,7 @@ function Bookings() {
                                 <td>
                                     <div className='flex gap-5 px-9'>
 
-                                        <div>
+                                        <div onClick={()=>handleAccept(bookings._id)}>
                                             <TaskAltSharpIcon color='success'/>
 
                                         </div>
