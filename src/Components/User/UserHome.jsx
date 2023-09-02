@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../Store/userAuth";
+import axios from "axios";
+import { UserApi } from "../../Apis/UserApi";
 
 function UserHome() {
   
@@ -17,6 +20,12 @@ function UserHome() {
     localStorage.removeItem("token")
     navigate('/login')
   }
+  const getProfile = async() =>{
+     const res = await axios.get(`${UserApi}/getProfileData`)
+  }
+  useEffect(()=>{
+     getProfile()
+  },[])
   return (
     <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24" style={{ fontFamily: 'Noto Serif' }}>
       <div className="flex justify-center px-7 md:">
@@ -63,8 +72,12 @@ function UserHome() {
           <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
       </div>:<div className="flex gap-10">
-        <p className="uppercase text-red-500 font-bold">{userName}</p>
-        <button className="ms-10" onClick={handleLogout}>Logout</button>
+        {/* <p className="uppercase text-red-500 font-bold">{userName}</p>
+        <button className="ms-10" onClick={handleLogout}>Logout</button> */}
+         <div className="flex gap-2">
+            <img src="" alt="" className="border border-red-500 w-[3rem] h-[3rem] rounded-full"/>
+            <ArrowDropDownIcon color="action" style={{marginTop:'10px'}}/>
+         </div>
         </div>}
     </nav>
   );
