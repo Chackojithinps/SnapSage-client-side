@@ -112,9 +112,12 @@ function ProfileNav() {
                     <button className='border border-gray-500 py-2 px-4 rounded  bg-green-700 text-white'>Edit Profile</button>
                 </div>
             </div>
-            :<div className='w-full h-[35rem]   flex justify-center items-center'>
-            <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
-            </div>}
+            // :<div className='w-full h-[35rem]   flex justify-center items-center'>
+            // <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
+            // </div>}
+            : <div class="w-full h-[35rem] flex justify-center items-center">
+            <div class="rounded-full h-20 w-20 bg-violet-800 animate-ping"></div>
+          </div>}
         </>
     )
 }

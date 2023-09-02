@@ -36,9 +36,11 @@ function Bookings() {
     }
     useEffect(() => {
         getData()
-    }, [searchInput,])
+    }, [searchInput,BookingStatus])
     return (
+
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
+                   
             <div className='ms-5 mt-5' >
                 <input className='py-4 w-[75rem] border border-gray-300 bg-gray-100 px-5 outline-none' placeholder='Search here ' onChange={(e) => setSearchInput(e.target.value)} />
             </div>
@@ -109,11 +111,11 @@ function Bookings() {
                                 <td>
                                     <div className='flex gap-5 px-9'>
 
-                                        <div onClick={()=>handleAccept(bookings._id)}>
+                                        <div className='cursor-pointer' onClick={()=>handleAccept(bookings._id)}>
                                             <TaskAltSharpIcon color='success'/>
 
                                         </div>
-                                        <div>
+                                        <div className='cursor-pointer'>
                                             <CloseSharpIcon style={{color:'red'}} />
 
                                         </div>
