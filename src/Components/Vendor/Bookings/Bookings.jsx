@@ -7,10 +7,14 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
     const [searchInput, setSearchInput] = useState("")
+    const [BookingStatus,setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
     console.log("bookingLists : ", bookingList)
     const handleAccept = async(id) =>{
        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
+       if(res.data.success){
+          setBookingStatus(!BookingStatus)
+       }
     }
     const getData = async () => {
         try {
@@ -32,7 +36,7 @@ function Bookings() {
     }
     useEffect(() => {
         getData()
-    }, [searchInput])
+    }, [searchInput,])
     return (
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
             <div className='ms-5 mt-5' >
