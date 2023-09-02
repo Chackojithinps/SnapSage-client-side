@@ -42,7 +42,7 @@ function Bookings() {
                         <tr>
                             <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
-                            <th scope="col" class="px-4 py-4 font-bold text-gray-900">Selected Categories</th>
+                            <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
                             <th scope="col" class=" px-10 font-bold text-gray-900">Phone</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Booking Date</th>
@@ -57,7 +57,7 @@ function Bookings() {
                     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                         {bookingList.map(bookings => (
                             <tr class="hover:bg-gray-50">
-                                <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                                <td class="flex gap-3 px-6 py-8 font-normal text-gray-900">
                                     <div class="relative h-10 w-10">
                                         <img
                                             class="h-full w-full rounded-full object-cover object-center"
@@ -69,7 +69,7 @@ function Bookings() {
                                         <div class="font-medium text-gray-700">{bookings.name}</div>
                                         <div class="text-gray-400">{bookings.email}</div>
                                     </div>
-                                </th>
+                                </td>
                                 {/* <td>
                                     {bookings.place}
                                 </td> */}
@@ -96,7 +96,7 @@ function Bookings() {
                                 <td className='px-10'>
                                     view
                                 </td>
-                                <td>
+                                <td className='px-6'>
                                     {bookings.totalAmount}
                                 </td>
                                 <td>

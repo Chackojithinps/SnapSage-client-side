@@ -8,14 +8,25 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import axios from 'axios';
 import { UserApi } from '../../../Apis/UserApi';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
     // const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
     const [price, setPrice] = useState(false)
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [input, setInput] = useState()
-    // const [successMessage, setSuccessMessage] = useState(false)
+    var userToken = useSelector((state)=>state.user.userToken)
 
+    // const [successMessage, setSuccessMessage] = useState(false)
+    const handlePrice=()=>{
+        if(!userToken){
+            navigate('/login')
+        }else{
+            setOpen(true)
+        }
+    }
     const handleCheckboxChange = (categoryId, price) => {
         if (selectedCategories.includes(categoryId)) {
             setSelectedCategories((prevSelected) =>
@@ -140,7 +151,7 @@ function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
                         <p className='text-center text-[12px]'>Responds within 24 hours </p>
                         <BoltOutlinedIcon color='warning' style={{ height: '17px' }} />
                     </div>
-                    <button className='py-2 px-2 2-full bg-red-600 text-white rounded-[3px] hover:bg-red-500' onClick={() => setOpen(true)}>Request Pricing</button>
+                    <button className='py-2 px-2 2-full bg-red-600 text-white rounded-[3px] hover:bg-red-500' onClick={handlePrice}>Request Pricing</button>
                     <div className='flex gap-2'>
                         <TrendingUpIcon color='success' />
                         <p className='text-[13px]'>Popular in your area</p>
