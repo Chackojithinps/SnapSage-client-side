@@ -4,6 +4,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PermContactCalendarRoundedIcon from "@mui/icons-material/PermContactCalendarRounded";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 function VendorSidebar() {
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ function VendorSidebar() {
           <li onClick={() => navigate("/vendor")} className="opcion-con-desplegable">
             <div className="flex cursor-pointer items-center justify-between p-2 hover:bg-[#0ea5e9]">
               <div
-                
+
                 className="flex items-center"
               >
                 <i className="fas fa-calendar-alt mr-2"></i>
@@ -39,17 +40,17 @@ function VendorSidebar() {
               <i className="fas fa-chevron-down text-xs"></i>
             </div>
           </li>
-      
+
           <li className="opcion-con-desplegable cursor-pointer ms-2">
             <div
               onClick={() => toggleSubmenu("profile")}
               className="flex items-center justify-between p-2 hover:bg-[#0ea5e9]"
             >
-              <div className="flex items-center cursor-pointer" onClick={()=>navigate('/vendor/profile')}>
+              <div className="flex items-center cursor-pointer" onClick={() => navigate('/vendor/profile')}>
                 <PermContactCalendarRoundedIcon color="secondary" />
                 <span
                   className="ms-3"
-                  // onClick={() => navigate("/vendor/profile")}
+                // onClick={() => navigate("/vendor/profile")}
                 >
                   Profile
                 </span>
@@ -73,7 +74,7 @@ function VendorSidebar() {
           <li className="ms-2 cursor-pointer " onClick={() => toggleSubmenu("studio")}>
             <div className="flex items-center justify-between p-2 hover:bg-[#69b4d7]">
               <div
-                
+
                 className="flex items-center"
               >
                 <AddAPhotoIcon color="action" />
@@ -81,24 +82,37 @@ function VendorSidebar() {
               </div>
               <i className="fas fa-chevron-down text-xs"></i>
             </div>
-            </li>
-            {submenuStates.studio && (
-              <ul className="desplegable ms-10 flex cursor-pointer flex-col">
-                <li className="hover:bg-[#0ea5e9] h-11 flex items-center">
-                  <KeyboardArrowRightIcon color="primary" />
-                  View Studios
-                </li>
-                <li onClick={()=>navigate('/vendor/addStudio')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
-                  <KeyboardArrowRightIcon color="primary" />
-                  Add Studio
-                </li>
-                <li onClick={()=>navigate('/vendor/addPhotos')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
-                  <KeyboardArrowRightIcon color="primary" />
-                  Add Photots
-                </li>
-              </ul>
-            )}
+          </li>
+          {submenuStates.studio && (
+            <ul className="desplegable ms-10 flex cursor-pointer flex-col">
+              <li className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                View Studios
+              </li>
+              <li onClick={() => navigate('/vendor/addStudio')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Add Studio
+              </li>
+              <li onClick={() => navigate('/vendor/addPhotos')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Add Photots
+              </li>
 
+            </ul>
+          )}
+          <li onClick={() => navigate("/vendor/bookings")} className="opcion-con-desplegable">
+            <div className="flex cursor-pointer items-center justify-between p-2 hover:bg-[#0ea5e9]">
+              <div
+
+                className="flex items-center"
+              >
+                <i className="fas fa-calendar-alt mr-2"></i>
+                <AccountBalanceWalletIcon color="primary" />
+                <span className="ms-3">Bookings</span>
+              </div>
+              <i className="fas fa-chevron-down text-xs"></i>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>

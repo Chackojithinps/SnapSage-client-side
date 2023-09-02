@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 
-function StudioImages({ studio }) {
+function StudioImages({ studio ,open,successMessage}) {
    
    return (
       <>
-         <div className='flex  '>
+         <div className={`flex ${open || successMessage?'inset-0 opacity-80':'opacity-1'}`}>
             <div className='w-[60rem] flex  -red-500 h-[27rem] ms-24 my-3'>
                <div className='w-[27rem]  -green-500 h-[27rem]'>
                   <img className='object-cover h-[27rem] rounded-tl-xl rounded-bl-xl' src={studio.images.images[0].photos[0]} alt='' />

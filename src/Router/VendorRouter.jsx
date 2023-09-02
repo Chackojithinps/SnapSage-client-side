@@ -10,6 +10,7 @@ import { addvendorDetails } from '../Store/vendorAuth'
 import AddstudioPage from '../Pages/VendorPages/AddstudioPage'
 import AddphotosPage from '../Pages/VendorPages/AddphotosPage'
 import JoinusPage from '../Pages/VendorPages/JoinusPage'
+import BookingPages from '../Pages/AdminPages/BookingPages'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -34,6 +35,7 @@ function VendorRouter() {
         <Route path='/addStudio' element={vendorToken?<AddstudioPage/>:<LoginPage/>}/>
         <Route path='/addPhotos' element={vendorToken?<AddphotosPage/>:<LoginPage/>}/>
         <Route path='/' element={<JoinusPage/>}/>
+        <Route path='/bookings' element={vendorToken?<BookingPages/>:<LoginPage/>}/>
       </Routes>
     </div>
 
