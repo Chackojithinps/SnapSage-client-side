@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {VendorApi } from '../../../Apis/UserApi'
-
+import { VendorApi } from '../../../Apis/UserApi'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
+import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
     const [searchInput, setSearchInput] = useState("")
     const [message, setMessage] = useState("")
-
+    console.log("bookingLists : ", bookingList)
     const getData = async () => {
         try {
             const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`)
             if (res.data.success) {
-                if(res.data.message){
+                if (res.data.message) {
                     setMessage(res.data.message)
-                }else{
+                } else {
                     setMessage("")
                     setBookingList(res.data.BookingDatas)
                 }
@@ -31,28 +33,28 @@ function Bookings() {
     return (
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
             <div className='ms-5 mt-5' >
-                <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' placeholder='Search here ' onChange={(e)=>setSearchInput(e.target.value)} />
+                <input className='py-4 w-[75rem] border border-gray-300 bg-gray-100 px-5 outline-none' placeholder='Search here ' onChange={(e) => setSearchInput(e.target.value)} />
             </div>
 
-            {!message?<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
+            {!message ? <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead class="bg-white">
                         <tr>
-                            <th scope="col" class="px-24 py-4 font-bold text-gray-900 ">Username</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
-                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">Selected Categories</th>
+                            <th scope="col" class="px-4 py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Phone</th>
+                            <th scope="col" class=" px-10 font-bold text-gray-900">Phone</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Booking Date</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
 
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Accept/Reject</th>
 
-                            
+
                         </tr>
                     </thead>
-                   <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                         {bookingList.map(bookings => (
                             <tr class="hover:bg-gray-50">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
@@ -71,40 +73,57 @@ function Bookings() {
                                 {/* <td>
                                     {bookings.place}
                                 </td> */}
-                                
-                                <td class="px-6 py-4">
-                                    {bookings.selectedCategories}
+
+                                <td class="py-4">
+                                    {bookings.categories.map((category) => (
+                                        <div className='flex gap-1'>
+                                            <FiberManualRecordIcon style={{ fontSize: '10px', marginTop: '5px' }} />
+                                            <p className='w-[10rem]'>{category.categoryId.categoryName}</p>
+                                        </div>
+
+                                    ))}
                                 </td>
-{/* 
+                                {/* 
                                 <td>
                                     {bookings.email}
                                 </td> */}
-                                <td>
+                                <td className='px-10'>
                                     {bookings.phone}
                                 </td>
-                                <td>
+                                <td className='px-7'>
                                     {bookings.eventDate}
                                 </td>
                                 <td className='px-10'>
-                                   view
+                                    view
                                 </td>
                                 <td>
                                     {bookings.totalAmount}
                                 </td>
                                 <td>
-                                    <button className='bg-red-500 text-white hover:text-black hover:bg-white py-2 px-3 border border-gray-500 rounded'>block</button>
+                                    <div className='flex gap-5 px-9'>
+
+                                        <div>
+                                            <TaskAltSharpIcon color='success'/>
+
+                                        </div>
+                                        <div>
+                                            <CloseSharpIcon style={{color:'red'}} />
+
+                                        </div>
+                                    </div>
+
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            :
-            <div className='w-full'>
-                <p className='mt-5 text-center'>
-                    {message}
-                </p>
-            </div>}
+                :
+                <div className='w-full'>
+                    <p className='mt-5 text-center'>
+                        {message}
+                    </p>
+                </div>}
         </div>
     )
 }
