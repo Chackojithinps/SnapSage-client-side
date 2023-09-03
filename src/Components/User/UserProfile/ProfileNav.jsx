@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { UserApi } from '../../../Apis/UserApi'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
     const [loader,setLoader] =  useState(false)
-    const [status,setStatus] = useState(false)
-    console.log("userData : ", userData)
-
+    // const [status,setStatus] = useState(false)
+    const navigate = useNavigate()
+    const profileOpen = useSelector((state)=>state.user.status)
     const handleUpload = async (e) => {
         e.preventDefault();
         try {
@@ -118,6 +120,18 @@ function ProfileNav() {
             : <div class="w-full h-[35rem] flex justify-center items-center">
             <div class="rounded-full h-20 w-20 bg-violet-800 animate-ping"></div>
           </div>}
+
+          {
+          profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+             <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{fontFamily:'Noto Serif'}}>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/profile')}>Profile</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookings')}>Bookings</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookingHistory')}>Booking History</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
+
+             </ul>
+          </div>
+        }
         </>
     )
 }

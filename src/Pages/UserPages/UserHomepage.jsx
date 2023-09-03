@@ -6,7 +6,7 @@ import SectionThree from '../../Components/User/UserHome/SectionThree'
 import UsersideFooter from '../../Components/User/Footer/UsersideFooter'
 
 function UserHomepage() {
-  const [profileOpen,setProfileopen] = useState(false)
+  const [profileOpen,setProfileopen] = useState(false) 
 
   return (
     <div>

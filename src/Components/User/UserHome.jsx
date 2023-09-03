@@ -5,22 +5,28 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../../Store/userAuth";
+import { showProfile, userLogout } from "../../Store/userAuth";
 import axios from "axios";
 import { UserApi } from "../../Apis/UserApi";
 
-function UserHome({profileOpen,setProfileopen}) {
+function UserHome() {
   
   const [open,setOpen] = useState(false)
   const [userData,setUserData] = useState({})
   const navigate = useNavigate()
-  const userName = useSelector((state)=>state.user.userName)
+  const userToken = useSelector((state)=>state.user.userToken)
+  const profileOpen = useSelector((state)=>state.user.status)
   const dispatch = useDispatch()
   const handleLogout =()=>{
     dispatch(userLogout())
     localStorage.removeItem("token")
     navigate('/login')
   }
+
+  const handleProfileBar = () =>{
+    dispatch(showProfile({status:!profileOpen}))
+  }
+
   const getProfile = async() =>{
      const res = await axios.get(`${UserApi}/getProfileData`,{
       headers: {
@@ -74,7 +80,7 @@ function UserHome({profileOpen,setProfileopen}) {
           </li>
         </ul>
       </div>
-      {!userName?<div className="flex flex-col gap-1">
+      {!userToken?<div className="flex flex-col gap-1">
         <p className="hidden md:block text-[12px] text-black cursor-pointer hover:underline" onClick={()=>navigate('/vendor')}>ARE YOU A VENDOR?</p>
         <div className="gap-5 hidden  md:flex md:flex-row ">
           <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/login')}>LOG IN</p>
@@ -83,11 +89,11 @@ function UserHome({profileOpen,setProfileopen}) {
       </div>:<div className="flex gap-10">
         {/* <p className="uppercase text-red-500 font-bold">{userName}</p>
         <button className="ms-10" onClick={handleLogout}>Logout</button> */}
-         <div className="flex gap-2 cursor-pointer" onClick={()=>setProfileopen(!profileOpen)}>
+         <div className="flex gap-2 cursor-pointer" onClick={handleProfileBar}>
             <img src={userData.image} alt="" className=" w-[40px] h-[40px] rounded-full"/>
             <ArrowDropDownIcon color="action" style={{marginTop:'10px'}}/>
          </div>
-         <button className="border border--500 py-2 px-5 rounded-[5px]">Logout</button>
+         <button className="border border--500 py-2 px-5 rounded-[5px]" onClick={handleLogout}>Logout</button>
         </div>}
         
         

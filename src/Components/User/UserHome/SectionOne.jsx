@@ -1,6 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-function SectionOne({profileOpen}) {
+function SectionOne() {
+  const profileOpen = useSelector((state)=>state.user.status)
+  console.log("status : ",profileOpen)
+  const navigate = useNavigate()
   return (
     <>
       <div className='flex flex-col-reverse md:flex-row md:h-[24rem] w-full overscroll-none'>
@@ -29,15 +34,15 @@ function SectionOne({profileOpen}) {
         
       </div>
       {
-          profileOpen ? <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+          profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
              <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{fontFamily:'Noto Serif'}}>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Profile</li>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Bookings</li>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Booking History</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/profile')}>Profile</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookings')}>Bookings</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookingHistory')}>Booking History</li>
                <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
 
              </ul>
-          </div>:<div></div>
+          </div>
         }
     </>
   );

@@ -17,8 +17,13 @@ const UserAuth = createSlice({
         userLogout(state,action){
             state.userToken = ""
             state.userName = ""
+        },
+        showProfile(state,action){
+            const profileDetails = action.payload
+            console.log("action.status", action.status)
+            state.status = profileDetails.status
         }
     }
 })
-export const {adduserDetails,userLogout} = UserAuth.actions;
+export const {adduserDetails,userLogout,showProfile} = UserAuth.actions;
 export default UserAuth
