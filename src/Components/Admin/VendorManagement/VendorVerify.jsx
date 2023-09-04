@@ -3,6 +3,7 @@ import axios from 'axios'
 import { AdminApi } from '../../../Apis/UserApi'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+import CloseIcon from '@mui/icons-material/Close';
 import { toast } from 'react-hot-toast';
 
 import { Fragment, useRef } from 'react'
@@ -12,14 +13,16 @@ function VendorVerify() {
     const [open, setOpen] = useState(false)
 
     const cancelButtonRef = useRef(null)
-
-
-
     const [vendorList, setVendorList] = useState([])
     const [varify, setVarify] = useState(false)
     const [vendorRejected, setVendorRejected] = useState(false)
     const [message, setMessage] = useState("")
     const [searchInput, setSearchInput] = useState("")
+    const [view, setView] = useState(false)
+    const [selectedVendor, setSelectedVendor] = useState({})
+
+    console.log("selected Vendor : ", selectedVendor)
+    console.log("vendor list : ", vendorList)
     const handleVarify = async (id) => {
         const res = await axios.patch(`${AdminApi}/verifyVendor?id=${id}`)
         if (res.data.success) {
@@ -57,6 +60,15 @@ function VendorVerify() {
             console.log("getunverified : ", error.message)
         }
     }
+
+    const handleView = (id) => { // Pass the vendor's ID as an argument
+        console.log("id : ", id)
+        const selectedVendor = vendorList.find(vendor => vendor._id === id);
+        console.log("first vendor : ", selectedVendor)
+        setSelectedVendor(selectedVendor);
+        setView(true);
+    }
+
     useEffect(() => {
         getUnVerifiedreq()
     }, [varify, vendorRejected, searchInput])
@@ -77,7 +89,7 @@ function VendorVerify() {
 
                                     <th scope="col" class="px-6 py-4 font-bold text-gray-900">Phone</th>
                                     <th scope="col" class="px-6 py-4 font-bold text-gray-900">Email</th>
-                                    <th scope="col" class="mx-3 py-4 font-bold text-gray-900">View</th>
+                                    <th scope="col" class="mx-3 py-4 font-bold text-gray-900 ">View</th>
 
                                     <th scope="col" class="px-6 py-4 font-bold text-gray-900">Accept/Reject</th>
                                 </tr>
@@ -110,7 +122,7 @@ function VendorVerify() {
                                         <td>
                                             {/* <button>View</button>
                                              */}
-                                          <p>view</p>
+                                            <p className='cursor-pointer ' onClick={() => handleView(user._id)}>view</p>
                                         </td>
                                         <div className='flex flex-row gap-4 mx-8 cursor-pointer'>
 
@@ -140,7 +152,46 @@ function VendorVerify() {
                     </div>}
 
                 {/* -------------------------Modal---------------------------- */}
-                
+
+                {view && <div class="p-5 border bg-yellow-500 w-[50rem] rounded text-center text-black h-[32rem] absolute top-[6rem] left-[26rem] rounded-xl" >
+                    <div className='flex'>
+                        <div className='mx-[16rem] relative'>
+                            {/* <img class="w-32 h-32 rounded-full " src="https://loremflickr.com/320/320/girl" alt="" /> */}
+                            <div class="text-sm w-[15rem] mt-5">
+                                <p
+                                    class="font-medium leading-none  hover:text-indigo-600 transition duration-500 ease-in-out text-[18px]">
+                                    {selectedVendor.fname} {selectedVendor.lname}
+                                </p>
+                                <p className='mt-3'>Studio Name : {selectedVendor.companyName}</p>
+                                <p>Place : {selectedVendor.district}</p>
+                                <p>Phone : {selectedVendor.phone}</p>
+                                <p>Email : {selectedVendor.email}</p>
+                            </div>
+                        </div>
+                            <CloseIcon color='' style={{fontSize:`30px`,color:"black"}} className='cursor-pointer absolute right-7' onClick={()=>setView(false)}/>
+                        
+                    </div>
+                    
+
+
+                    <div className='mt-10'>
+                        <p className=''>Documents</p>
+                        <p className='mt-2'>Union Id : <span className='text-red-500'>{selectedVendor.unionCode}</span></p>
+                        <div className='w-full mt-4 h-[13rem]  grid grid-cols-2 gap-2 '>
+                            {selectedVendor.image.map((image) => (
+                                <img className=' object-cover w-[25rem] h-[13rem] border border-black' src={image} alt='' />
+
+                            ))}
+                        </div>
+
+                    </div>
+                    {/* <div className='text-right mt-8  '>
+                        <button className='py-2 px-6 rounded-[5px] border border-gray-300 hover:bg-blue-200' onClick={()=>setView(false)}>Close</button>
+                    </div> */}
+
+
+                </div>}
+                {/* ----------------------------------------------------------------- */}
             </div>
         </>
     )
