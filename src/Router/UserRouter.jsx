@@ -10,6 +10,7 @@ import StudiodetailsPage from '../Pages/UserPages/StudiodetailsPage'
 import { adduserDetails, showProfile } from '../Store/userAuth'
 // import UserLogin from '../Components/User/UserLogin'
 import BookingsPage from '../Pages/UserPages/bookingsPage'
+import PaymentPages from '../Pages/UserPages/paymentPages'
 
 
 function UserRouter() {
@@ -37,6 +38,7 @@ function UserRouter() {
             <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
             <Route path='/studioDetails/:id' element={<StudiodetailsPage/>}/> 
             <Route path='/bookings' element={userToken?<BookingsPage/>:<UserLoginpage/>}/>
+            <Route path='/payment' element={userToken?<PaymentPages/>:<UserLoginpage/>}/>
             
         </Routes>
     </div>
