@@ -57,9 +57,9 @@ function UserLists() {
             <div >
                 <AdminSidebar />
             </div>
-            <div className='flex flex-col bg-gray-50'>
+            <div className='flex bg-cover flex-col 'style={{ backgroundImage: 'url()'}}>
                 <div className='ms-5 mt-5' >
-                    <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' onChange={(e)=>setSearchInput(e.target.value)} placeholder='Search here ' />
+                    <input className='py-4 w-[75rem] border border-gray-300 px-5 bg-gray-50 outline-none' onChange={(e)=>setSearchInput(e.target.value)} placeholder='Search here ' />
                 </div>
                    {!message?
                     <div className="overflow-hidden rounded-lg bg-gray-50 border border-gray-200 shadow-md m-5 w-[75rem]">

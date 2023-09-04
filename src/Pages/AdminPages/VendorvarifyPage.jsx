@@ -11,7 +11,7 @@ function VendorvarifyPage() {
         <div>
         <AdminSidebar/>
         </div>
-        <div className='bg-gray-50'>
+        <div className=''>
           <VendorVerify/>
         </div>
       </div>

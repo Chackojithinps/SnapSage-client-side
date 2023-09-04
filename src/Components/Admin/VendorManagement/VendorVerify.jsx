@@ -76,14 +76,14 @@ function VendorVerify() {
         <>
             <div className='flex flex-col'>
                 <div className='ms-5 mt-5' >
-                    <input className='py-4 w-[75rem] border border-gray-300 bg-gray-50 px-5 outline-none' onChange={(e) => setSearchInput(e.target.value)} placeholder='Search here ' />
+                    <input className='py-4 w-[75rem] border border-gray-300  px-5 outline-none' onChange={(e) => setSearchInput(e.target.value)} placeholder='Search here ' />
                 </div>
 
                 {!message ? <div className='flex flex-col '>
                     <div class="overflow-hidden rounded-lg shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                         <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                            <thead class="bg-white">
-                                <tr className='font-bold'>
+                            <thead class="bg-white ">
+                                <tr className='font-bold bg-blue-100'>
                                     <th scope="col" class="px-6 py-4 font-bold text-gray-900">Name</th>
                                     <th scope="col" class=" py-4 font-bold text-gray-900">Company name</th>
 
@@ -153,8 +153,10 @@ function VendorVerify() {
 
                 {/* -------------------------Modal---------------------------- */}
 
-                {view && <div class="p-5 border bg-yellow-500 w-[50rem] rounded text-center text-black h-[32rem] absolute top-[6rem] left-[26rem] rounded-xl" >
-                    <div className='flex'>
+                {view && <div class="p-5 border w-[50rem] bg-gray-50 rounded bg-cover text-center text-black  h-[32rem] absolute top-[6rem] left-[26rem] rounded-xl"
+                 style={{ backgroundImage: 'url()'}}>
+                    <div className='flex' >
+                    {/* https://us.123rf.com/450wm/pilvitus/pilvitus1902/pilvitus190200050/125281831-abstract-background-with-white-film-strip-frame-and-clapper-board-isolated-on-white-background.jpg?ver=6 */}
                         <div className='mx-[16rem] relative'>
                             {/* <img class="w-32 h-32 rounded-full " src="https://loremflickr.com/320/320/girl" alt="" /> */}
                             <div class="text-sm w-[15rem] mt-5">
