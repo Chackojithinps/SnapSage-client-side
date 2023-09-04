@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import { UserApi } from '../../../Apis/UserApi';
+import { toast } from 'react-hot-toast';
 
 function Payment() {
     // const [enteredAmount,setEnteredAmount] = useState(0)
     const [validationMessage, setValidationMessage] = useState('')
+    const [amount,setAmount] = useState(0)
     const [open,setOpen] = useState(false)
     const location = useLocation();
     
@@ -15,7 +17,7 @@ function Payment() {
 
     const handleChange = (e) => {
         const amount = e.target.value;
-       
+        setAmount(amount)
         if (amount < totalAmount * 0.25) {
             setValidationMessage('Amount must be at least 25% of the total amount.');
         } else {
@@ -23,21 +25,65 @@ function Payment() {
         }
     }
 
+    const verifyPayment =async (response,bookingId,amount)=>{
+       const res = await axios.post(`${UserApi}/verifyPayment`,{response,bookingId,amount,totalAmount},{
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+       })
+       if(res) {
+         console.log("res.data :",res.data)
+         console.log("res.data :",res)
+         toast.success("payment done")
+       } else{
+          console.log("error res.dta : ",res)
+         toast.error("payment failed")
+       }
+    }
+
     const handleSubmit = async(e) =>{
         e.preventDefault()
-        if(setValidationMessage){
-           setOpen(true)
-           setTimeout(()=>{
-              setOpen(false)
-           },3000)
-        }else{
-            const res = await axios.patch(`${UserApi}/payment`,{
+        // console.log("etnetedd")
+        // if(setValidationMessage){
+        //    setOpen(true)
+        //    setTimeout(()=>{
+        //       setOpen(false)
+        //    },3000)
+        // }else{
+            console.log("hello")
+            const res = await axios.post(`${UserApi}/payment?id=${bookings._id}`,{
+                amount:amount
+            },{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
-        }
-    }
+            if(res.data.success){
+                console.log("entered payment")
+                console.log("res.data.order : ",res.data.data)
+                var amount1 = res.data.data.amount * 100
+                console.log(amount);
+                var options = {
+                    key: "rzp_test_Qt18oumm8k0BKa", // Enter the Key ID generated from the Dashboard
+                    amount: amount1, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    currency: "INR",
+                    name: "SnapSage",
+                    description: "India's best Mens Fashion website",
+                    image: "/public/img/logo.png",
+                    order_id: res.data.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    handler: function (response) {
+                        verifyPayment(response,bookings._id,amount);
+                        console.log("response : ", response)
+                    },
+                  
+            }
+            var rzp1 = new window.Razorpay(options);
+            rzp1.open();
+        
+            }else{
+                console.log("Error happened")
+            }
+          }
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">

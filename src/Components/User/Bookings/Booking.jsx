@@ -16,10 +16,10 @@ function Booking() {
         navigate(`/payment`, { state: { bookings } });
     };
 
+
     const getBookingData = async () => {
         dispatch(showProfile({ status: !profileOpen }))
-
-        const res = await axios.get(`${UserApi}/bookings`, {
+        const res = await axios.get(`${UserApi}/bookings`,{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
