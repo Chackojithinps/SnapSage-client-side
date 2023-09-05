@@ -4,22 +4,25 @@ import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-function Bookings() {
-    const [bookingList, setBookingList] = useState([])
+
+function UpcomingEvents() {
+    const [upcomingRequests, setUpcomingRequests] = useState([])
     const [searchInput, setSearchInput] = useState("")
-    const [BookingStatus,setBookingStatus] = useState(false)
+    const [BookingStatus, setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
-    console.log("bookingLists : ", bookingList)
-    const handleAccept = async(id) =>{
-       const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
-       if(res.data.success){
-          setBookingStatus(!BookingStatus)
-       }
+
+    console.log("bookingLists : ", upcomingRequests)
+
+    const handleAccept = async (id) => {
+        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
+        if (res.data.success) {
+            setBookingStatus(!BookingStatus)
+        }
     }
     const getData = async () => {
         try {
             const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-            const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`,{
+            const res = await axios.get(`${VendorApi}/upcomingEvents?search=${searchInput}`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }
@@ -29,7 +32,7 @@ function Bookings() {
                     setMessage(res.data.message)
                 } else {
                     setMessage("")
-                    setBookingList(res.data.BookingDatas)
+                    setUpcomingRequests(res.data.BookingDatas)
                 }
 
             } else {
@@ -41,11 +44,11 @@ function Bookings() {
     }
     useEffect(() => {
         getData()
-    }, [searchInput,BookingStatus])
+    }, [searchInput, BookingStatus])
     return (
 
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
-                   
+
             <div className='ms-5 mt-5' >
                 <input className='py-4 w-[75rem] border border-gray-300 bg-gray-100 px-5 outline-none' placeholder='Search here ' onChange={(e) => setSearchInput(e.target.value)} />
             </div>
@@ -69,7 +72,7 @@ function Bookings() {
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                        {bookingList.map(bookings => (
+                        {upcomingRequests.map(bookings => (
                             <tr class="hover:bg-gray-50">
                                 <td class="flex gap-3 px-6 py-8 font-normal text-gray-900">
                                     <div class="relative h-10 w-10">
@@ -116,12 +119,12 @@ function Bookings() {
                                 <td>
                                     <div className='flex gap-5 px-9'>
 
-                                        <div className='cursor-pointer' onClick={()=>handleAccept(bookings._id)}>
-                                            <TaskAltSharpIcon color='success'/>
+                                        <div className='cursor-pointer' onClick={() => handleAccept(bookings._id)}>
+                                            <TaskAltSharpIcon color='success' />
 
                                         </div>
                                         <div className='cursor-pointer'>
-                                            <CloseSharpIcon style={{color:'red'}} />
+                                            <CloseSharpIcon style={{ color: 'red' }} />
 
                                         </div>
                                     </div>
@@ -142,5 +145,6 @@ function Bookings() {
     )
 }
 
-export default Bookings
+export default UpcomingEvents
+
 

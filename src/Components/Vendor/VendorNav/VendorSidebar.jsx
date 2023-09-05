@@ -6,6 +6,7 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 function VendorSidebar() {
+  const [bookings,setBookings] = useState(false)
   const navigate = useNavigate();
 
   const [submenuStates, setSubmenuStates] = useState({
@@ -100,19 +101,37 @@ function VendorSidebar() {
 
             </ul>
           )}
-          <li onClick={() => navigate("/vendor/bookings")} className="opcion-con-desplegable">
-            <div className="flex cursor-pointer items-center justify-between p-2 hover:bg-[#0ea5e9]">
+         
+
+          <li className="ms-2 cursor-pointer " onClick={() => setBookings(!bookings)}>
+            <div className="flex items-center justify-between p-2 hover:bg-[#69b4d7]">
               <div
 
                 className="flex items-center"
               >
-                <i className="fas fa-calendar-alt mr-2"></i>
                 <AccountBalanceWalletIcon color="primary" />
                 <span className="ms-3">Bookings</span>
               </div>
               <i className="fas fa-chevron-down text-xs"></i>
             </div>
           </li>
+          {bookings && (
+            <ul className="desplegable ms-10 flex cursor-pointer flex-col">
+              <li onClick={() => navigate("/vendor/bookings")} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Booking requests
+              </li>
+              <li onClick={() => navigate('/vendor/upcomingEvents')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Upcoming Events
+              </li>
+              <li onClick={() => navigate('/vendor/finishedEvents')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Finished Events
+              </li>
+
+            </ul>
+          )}
         </ul>
       </nav>
     </div>
