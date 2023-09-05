@@ -7,26 +7,26 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
     const [searchInput, setSearchInput] = useState("")
-    const [BookingStatus,setBookingStatus] = useState(false)
+    const [BookingStatus, setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
     console.log("bookingLists : ", bookingList)
 
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
-    const handleAccept = async(id) =>{
-        console.log("id : ",id)
-       const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`,{},{
-        headers: {
-            Authorization: `Bearer ${vendorToken}`
+    const handleAccept = async (id) => {
+        console.log("id : ", id)
+        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${vendorToken}`
+            }
+        })
+        if (res.data.success) {
+            setBookingStatus(!BookingStatus)
         }
-       })
-       if(res.data.success){
-          setBookingStatus(!BookingStatus)
-       }
     }
     const getData = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`,{
+            const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }
@@ -48,25 +48,25 @@ function Bookings() {
     }
     useEffect(() => {
         getData()
-    }, [searchInput,BookingStatus])
+    }, [searchInput, BookingStatus])
     return (
 
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
-                   
+
             <div className='ms-5 mt-5' >
                 <input className='py-4 w-[75rem] border border-gray-300 bg-gray-100 px-5 outline-none' placeholder='Search here ' onChange={(e) => setSearchInput(e.target.value)} />
             </div>
 
             {!message ? <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead class="bg-white">
+                    <thead class="bg-gray-100">
                         <tr>
                             <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class=" px-10 font-bold text-gray-900">Phone</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Booking Date</th>
+                            <th scope="col" class="px-2 font-bold text-gray-900">Phone</th>
+                            <th scope="col" class="px-9 py-4 font-bold text-gray-900">Booking Date</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
 
@@ -108,14 +108,15 @@ function Bookings() {
                                 <td>
                                     {bookings.email}
                                 </td> */}
-                                <td className='px-10'>
+                                <td className='px-2'>
                                     {bookings.phone}
                                 </td>
-                                <td className='px-7'>
+                                <td className='px-9'>
                                     {bookings.eventDate}
                                 </td>
                                 <td className='px-10'>
-                                    view
+                                    <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
+
                                 </td>
                                 <td className='px-6'>
                                     {bookings.totalAmount}
@@ -123,12 +124,12 @@ function Bookings() {
                                 <td>
                                     <div className='flex gap-5 px-9'>
 
-                                        <div className='cursor-pointer' onClick={()=>handleAccept(bookings._id)}>
-                                            <TaskAltSharpIcon color='success'/>
+                                        <div className='cursor-pointer' onClick={() => handleAccept(bookings._id)}>
+                                            <TaskAltSharpIcon color='success' />
 
                                         </div>
                                         <div className='cursor-pointer'>
-                                            <CloseSharpIcon style={{color:'red'}} />
+                                            <CloseSharpIcon style={{ color: 'red' }} />
 
                                         </div>
                                     </div>

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
-import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+// import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
+// import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 
 function UpcomingEvents() {
     const [upcomingRequests, setUpcomingRequests] = useState([])
@@ -66,7 +66,7 @@ function UpcomingEvents() {
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
 
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Accept/Reject</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Amount Paid</th>
 
 
                         </tr>
@@ -110,25 +110,14 @@ function UpcomingEvents() {
                                 <td className='px-7'>
                                     {bookings.eventDate}
                                 </td>
-                                <td className='px-10'>
-                                    view
+                                <td className='px-5'>
+                                    <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
                                 </td>
-                                <td className='px-6'>
+                                <td className='px-6 text-red-500 font-bold ' >
                                     {bookings.totalAmount}
                                 </td>
-                                <td>
-                                    <div className='flex gap-5 px-9'>
-
-                                        <div className='cursor-pointer' onClick={() => handleAccept(bookings._id)}>
-                                            <TaskAltSharpIcon color='success' />
-
-                                        </div>
-                                        <div className='cursor-pointer'>
-                                            <CloseSharpIcon style={{ color: 'red' }} />
-
-                                        </div>
-                                    </div>
-
+                                <td className='px-6 text-green-500 font-bold'>
+                                    {bookings.advanceAmount?bookings.advanceAmount:0}
                                 </td>
                             </tr>
                         ))}
