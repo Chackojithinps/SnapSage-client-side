@@ -54,8 +54,8 @@ function UpcomingEvents() {
             </div>
 
             {!message ? <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 w-[75rem] max-h-[30rem] overflow-y-scroll">
-                <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead class="bg-white">
+                <table class="w-full border-collapse bg-gray text-left text-sm text-gray-500">
+                    <thead class="bg-gray-100">
                         <tr>
                             <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}

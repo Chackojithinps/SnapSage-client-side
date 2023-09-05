@@ -10,15 +10,22 @@ function Bookings() {
     const [BookingStatus,setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
     console.log("bookingLists : ", bookingList)
+
+    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
+
     const handleAccept = async(id) =>{
-       const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
+        console.log("id : ",id)
+       const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`,{},{
+        headers: {
+            Authorization: `Bearer ${vendorToken}`
+        }
+       })
        if(res.data.success){
           setBookingStatus(!BookingStatus)
        }
     }
     const getData = async () => {
         try {
-            const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
             const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`,{
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
