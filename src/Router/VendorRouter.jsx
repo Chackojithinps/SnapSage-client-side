@@ -13,6 +13,7 @@ import JoinusPage from '../Pages/VendorPages/JoinusPage'
 import BookingPages from '../Pages/AdminPages/BookingPages'
 import UpcomingEventsPage from '../Pages/VendorPages/UpcomingEventsPage'
 import UnpaidBookingsPage from '../Pages/VendorPages/UnpaidBookingsPage'
+import WorkHistoryPage from '../Pages/VendorPages/WorkHistoryPage'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -40,6 +41,7 @@ function VendorRouter() {
         <Route path='/bookings' element={vendorToken?<BookingPages/>:<LoginPage/>}/>
         <Route path='/upcomingEvents' element={vendorToken?<UpcomingEventsPage/>:<LoginPage/>}/>
         <Route path='/unpaidBookings' element={vendorToken?<UnpaidBookingsPage/>:<LoginPage/>}/>
+        <Route path='/workHistory' element={vendorToken?<WorkHistoryPage/>:<LoginPage/>}/>
       </Routes>
     </div>
 

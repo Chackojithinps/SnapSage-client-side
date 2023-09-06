@@ -10,6 +10,7 @@ function UpcomingEvents() {
     const [searchInput, setSearchInput] = useState("")
     const [BookingStatus, setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
+    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
     console.log("bookingLists : ", upcomingRequests)
 
@@ -20,11 +21,20 @@ function UpcomingEvents() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
-
+    
+    const handleFinish = async () => {
+        try {
+            const res = await axios.patch(`${VendorApi}/completeWork`,{},{
+                headers: {
+                    Authorization: `Bearer ${vendorToken}`
+                }
+            })
+        } catch (error) {
+            console.log("finished works : ",error.message)
+        }
+    }
     const getData = async () => {
         try {
-            const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
             const res = await axios.get(`${VendorApi}/upcomingEvents?search=${searchInput}`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
@@ -117,8 +127,8 @@ function UpcomingEvents() {
                                 <td className='px-12 text-green-500 font-bold'>
                                     {bookings.advanceAmount ? bookings.advanceAmount : 0}
                                 </td>
-                                <td className='px-8 cursor-pointer  text-green-500 font-bold ' >
-                                    <TaskAltSharpIcon style={{fontSize:'35px'}}/>
+                                <td className='px-8 cursor-pointer  text-green-500 font-bold '>
+                                    <TaskAltSharpIcon style={{fontSize:'35px'}} onClick={handleFinish}/>
                                 </td>
 
                             </tr>
