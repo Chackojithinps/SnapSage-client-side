@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 
 
 function WorkHistory() {
@@ -15,7 +14,7 @@ function WorkHistory() {
     function formatDate(inputDate) {
         const date = new Date(inputDate);
         const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
@@ -24,7 +23,7 @@ function WorkHistory() {
     const getData = async () => {
         try {
             const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-            const res = await axios.get(`${VendorApi}/upcomingEvents?search=${searchInput}`, {
+            const res = await axios.get(`${VendorApi}/workHistory?search=${searchInput}`, {
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }

@@ -25,7 +25,7 @@ function UpcomingEvents() {
     
     const handleFinish = async (id) => {
         try {
-            const res = await axios.patch(`${VendorApi}/finishedWork?id=${id}`,{},{
+            const res = await axios.patch(`${VendorApi}/finishWork?id=${id}`,{},{
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }
