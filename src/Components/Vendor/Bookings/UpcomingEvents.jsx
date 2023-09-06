@@ -3,6 +3,7 @@ import axios from 'axios'
 import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
+import { toast } from 'react-hot-toast';
 
 
 function UpcomingEvents() {
@@ -22,13 +23,18 @@ function UpcomingEvents() {
         return `${day}/${month}/${year}`;
     }
     
-    const handleFinish = async () => {
+    const handleFinish = async (id) => {
         try {
-            const res = await axios.patch(`${VendorApi}/completeWork`,{},{
+            const res = await axios.patch(`${VendorApi}/finishedWork?id=${id}`,{},{
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
                 }
             })
+            if(res.data.success){
+                toast.success("Successfully updated")
+            }else{
+                toast.error("not accepted")
+            }
         } catch (error) {
             console.log("finished works : ",error.message)
         }
@@ -128,7 +134,7 @@ function UpcomingEvents() {
                                     {bookings.advanceAmount ? bookings.advanceAmount : 0}
                                 </td>
                                 <td className='px-8 cursor-pointer  text-green-500 font-bold '>
-                                    <TaskAltSharpIcon style={{fontSize:'35px'}} onClick={handleFinish}/>
+                                    <TaskAltSharpIcon style={{fontSize:'35px'}} onClick={()=>handleFinish(bookings._id)}/>
                                 </td>
 
                             </tr>
