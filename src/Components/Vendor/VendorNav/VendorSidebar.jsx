@@ -123,6 +123,10 @@ function VendorSidebar() {
                 <KeyboardArrowRightIcon color="primary" />
                 Upcoming Events
               </li>
+              <li onClick={() => navigate('/vendor/unpaidBookings')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Unpaid Bookings
+              </li>
               <li onClick={() => navigate('/vendor/finishedEvents')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
                 <KeyboardArrowRightIcon color="primary" />
                 Finished Events

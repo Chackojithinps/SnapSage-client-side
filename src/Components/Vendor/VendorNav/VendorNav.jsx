@@ -49,14 +49,10 @@ function VendorNav() {
             <div className="flex gap-2 cursor-pointer">
 
               <img src={vendorData.profile} alt="" className=" w-[40px] object-cover h-[40px] rounded-full" />
-              {/* <ArrowDropDownIcon color="action" style={{ marginTop: '10px' }} /> */}
             <p className='mt-2 font-bold'>{vendorData.fname} {vendorData.lname}</p>
 
             </div>
             <button className="border border--500 py-2 px-5 bg-blue-500 rounded-[5px] me-10 text-white font-bold" onClick={handleLogout}>Logout</button>
-            {/* {dropdown?<div className='absoulte bg-red-500 w-[10rem] h-[3rem] right-14 top-[5rem]'>
-        <p>{vendorData.fname}</p>
-      </div>:""} */}
           </div>
         </div>
        
