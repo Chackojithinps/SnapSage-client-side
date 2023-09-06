@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-// import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
-// import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
+
 
 function UpcomingEvents() {
     const [upcomingRequests, setUpcomingRequests] = useState([])
@@ -19,9 +19,9 @@ function UpcomingEvents() {
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
-      }
+    }
 
-    
+
     const getData = async () => {
         try {
             const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
@@ -60,16 +60,18 @@ function UpcomingEvents() {
                 <table class="w-full border-collapse bg-gray text-left text-sm text-gray-500">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Studio</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class=" font-bold text-gray-900">Phone</th>
-                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">Booking Date</th>
-                            <th scope="col" class=" py-4 font-bold text-gray-900">View Profile</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
+                            {/* <th scope="col" class=" font-bold text-gray-900">Phone</th> */}
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900">Venue Place</th>
+                            <th scope="col" class="px-5 py-4 font-bold text-gray-900">Event Date</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900">View Profile</th>
+                            <th scope="col" class="px- py-4 font-bold text-gray-900">Total Amount</th>
 
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Amount Paid</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Finish</th>
 
 
                         </tr>
@@ -78,21 +80,13 @@ function UpcomingEvents() {
                         {upcomingRequests.map(bookings => (
                             <tr class="hover:bg-gray-50">
                                 <td class="flex gap-3 px-6 py-8 font-normal text-gray-900">
-                                    <div class="relative h-10 w-10">
-                                        <img
-                                            class="h-full w-full rounded-full object-cover object-center"
-                                            // src={`${bookings.image}`}
-                                            alt=""
-                                        />
-                                    </div>
+                                  
                                     <div class="text-sm">
-                                        <div class="font-medium text-gray-700">{bookings.name}</div>
-                                        <div class="text-gray-400">{bookings.email}</div>
+                                        <div class="font-medium  text-gray-700">{bookings.studio.companyName}</div>
+                                        <div class="font-medium text-gray-400">{bookings.studio.district}</div>
                                     </div>
                                 </td>
-                                {/* <td>
-                                    {bookings.place}
-                                </td> */}
+                              
 
                                 <td class="py-4">
                                     {bookings.categories.map((category) => (
@@ -107,21 +101,26 @@ function UpcomingEvents() {
                                 <td>
                                     {bookings.email}
                                 </td> */}
-                                <td className=''>
-                                    {bookings.phone}
+
+                                <td className='px-5'>
+                                    <p className=''>{bookings.district}, {bookings.city}</p>
                                 </td>
-                                <td className='px-10'>
-                                <p className=''>{formatDate(bookings.eventDate)}</p>
+                                <td className='px-5 font-bold'>
+                                    <p className=''>{formatDate(bookings.eventDate)}</p>
                                 </td>
-                                <td className=''>
+                                <td className='px-12'>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
                                 </td>
-                                <td className='px-10 text-red-500 font-bold ' >
+                                <td className='px-6 text-red-500 font-bold ' >
                                     {bookings.totalAmount}
                                 </td>
-                                <td className='px-10 text-green-500 font-bold'>
-                                    {bookings.advanceAmount?bookings.advanceAmount:0}
+                                <td className='px-12 text-green-500 font-bold'>
+                                    {bookings.advanceAmount ? bookings.advanceAmount : 0}
                                 </td>
+                                <td className='px-8 cursor-pointer  text-green-500 font-bold ' >
+                                    <TaskAltSharpIcon style={{fontSize:'35px'}}/>
+                                </td>
+
                             </tr>
                         ))}
                     </tbody>

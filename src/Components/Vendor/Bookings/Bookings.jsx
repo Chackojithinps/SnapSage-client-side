@@ -71,11 +71,10 @@ function Bookings() {
                     <thead class="bg-gray-100">
                         <tr>
                             <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
-                            {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
-                            {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class="px-2 font-bold text-gray-900">Phone</th>
-                            <th scope="col" class="px-9 py-4 font-bold text-gray-900">Booking Date</th>
+                            {/* <th scope="col" class="px-2 font-bold text-gray-900">Phone</th> */}
+                            <th scope="col" class="px-9 py-4 font-bold text-gray-900">Venue Place</th>
+                            <th scope="col" class="px-9 py-4 font-bold text-gray-900">Event Date</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
 
@@ -88,21 +87,13 @@ function Bookings() {
                         {bookingList.map(bookings => (
                             <tr class="hover:bg-gray-50">
                                 <td class="flex gap-3 px-6 py-8 font-normal text-gray-900">
-                                    <div class="relative h-10 w-10">
-                                        <img
-                                            class="h-full w-full rounded-full object-cover object-center"
-                                            // src={`${bookings.image}`}
-                                            alt=""
-                                        />
-                                    </div>
+                                   
                                     <div class="text-sm">
-                                        <div class="font-medium text-gray-700">{bookings.name}</div>
-                                        <div class="text-gray-400">{bookings.email}</div>
+                                        <div class=" text-gray-700">{bookings.studio.companyName}</div>
+                                        <div class= "text-gray-400">{bookings.studio.district}</div>
                                     </div>
                                 </td>
-                                {/* <td>
-                                    {bookings.place}
-                                </td> */}
+                                
 
                                 <td class="py-4">
                                     {bookings.categories.map((category) => (
@@ -113,22 +104,19 @@ function Bookings() {
 
                                     ))}
                                 </td>
-                                {/* 
-                                <td>
-                                    {bookings.email}
-                                </td> */}
-                                <td className='px-2'>
-                                    {bookings.phone}
+                                
+                                <td className='px-9'>
+                                   <p className=''>{bookings.district}, {bookings.city}</p>
                                 </td>
                                 <td className='px-9'>
-                                   <p className=''>{formatDate(bookings.eventDate)}</p>
+                                   <p className=' font-bold'>{formatDate(bookings.eventDate)}</p>
                                 </td>
-                                <td className='px-10'>
+                                <td className='px-8'>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
 
                                 </td>
-                                <td className='px-6'>
-                                    {bookings.totalAmount}
+                                <td className='px-10 text-red-500 font-bold'>
+                                   ₹ {bookings.totalAmount}
                                 </td>
                                 <td>
                                     <div className='flex gap-5 px-9'>

@@ -10,20 +10,20 @@ import axios from 'axios';
 import { UserApi } from '../../../Apis/UserApi';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
+function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
     // const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const [price, setPrice] = useState(false)
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [input, setInput] = useState()
-    var userToken = useSelector((state)=>state.user.userToken)
+    var userToken = useSelector((state) => state.user.userToken)
 
     // const [successMessage, setSuccessMessage] = useState(false)
-    const handlePrice=()=>{
-        if(!userToken){
+    const handlePrice = () => {
+        if (!userToken) {
             navigate('/login')
-        }else{
+        } else {
             setOpen(true)
         }
     }
@@ -50,12 +50,13 @@ function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
         try {
             const res = await axios.post(`${UserApi}/bookStudio`, {
                 studioId: studio._id,
-                name: input.name,
+                district:input.district,
+                city:input.city,
                 message: input.message,
                 email: input.email,
                 phone: input.phone,
                 eventDate: input.eventDate,
-                totalAmount:totalPrice,
+                totalAmount: totalPrice,
                 categories: selectedCategories.map((categoryId) => (
                     categoryId
                 ))
@@ -78,7 +79,7 @@ function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
 
     return (
         <>
-            <div className={`rounded-2xl px-7 py-7 w-[25rem] ${successMessage || open ?'opacity-70':'opacity-1'}  my-4 sticky top-16 right-5 ${price ? 'h-[38rem]' : 'h-[27rem]'}`} style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+            <div className={`rounded-2xl px-7 py-7 w-[25rem] ${successMessage || open ? 'opacity-70' : 'opacity-1'}  my-4 sticky top-16 right-5 ${price ? 'h-[38rem]' : 'h-[27rem]'}`} style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
 
                 <div className='flex flex-col gap-3'>
                     <p className='font-bold text-[25px]'>{studio.companyName}</p>
@@ -182,8 +183,10 @@ function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
                             <div>
                                 <textarea type='text' placeholder='Write your message' name='message' onChange={handleChange} className='border h-20 px-2 py-1 w-full outline-none rounded-[5px]' />
                             </div>
-                            <div>
-                                <input type='text' placeholder='Name and Surname' name='name' onChange={handleChange} className='border py-2 w-full px-2 rounded-[5px] outline-none' />
+                            <div className='flex gap-2'>
+                                <input type='text' placeholder='District' name='district' onChange={handleChange} className='border py-2 px-2 w-[18rem] rounded-[5px] outline-none' />
+                                <input type='text' placeholder='City' name='city' onChange={handleChange} className='border py-2 px-2 w-[18rem] rounded-[5px] outline-none' />
+                                {/* <input type='text' placeholder='Name and Surname' name='name' onChange={handleChange} className='border py-2 w-full px-2 rounded-[5px] outline-none' /> */}
                             </div>
                             <div className='flex gap-2 '>
                                 <input type='email' placeholder='Email' name='email' onChange={handleChange} className='border py-2 px-2 w-[18rem] rounded-[5px] outline-none' />
@@ -220,7 +223,7 @@ function Booking({ studio,open,setOpen,successMessage,setSuccessMessage }) {
 
                             </div>
                             <div className=' w-full flex justify-end py-3 bg-gray-100 rounded-xl'>
-                                <button className='me-5 border bg-white font-bold border-gray-300 py-2 px-5 rounded-[5px]' onClick={()=>setSuccessMessage(false)}>Cancel</button>
+                                <button className='me-5 border bg-white font-bold border-gray-300 py-2 px-5 rounded-[5px]' onClick={() => setSuccessMessage(false)}>Cancel</button>
                             </div>
                         </div>
                     </div> :

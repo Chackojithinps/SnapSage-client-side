@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-
+import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 function UnpaidBookings() {
     const [unpaidBookings, setunpaidBookings] = useState([])
     const [searchInput, setSearchInput] = useState("")
@@ -56,31 +56,27 @@ function UnpaidBookings() {
                 <table class="w-full border-collapse bg-gray text-left text-sm text-gray-500">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Studio</th>
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class=" font-bold text-gray-900">Phone</th>
-                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">Booking Date</th>
-                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">Event Date</th>
-                            <th scope="col" class=" py-4 font-bold text-gray-900">View Profile</th>
+                            <th scope="col" class="font-bold px-7 text-gray-900">Venue Place</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900">Booking Date</th>
+                            <th scope="col" class="px-5 py-4 font-bold text-gray-900">Event Date</th>
+                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Cancel</th>
+
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                         {unpaidBookings.map(bookings => (
                             <tr class="hover:bg-gray-50">
                                 <td class="flex gap-3 px-6 py-8 font-normal text-gray-900">
-                                    <div class="relative h-10 w-10">
-                                        <img
-                                            class="h-full w-full rounded-full object-cover object-center"
-                                            // src={`${bookings.image}`}
-                                            alt=""
-                                        />
-                                    </div>
+                                    
                                     <div class="text-sm">
-                                        <div class="font-medium text-gray-700">{bookings.name}</div>
-                                        <div class="text-gray-400">{bookings.email}</div>
+                                        <div class=" text-gray-700 font-medium">{bookings.studio.companyName}</div>
+                                        <div class="text-gray-400">{bookings.studio.district}</div>
                                     </div>
                                 </td>
                                 {/* <td>
@@ -101,19 +97,22 @@ function UnpaidBookings() {
                                     {bookings.email}
                                 </td> */}
                                 <td className=''>
-                                    {bookings.phone}
+                                {bookings.district}, {bookings.city}
                                 </td>
-                                <td className='px-10'>
+                                <td className='px-12'>
                                     <p className=''>{formatDate(bookings.eventDate)}</p>
                                 </td>
-                                <td className='px-10'>
-                                    <p className=''>{formatDate(bookings.eventDate)}</p>
+                                <td className='px-5'>
+                                    <p className='font-bold'>{formatDate(bookings.eventDate)}</p>
                                 </td>
-                                <td className=''>
+                                <td className='px-10'>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
                                 </td>
                                 <td className='px-10 text-red-500 font-bold ' >
                                     {bookings.totalAmount}
+                                </td>
+                                <td className='px-7 cursor-pointer  text-red-500 font-bold ' >
+                                    <CloseSharpIcon style={{fontSize:'35px'}}/>
                                 </td>
 
                             </tr>
