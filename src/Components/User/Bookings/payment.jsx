@@ -43,13 +43,14 @@ function Payment() {
 
     const handleSubmit = async(e) =>{
         e.preventDefault()
-        // console.log("etnetedd")
-        // if(setValidationMessage){
-        //    setOpen(true)
-        //    setTimeout(()=>{
-        //       setOpen(false)
-        //    },3000)
-        // }else{
+        console.log("etnetedd")
+        if(validationMessage){
+            console.log("errrrrrrrrrr")
+           setOpen(true)
+           setTimeout(()=>{
+              setOpen(false)
+           },3000)
+        }else{
             console.log("hello")
             const res = await axios.post(`${UserApi}/payment?id=${bookings._id}`,{
                 amount:amount
@@ -74,8 +75,7 @@ function Payment() {
                     handler: function (response) {
                         verifyPayment(response,bookings._id,amount);
                         console.log("response : ", response)
-                    },
-                  
+                    },                 
             }
             var rzp1 = new window.Razorpay(options);
             rzp1.open();
@@ -84,6 +84,7 @@ function Payment() {
                 console.log("Error happened")
             }
           }
+        }
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">

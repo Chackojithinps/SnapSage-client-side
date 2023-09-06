@@ -4,6 +4,7 @@ import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+import { toast } from 'react-hot-toast';
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
     const [searchInput, setSearchInput] = useState("")
@@ -21,6 +22,7 @@ function Bookings() {
             }
         })
         if (res.data.success) {
+            toast.success("Request Accepted")
             setBookingStatus(!BookingStatus)
         }
     }

@@ -11,6 +11,7 @@ import { adduserDetails, showProfile } from '../Store/userAuth'
 // import UserLogin from '../Components/User/UserLogin'
 import BookingsPage from '../Pages/UserPages/bookingsPage'
 import PaymentPages from '../Pages/UserPages/paymentPages'
+import BookingHistoryPage from '../Pages/UserPages/BookingHistoryPage'
 
 
 function UserRouter() {
@@ -39,6 +40,7 @@ function UserRouter() {
             <Route path='/studioDetails/:id' element={<StudiodetailsPage/>}/> 
             <Route path='/bookings' element={userToken?<BookingsPage/>:<UserLoginpage/>}/>
             <Route path='/payment' element={userToken?<PaymentPages/>:<UserLoginpage/>}/>
+            <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<UserLoginpage/>}/>
             
         </Routes>
     </div>

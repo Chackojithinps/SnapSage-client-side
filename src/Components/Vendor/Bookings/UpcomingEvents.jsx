@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 function UpcomingEvents() {
     const [upcomingRequests, setUpcomingRequests] = useState([])
     const [searchInput, setSearchInput] = useState("")
-    const [BookingStatus, setBookingStatus] = useState(false)
+    const [workStatus, setWorkStatus] = useState(false)
     const [message, setMessage] = useState("")
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
@@ -24,7 +24,7 @@ function UpcomingEvents() {
     }
     
     const handleFinish = async (id) => {
-        try {
+        try{
             const res = await axios.patch(`${VendorApi}/finishWork?id=${id}`,{},{
                 headers: {
                     Authorization: `Bearer ${vendorToken}`
@@ -32,10 +32,11 @@ function UpcomingEvents() {
             })
             if(res.data.success){
                 toast.success("Successfully updated")
+                setWorkStatus(true)
             }else{
                 toast.error("not accepted")
             }
-        } catch (error) {
+        }catch(error){
             console.log("finished works : ",error.message)
         }
     }
@@ -63,7 +64,7 @@ function UpcomingEvents() {
     }
     useEffect(() => {
         getData()
-    }, [searchInput, BookingStatus])
+    }, [searchInput, workStatus])
     return (
 
         <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
@@ -144,7 +145,7 @@ function UpcomingEvents() {
             </div>
                 :
                 <div className='w-full'>
-                    <p className='mt-5 text-center'>
+                    <p className='flex justify-center items-center text-center'>
                         {message}
                     </p>
                 </div>}
