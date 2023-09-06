@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { UserApi } from '../../../Apis/UserApi'
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
     const [loader,setLoader] =  useState(false)
-    // const [status,setStatus] = useState(false)
     const navigate = useNavigate()
     const profileOpen = useSelector((state)=>state.user.status)
     const handleUpload = async (e) => {

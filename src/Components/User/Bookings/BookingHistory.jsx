@@ -22,11 +22,11 @@ function BookingHistory() {
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
-      }
+    }
 
     const getBookingData = async () => {
         dispatch(showProfile({ status: !profileOpen }))
-        const res = await axios.get(`${UserApi}/bookingHistory`,{
+        const res = await axios.get(`${UserApi}/bookingHistory`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -64,7 +64,7 @@ function BookingHistory() {
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Venue place
                                     </p>
-                                    <p className=''>{bookings.studio.district},{bookings.studio.city}</p> 
+                                    <p className=''>{bookings.studio.district},{bookings.studio.city}</p>
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Event Date
                                     </p>
@@ -75,13 +75,13 @@ function BookingHistory() {
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Categories Selected
                                     </p>
-                                    
-                                    {bookings.categories.map((category)=>(
+
+                                    {bookings.categories.map((category) => (
                                         <p className="text-[15px] leading-relaxed">
-                                           {category.categoryId.categoryName}
+                                            {category.categoryId.categoryName}
                                         </p>
                                     ))}
-                                    
+
                                 </div>
                                 <div className='md:mx-16 w-[15rem] gap-1 flex flex-col'>
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
@@ -90,12 +90,12 @@ function BookingHistory() {
                                     <p className='mt-3 font-bold text-[]'>
                                         <span className='text-black'>Total Amount :</span> ₹ {bookings.totalAmount}
                                     </p>
-                                    <p className='font-bold'> Advance Paid :<span> ₹ {bookings.advanceAmount? bookings.advanceAmount : 0 }</span></p>
-                                    <p className='font-bold'>Total Paid : <span className='text-green-500 text-[21px]'>₹ {bookings.totalAmount }</span></p>
-                                    
-                                    
+                                    <p className='font-bold'> Advance Paid :<span> ₹ {bookings.advanceAmount ? bookings.advanceAmount : 0}</span></p>
+                                    <p className='font-bold'>Total Paid : <span className='text-green-500 text-[21px]'>₹ {bookings.totalAmount}</span></p>
+
+
                                 </div>
-                               
+
                             </div>
                             <div className="bg-blue-50 px-8 py-2 h-[5rem] md:max-w-[63rem]">
                                 <div className="sm:flex sm:justify-between">
@@ -103,7 +103,7 @@ function BookingHistory() {
                                         <div className="text-lg text-gray-700">
                                             <span className="text-gray-900 font-bold">196 km</span> from Dhaka
                                         </div>
-                                        
+
                                         <div className="flex items-center">
                                             <div className="flex">
                                                 <svg className="w-4 h-4 mx-px fill-current text-green-600"
@@ -142,12 +142,23 @@ function BookingHistory() {
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
-                               
+
                             </div>
                         </div>
                     </article>
+                    {
+                        profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+                            <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{ fontFamily: 'Noto Serif' }}>
+                                <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/profile')}>Profile</li>
+                                <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/bookings')}>Bookings</li>
+                                <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/bookingHistory')}>Booking History</li>
+                                <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
+
+                            </ul>
+                        </div>
+                    }
                 </section>
             ))}
         </>

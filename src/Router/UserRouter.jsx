@@ -20,10 +20,9 @@ function UserRouter() {
   console.log("userToken page : " ,userToken)
 
   useEffect(()=>{
-    dispatch(showProfile({status:true}))
+    dispatch(showProfile({status:false}))
 
     if(localStorage.getItem('token')){
-
        dispatch(adduserDetails({token: localStorage.getItem('token') }))
     }
   },[])
@@ -35,7 +34,6 @@ function UserRouter() {
             <Route path='/login' element={userToken?<UserHomepage/>:<UserLoginpage/>}/>
             <Route path='/register' element={userToken?<UserHomepage /> :<RegisterPage/>} />
             <Route path='/getotp' element={<UserotpPage/>} />
-            {/* <Route  path='/profile' element={userToken?<ProfilePage/>:navigate('/login')} /> */}
             <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
             <Route path='/studioDetails/:id' element={<StudiodetailsPage/>}/> 
             <Route path='/bookings' element={userToken?<BookingsPage/>:<UserLoginpage/>}/>

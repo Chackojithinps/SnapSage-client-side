@@ -17,6 +17,7 @@ function UserHome() {
   const userToken = useSelector((state)=>state.user.userToken)
   const profileOpen = useSelector((state)=>state.user.status)
   const dispatch = useDispatch()
+  
   const handleLogout =()=>{
     dispatch(userLogout())
     localStorage.removeItem("token")
@@ -39,7 +40,10 @@ function UserHome() {
      }
   }
   useEffect(()=>{
-     getProfile()
+    if(userToken){
+
+      getProfile()
+    }
   },[])
   return (
     <nav className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24" style={{ fontFamily: 'Noto Serif' }}>
@@ -85,8 +89,6 @@ function UserHome() {
           <p className="cursor-pointer text-red-500 hover:text-red-700" onClick={()=>navigate('/register')}>SIGN UP</p>
         </div>
       </div>:<div className="flex gap-10">
-        {/* <p className="uppercase text-red-500 font-bold">{userName}</p>
-        <button className="ms-10" onClick={handleLogout}>Logout</button> */}
          <div className="flex gap-2 cursor-pointer" onClick={handleProfileBar}>
             <img src={userData.image} alt="" className=" w-[40px] h-[40px] rounded-full"/>
             <ArrowDropDownIcon color="action" style={{marginTop:'10px'}}/>

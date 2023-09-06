@@ -18,6 +18,7 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [input, setInput] = useState()
     var userToken = useSelector((state) => state.user.userToken)
+    const profileOpen = useSelector((state)=>state.user.status)
 
     // const [successMessage, setSuccessMessage] = useState(false)
     const handlePrice = () => {
@@ -205,6 +206,17 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
                 <div>
                 </div>
             }
+             {
+          profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+             <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{fontFamily:'Noto Serif'}}>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/profile')}>Profile</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookings')}>Bookings</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookingHistory')}>Booking History</li>
+               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
+
+             </ul>
+          </div>
+        }
             {/* -----------------------------------------------------Modal2----------------------------------------- */}
 
             {
@@ -231,6 +243,7 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
 
                     </div>
             }
+
         </>
 
     )
