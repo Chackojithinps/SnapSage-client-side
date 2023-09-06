@@ -24,6 +24,15 @@ function Bookings() {
             setBookingStatus(!BookingStatus)
         }
     }
+
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+      
     const getData = async () => {
         try {
             const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`, {
@@ -112,7 +121,7 @@ function Bookings() {
                                     {bookings.phone}
                                 </td>
                                 <td className='px-9'>
-                                    {bookings.eventDate}
+                                   <p className=''>{formatDate(bookings.eventDate)}</p>
                                 </td>
                                 <td className='px-10'>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>

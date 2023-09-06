@@ -6,15 +6,13 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 function VendorSidebar() {
-  const [bookings,setBookings] = useState(false)
+  const [bookings, setBookings] = useState(false)
   const navigate = useNavigate();
-
   const [submenuStates, setSubmenuStates] = useState({
     profile: false,
     studio: false,
-    // Add more submenu keys if needed
   });
-
+ 
   const toggleSubmenu = (key) => {
     setSubmenuStates((prevStates) => ({
       ...prevStates,
@@ -101,7 +99,7 @@ function VendorSidebar() {
 
             </ul>
           )}
-         
+
 
           <li className="ms-2 cursor-pointer " onClick={() => setBookings(!bookings)}>
             <div className="flex items-center justify-between p-2 hover:bg-[#69b4d7]">

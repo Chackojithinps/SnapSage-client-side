@@ -13,12 +13,15 @@ function UpcomingEvents() {
 
     console.log("bookingLists : ", upcomingRequests)
 
-    const handleAccept = async (id) => {
-        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`)
-        if (res.data.success) {
-            setBookingStatus(!BookingStatus)
-        }
-    }
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+
+    
     const getData = async () => {
         try {
             const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
@@ -61,9 +64,9 @@ function UpcomingEvents() {
                             {/* <th scope="col" class="px-3py-4 font-bold text-gray-900">Place</th> */}
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-20 py-4 font-bold text-gray-900">Email</th> */}
-                            <th scope="col" class=" px-10 font-bold text-gray-900">Phone</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">Booking Date</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-gray-900">View Profile</th>
+                            <th scope="col" class=" font-bold text-gray-900">Phone</th>
+                            <th scope="col" class="px-8 py-4 font-bold text-gray-900">Booking Date</th>
+                            <th scope="col" class=" py-4 font-bold text-gray-900">View Profile</th>
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Total Amount</th>
 
                             <th scope="col" class="px-6 py-4 font-bold text-gray-900">Amount Paid</th>
@@ -104,19 +107,19 @@ function UpcomingEvents() {
                                 <td>
                                     {bookings.email}
                                 </td> */}
-                                <td className='px-10'>
+                                <td className=''>
                                     {bookings.phone}
                                 </td>
-                                <td className='px-7'>
-                                    {bookings.eventDate}
+                                <td className='px-10'>
+                                <p className=''>{formatDate(bookings.eventDate)}</p>
                                 </td>
-                                <td className='px-5'>
+                                <td className=''>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
                                 </td>
-                                <td className='px-6 text-red-500 font-bold ' >
+                                <td className='px-10 text-red-500 font-bold ' >
                                     {bookings.totalAmount}
                                 </td>
-                                <td className='px-6 text-green-500 font-bold'>
+                                <td className='px-10 text-green-500 font-bold'>
                                     {bookings.advanceAmount?bookings.advanceAmount:0}
                                 </td>
                             </tr>

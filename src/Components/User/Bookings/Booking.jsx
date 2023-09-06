@@ -16,6 +16,13 @@ function Booking() {
         navigate(`/payment`, { state: { bookings } });
     };
 
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based, so we add 1
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
 
     const getBookingData = async () => {
         dispatch(showProfile({ status: !profileOpen }))
@@ -64,7 +71,8 @@ function Booking() {
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Event Date
                                     </p>
-                                    <p className=''>{bookings.eventDate}</p> 
+                                    {/* <p className=''>{bookings.eventDate}</p>  */}
+                                    <p className=''>{formatDate(bookings.eventDate)}</p>
                                 </div>
                                 <div className='w-[10rem] flex flex-col'>
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
