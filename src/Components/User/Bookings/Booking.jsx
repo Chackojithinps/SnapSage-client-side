@@ -15,7 +15,6 @@ function Booking() {
     const goToPayment = (bookings) => {
         navigate(`/payment`, { state: { bookings } });
     };
-
     function formatDate(inputDate) {
         const date = new Date(inputDate);
         const day = date.getDate().toString().padStart(2, '0');
@@ -23,7 +22,6 @@ function Booking() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
     const getBookingData = async () => {
         dispatch(showProfile({ status: false }))
         const res = await axios.get(`${UserApi}/bookings`, {
@@ -42,9 +40,6 @@ function Booking() {
     }, [])
     return (
         <>
-
-
-
             <div className='mx-20 mt-10'>
                 <p className='text-[2rem] font-bold' style={{ fontFamily: 'Noto Serif' }}>MY BOOKINGS</p>
             </div>
@@ -145,11 +140,13 @@ function Booking() {
                                             </div>
                                         </div>
                                     </div>
-                                    {bookings.bookingStatus ?
+                                    {bookings.bookingStatus && !bookings.advanceAmount?
                                         <button className="mt-3 py-2 px-5 md:py-3 md:px-6 bg-purple-700 hover:bg-purple-600 font-bold text-white md:text-lg rounded-lg shadow-md"
                                             onClick={() => goToPayment(bookings)}>
                                             Pay Now
-                                        </button> : <div className='py-8'>
+                                        </button> : bookings.advanceAmount?<div className='py-8'>
+                                            <p>You can make balance payment directly with the vendor</p>
+                                        </div>:<div className='py-8'>
                                             <p>You can pay once your the vendor confirm your enquirey</p>
                                         </div>}
                                 </div>

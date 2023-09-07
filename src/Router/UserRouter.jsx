@@ -20,9 +20,7 @@ function UserRouter() {
   console.log("userToken page : " ,userToken)
 
   useEffect(()=>{
-    alert("hello")
     dispatch(showProfile({status:false}))
-    console.log("He99999999999999999999999999999999999999")
     if(localStorage.getItem('token')){
        dispatch(adduserDetails({token: localStorage.getItem('token') }))
     }
