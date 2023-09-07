@@ -14,9 +14,12 @@ function Bookings() {
 
     const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
-    const handleAccept = async (id) => {
+    const handleAccept = async (id,email) => {
         console.log("id : ", id)
-        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`, {}, {
+        console.log("email : email : ",email)
+        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`, {
+            email:email
+        }, {
             headers: {
                 Authorization: `Bearer ${vendorToken}`
             }
@@ -123,7 +126,7 @@ function Bookings() {
                                 <td>
                                     <div className='flex gap-5 px-9'>
 
-                                        <div className='cursor-pointer' onClick={() => handleAccept(bookings._id)}>
+                                        <div className='cursor-pointer' onClick={() => handleAccept(bookings._id,bookings.email)}>
                                             <TaskAltSharpIcon color='success' />
 
                                         </div>
