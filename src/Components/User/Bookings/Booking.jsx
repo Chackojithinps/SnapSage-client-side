@@ -25,7 +25,7 @@ function Booking() {
     }
 
     const getBookingData = async () => {
-        dispatch(showProfile({ status: !profileOpen }))
+        dispatch(showProfile({ status: false }))
         const res = await axios.get(`${UserApi}/bookings`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

@@ -1,15 +1,20 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { showProfile } from '../../../Store/userAuth';
 
 function SectionOne() {
+  const dispatch = useDispatch()
   const profileOpen = useSelector((state)=>state.user.status)
   console.log("status : ",profileOpen)
   const navigate = useNavigate()
+  useEffect(()=>{
+    dispatch(showProfile({ status: false }))
+  },[])
   return (
     <>
       <div className='flex flex-col-reverse md:flex-row md:h-[24rem] w-full overscroll-none'>
-        <div className='w-full md:w-[45%] flex border  items-center justify-center' style={{fontFamily:'Noto Serif'}}>
+        <div className='w-full md:w-[45%] flex   items-center justify-center' style={{fontFamily:'Noto Serif'}}>
           <div className='w-3/4 flex flex-col items-center justify-center md:justify-start md:items-start'>
             <p className='text-black my-5 text-center md:text-left font-bold text-2xl lg:text-3xl'>
               Discover everything you need to plan your big day

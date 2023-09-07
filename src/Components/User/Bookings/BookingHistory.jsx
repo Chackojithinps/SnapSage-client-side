@@ -12,9 +12,9 @@ function BookingHistory() {
     const navigate = useNavigate()
     const profileOpen = useSelector((state) => state.user.status)
 
-    const goToPayment = (bookings) => {
-        navigate(`/payment`, { state: { bookings } });
-    };
+    // const goToPayment = (bookings) => {
+    //     navigate(`/payment`, { state: { bookings } });
+    // };
 
     function formatDate(inputDate) {
         const date = new Date(inputDate);
@@ -25,7 +25,7 @@ function BookingHistory() {
     }
 
     const getBookingData = async () => {
-        dispatch(showProfile({ status: !profileOpen }))
+        dispatch(showProfile({ status: false }))
         const res = await axios.get(`${UserApi}/bookingHistory`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

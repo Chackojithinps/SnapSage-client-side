@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { showProfile } from '../../../Store/userAuth'
 
 
-function StudioImages({ studio ,open,successMessage}) {
-   
+function StudioImages({ studio, open, successMessage }) {
+   const dispatch = useDispatch()
+   useEffect(() => {
+      dispatch(showProfile({ status: false }))
+   }, [])
    return (
       <>
-         <div className={`flex ${open || successMessage?'inset-0 opacity-80':'opacity-1'}`}>
+         <div className={`flex ${open || successMessage ? 'inset-0 opacity-80' : 'opacity-1'}`}>
             <div className='w-[60rem] flex  -red-500 h-[27rem] ms-24 my-3'>
                <div className='w-[27rem]  -green-500 h-[27rem]'>
                   <img className='object-cover h-[27rem] rounded-tl-xl rounded-bl-xl' src={studio.images.images[0].photos[0]} alt='' />
@@ -26,14 +31,14 @@ function StudioImages({ studio ,open,successMessage}) {
                   </div>
                </div>
             </div>
-            
+
             {/* ----------------------------------------------Right side -------------------------------------------- */}
 
-            
+
 
 
          </div>
-     
+
       </>
    )
 }

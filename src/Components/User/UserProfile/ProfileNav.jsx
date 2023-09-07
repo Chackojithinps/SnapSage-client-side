@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { UserApi } from '../../../Apis/UserApi'
-import {useSelector } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { showProfile } from '../../../Store/userAuth'
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
     const [loader,setLoader] =  useState(false)
     const navigate = useNavigate()
     const profileOpen = useSelector((state)=>state.user.status)
+    const dispatch = useDispatch()
     const handleUpload = async (e) => {
         e.preventDefault();
         try {
@@ -32,6 +34,8 @@ function ProfileNav() {
     const getData = async () => {
         try {
             setLoader(true)
+        dispatch(showProfile({ status: false }))
+
             const res = await axios.get(`${UserApi}/profile`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
