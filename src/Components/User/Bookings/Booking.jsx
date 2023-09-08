@@ -15,6 +15,7 @@ function Booking() {
     const goToPayment = (bookings) => {
         navigate(`/payment`, { state: { bookings } });
     };
+    
     function formatDate(inputDate) {
         const date = new Date(inputDate);
         const day = date.getDate().toString().padStart(2, '0');

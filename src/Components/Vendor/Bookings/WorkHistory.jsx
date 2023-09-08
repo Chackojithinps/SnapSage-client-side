@@ -107,12 +107,11 @@ function WorkHistory() {
                                 <td className='px-12'>
                                     <button className='py-1 px-4 rounded-3xl bg-violet-500 text-white'>View</button>
                                 </td>
-                                <td className='px-8 text-[17px] text-green-500 font-bold ' >
+                                {bookings.advanceAmount?<td className='px-8 text-[17px] text-green-500 font-bold ' >
                                     ₹ {bookings.totalAmount}
-                                </td>
-                               
-                               
-
+                                </td>:<td className='px-8 text-[17px] text-green-500 font-bold ' >
+                                    ₹ Booking cancelled by vendor 
+                                </td>}
                             </tr>
                         ))}
                     </tbody>

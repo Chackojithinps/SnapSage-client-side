@@ -12,10 +12,6 @@ function BookingHistory() {
     const navigate = useNavigate()
     const profileOpen = useSelector((state) => state.user.status)
 
-    // const goToPayment = (bookings) => {
-    //     navigate(`/payment`, { state: { bookings } });
-    // };
-
     function formatDate(inputDate) {
         const date = new Date(inputDate);
         const day = date.getDate().toString().padStart(2, '0');
@@ -64,7 +60,7 @@ function BookingHistory() {
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Venue place
                                     </p>
-                                    <p className=''>{bookings.studio.district},{bookings.studio.city}</p>
+                                    <p className=''>{bookings.district},{bookings.city}</p>
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Event Date
                                     </p>
@@ -83,18 +79,28 @@ function BookingHistory() {
                                     ))}
 
                                 </div>
-                                <div className='md:mx-16 w-[15rem] gap-1 flex flex-col'>
-                                    <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
-                                        Payment
-                                    </p>
-                                    <p className='mt-3 font-bold text-[]'>
-                                        <span className='text-black'>Total Amount :</span> ₹ {bookings.totalAmount}
-                                    </p>
-                                    <p className='font-bold'> Advance Paid :<span> ₹ {bookings.advanceAmount ? bookings.advanceAmount : 0}</span></p>
-                                    <p className='font-bold'>Total Paid : <span className='text-green-500 text-[21px]'>₹ {bookings.totalAmount}</span></p>
+                                {
+                                    !bookings.isCancelled ? <div className='md:mx-16 w-[15rem] gap-1 flex flex-col'>
+                                        <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
+                                            Payment
+                                        </p>
+                                        <p className='mt-3 font-bold text-[]'>
+                                            <span className='text-black'>Total Amount :</span> ₹ {bookings.totalAmount}
+                                        </p>
+                                        <p className='font-bold'> Advance Paid :<span> ₹ {bookings.advanceAmount ? bookings.advanceAmount : 0}</span></p>
+                                        <p className='font-bold'>Total Paid : <span className='text-green-500 text-[21px]'>₹ {bookings.totalAmount}</span></p>
 
 
-                                </div>
+                                    </div> : <div className='md:mx-16 w-[15rem] gap-1 flex flex-col'>
+                                        <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
+                                            Payment
+                                        </p>
+                                        <p className='mt-3 font-bold text-[]'>
+                                            <span className='text-black'>Total Amount :</span> ₹ {bookings.totalAmount}
+                                        </p>
+                                    </div>
+                                }
+
 
                             </div>
                             <div className="bg-blue-50 px-8 py-2 h-[5rem] md:max-w-[63rem]">
@@ -142,7 +148,11 @@ function BookingHistory() {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {bookings.isCancelled && 
+                                    <div className='py-8'>
+                                            <p>This Booking cancelled By vendor</p>
+                                    </div>
+                                    }
                                 </div>
 
                             </div>

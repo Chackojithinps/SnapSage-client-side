@@ -47,8 +47,8 @@ function UserRegister() {
 
   return (
     <>
-
-      <section className='w-full h-screen bg-no-repeat bg-cover bg-center py-40 sm:py-52 flex' style={{ backgroundImage: 'url(https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg)' }}>
+{/* https://www.wta.org/site_images/16126140646_fe2921feb8_k.jpg */}
+      <section className='w-full h-screen bg-no-repeat bg-cover bg-center py-40 sm:py-52 flex' style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1519379169146-d4b170447caa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHx8&w=1000&q=80)' }}>
         <div className='absolute top-3 right-10 '>
           <button className='font-bold border-2 border-green-300 py-1 px-2 w-20 cursor-pointer rounded-3xl' onClick={() => navigate('/login')}>Login</button>
         </div>
@@ -58,7 +58,7 @@ function UserRegister() {
 
           </div>
           <div className='flex gap-4'>
-            <input type='text' placeholder='First Name *' name='firstname' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full  md:w-80' />
+            <input type='text' placeholder='First Name *' name='firstname' required onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full  md:w-80' />
             <input type='text' placeholder='Last Name *' name='lastname' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />
           </div>
           <div className='flex gap-4 my-3'>
@@ -70,7 +70,7 @@ function UserRegister() {
             <input type='password' placeholder='Confirm Password *' name='confirmpass' onChange={handleChange} className={`py-2 px-2 ${passMessage ? 'outline-red-600' : 'outline-green-200'} rounded  w-full sm:w-80`} />
 
           </div>
-          <p className='text-red-600'>{passMessage}</p>
+          <p className='text-red-600 font-bold'>{passMessage}</p>
 
           <div className='w-full md:w-[41rem] sm:flex  gap-4 my-8 '>
             <div className='my-2'>
