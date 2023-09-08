@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import { toast } from 'react-hot-toast';
+import { vendorAxiosInstance } from '../../../Utils/Axios';
 
 
 function UpcomingEvents() {
@@ -11,9 +10,7 @@ function UpcomingEvents() {
     const [searchInput, setSearchInput] = useState("")
     const [workStatus, setWorkStatus] = useState(false)
     const [message, setMessage] = useState("")
-    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
-    console.log("bookingLists : ", upcomingRequests)
 
     function formatDate(inputDate) {
         const date = new Date(inputDate);
@@ -25,11 +22,7 @@ function UpcomingEvents() {
     
     const handleFinish = async (id) => {
         try{
-            const res = await axios.patch(`${VendorApi}/finishWork?id=${id}`,{},{
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.patch(`/finishWork?id=${id}`,{})
             if(res.data.success){
                 toast.success("Successfully updated")
                 setWorkStatus(true)
@@ -42,11 +35,7 @@ function UpcomingEvents() {
     }
     const getData = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/upcomingEvents?search=${searchInput}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.get(`/upcomingEvents?search=${searchInput}`)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)

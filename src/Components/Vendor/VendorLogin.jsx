@@ -2,24 +2,26 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import toast from "react-hot-toast";
-import axios from "axios";
-import { VendorApi } from "../../Apis/UserApi";
 import { addvendorDetails } from "../../Store/vendorAuth";
+import { vendorAxiosInstance } from "../../Utils/Axios";
+
 function VendorLogin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [checked, setCheckbox] = useState(false);
   const [loader,setLoader] = useState(false)
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
 
   // -------------------------------------------HandleSubmit Funciton ------------------------->
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (checked) {
         setLoader(true)
-        const res = await axios.post(`${VendorApi}/login`, {
+        const res = await vendorAxiosInstance.post(`/login`, {
           email: email,
           password: password,
         });
@@ -27,11 +29,8 @@ function VendorLogin() {
         if (res.status === 200){
           console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
-          localStorage.setItem("vendorDetails", JSON.stringify({
-            vendorToken: res.data.vendorDetail.token,
-            vendorNameName: res.data.vendorDetail.userName
-          }));
-          dispatch(addvendorDetails({ name: res.data.vendorDetail.userName, token: res.data.vendorDetail.token }))
+          localStorage.setItem("vendorToken",res.data.vendorDetail.token);
+          dispatch(addvendorDetails({token: res.data.vendorDetail.token }))
           navigate("/vendor");
         } else {
           toast.error(res.data.message);
@@ -44,7 +43,6 @@ function VendorLogin() {
       toast.error("Something went wrong");
     }
   };
-  const navigate = useNavigate();
   return (
     <>
       {!loader?<div

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import VendorSidebar from "../VendorNav/VendorSidebar";
-import { VendorApi } from "../../../Apis/UserApi";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import axios from 'axios'
 import { toast } from "react-hot-toast";
+import { vendorAxiosInstance } from "../../../Utils/Axios";
 function AddPhotos() {
     const [studios, setStudios] = useState([])
 
@@ -15,7 +14,6 @@ function AddPhotos() {
     const [loader, setLoader] = useState(false)
     const [imageLoader, setImageLoader] = useState(false)
     const [imageRefresh,setImageRefresh] =useState(false)
-    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
     console.log("selectedCategories : ", selectedCategories)
     console.log("selectedStudio : ", selectedStudio)
     console.log("studios : ", studios)
@@ -24,12 +22,7 @@ function AddPhotos() {
     const getImagesByCategory = async (studioId) => {
         try {
             setImageLoader(true)
-            const res = await axios.get(`${VendorApi}/getStudioImages?id=${studioId}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`,
-                    'Content-Type': 'multipart/form-data'
-                },
-            })
+            const res = await vendorAxiosInstance.get(`/getStudioImages?id=${studioId}`)
             setImageLoader(false)
             if (res.data.success) {
                 console.log("this is res.data :", res.data)
@@ -83,12 +76,14 @@ function AddPhotos() {
                     formData.append('file', file);
                 }
             }
-            const res = await axios.post(`${VendorApi}/uploadStudioimg`, formData, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`,
-                    'Content-Type': 'multipart/form-data'
-                },
-            });
+            const res = await vendorAxiosInstance.post(`/uploadStudioimg`, formData
+            //  {
+            //     headers: {
+            //         Authorization: `Bearer ${vendorToken}`,
+            //         'Content-Type': 'multipart/form-data'
+            //     },
+            // }
+            );
 
             console.log("Response from backend: ", res.data);
             if (res.data.success) {
@@ -117,12 +112,7 @@ function AddPhotos() {
     const getStudios = async () => {
 
         try {
-            const res = await axios.get(`${VendorApi}/getStudios`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                },
-
-            })
+            const res = await vendorAxiosInstance.get(`/getStudios`)
             if (res.status === 200) {
                 setStudios(res.data.studioDatas)
 
@@ -138,12 +128,7 @@ function AddPhotos() {
     const getCategories = async () => {
         try {
             setLoader(true)
-            const res = await axios.get(`${VendorApi}/getimageCategories?id=${selectedStudio}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                },
-            })
-            console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+            const res = await vendorAxiosInstance.get(`/getimageCategories?id=${selectedStudio}`)
             setLoader(false)
             if (res.status === 200) {
                 console.log(res.data.categoryDatas)

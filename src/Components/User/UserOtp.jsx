@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import toast from 'react-hot-toast'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { userAxiosInstance } from '../../Utils/Axios';
 
 function UserOtp() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -23,7 +23,7 @@ function UserOtp() {
     e.preventDefault();
     const enteredOTP = otp.join(''); // Concatenate all the values from the otp state array
     console.log('Entered OTP:', enteredOTP);
-    const res= await axios.post("http://localhost:5000/verifyOtp",{
+    const res= await userAxiosInstance.post("/verifyOtp",{
         otp:enteredOTP,
         userData:userData
     })

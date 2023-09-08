@@ -3,8 +3,8 @@ import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import axios from 'axios'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import { AdminApi } from '../../../Apis/UserApi'
 import { toast } from 'react-hot-toast';
+import { AdminApi } from '../../../Utils/Api';
 
 function StudioUnvarified() {
     const [studios,setStudios] = useState([])

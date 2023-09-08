@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { vendorLogout } from '../../../Store/vendorAuth'
-import { VendorApi } from '../../../Apis/UserApi';
-import axios from 'axios';
+import { vendorAxiosInstance } from '../../../Utils/Axios';
 
 function VendorNav() {
-
   const [vendorData, setVendorData] = useState({})
   const dispatch = useDispatch()
-  const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
   // ------------------------------------- HandleLogout---------------------------------
   const handleLogout = () => {
     dispatch(vendorLogout())
-    localStorage.removeItem("vendorDetails")
+    localStorage.removeItem("vendorToken")
   }
   // ------------------------------------- getProfile---------------------------------
-
   const getProfile = async () => {
-    const res = await axios.get(`${VendorApi}/profile`, {
-      headers: {
-        Authorization: `Bearer ${vendorToken}`
-    }
-    })
+    const res = await vendorAxiosInstance.get(`/profile`)
     if (res.data.success) {
       console.log("userDetail : ", res.data.vendorDetail)
       setVendorData(res.data.vendorDetail)

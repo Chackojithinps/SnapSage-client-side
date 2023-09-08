@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { toast } from 'react-hot-toast';
+import { vendorAxiosInstance } from '../../../Utils/Axios';
 function UnpaidBookings() {
     const [unpaidBookings, setunpaidBookings] = useState([])
     const [searchInput, setSearchInput] = useState("")
     const [message, setMessage] = useState("")
     const [status,setStatus] = useState(false)
-    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
 
     console.log("bookingLists : ", unpaidBookings)
 
@@ -20,15 +18,12 @@ function UnpaidBookings() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-    const handleRejectUnpaid = async (id) => {
+    const handleRejectUnpaid = async (id,studio,email) => {
         try {
             setStatus(!status)
-            const res = await axios.post(`${VendorApi}/rejectUnpaiduser?id=${id}`,{
-               
-            }, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
+            const res = await vendorAxiosInstance.post(`/rejectUnpaiduser?id=${id}`,{
+               studio,
+               email
             })
             if (res.data.success) {
 
@@ -42,11 +37,7 @@ function UnpaidBookings() {
     }
     const getData = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/unpaidBookings?search=${searchInput}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.get(`/unpaidBookings?search=${searchInput}`)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)
@@ -133,7 +124,7 @@ function UnpaidBookings() {
                                     {bookings.totalAmount}
                                 </td>
                                 <td className='px-7 cursor-pointer  text-red-500 font-bold'>
-                                    <CloseSharpIcon style={{ fontSize: '35px' }} onClick={()=>handleRejectUnpaid(bookings._id)} />
+                                    <CloseSharpIcon style={{ fontSize: '35px' }} onClick={()=>handleRejectUnpaid(bookings._id,bookings.studio.companyName,bookings.email)} />
                                 </td>
                             </tr>
                         ))}

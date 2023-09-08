@@ -1,26 +1,18 @@
 import React from 'react'
 import VendorSidebar from '../VendorNav/VendorSidebar'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { VendorApi } from '../../../Apis/UserApi'
+import { vendorAxiosInstance } from '../../../Utils/Axios'
 function VendorProfile() {
   const [file, setFile] = useState()
   const [img, setImg] = useState(false)
   const [userData, setUserData] = useState({})
-  // console.log("userData : ", userData)
   const [loader, setLoader] = useState(false)
   const handleUpload = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-      const res = await axios.post(`${VendorApi}/upload`, formData, {
-        headers: {
-          Authorization: `Bearer ${vendorToken}`
-        }
-      });
-
+      const res = await vendorAxiosInstance.post(`/upload`, formData);
       if (res.status === 200) {
         setImg(!img)
         console.log("______________________________")
@@ -34,14 +26,8 @@ function VendorProfile() {
 
   const getData = async () => {
     try {
-      const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-      console.log("retrieved token is : ", vendorToken)
       setLoader(true)
-      const res = await axios.get(`${VendorApi}/profile`, {
-        headers: {
-          Authorization: `Bearer ${vendorToken}`
-        }
-      })
+      const res = await vendorAxiosInstance.get(`/profile`)
       setLoader(false)
       if (res.data.success) {
         console.log("userDetaisln infdjf ", res.data.vendorDetail)

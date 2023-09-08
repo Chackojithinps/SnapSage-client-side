@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { AdminApi } from '../../../Apis/UserApi'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast } from 'react-hot-toast';
 
 import { Fragment, useRef } from 'react'
+import { AdminApi } from '../../../Utils/Api';
 
 
 function VendorVerify() {

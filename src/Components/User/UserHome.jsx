@@ -6,11 +6,10 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { showProfile, userLogout } from "../../Store/userAuth";
-import axios from "axios";
-import { UserApi } from "../../Apis/UserApi";
+import { userAxiosInstance } from "../../Utils/Axios";
+
 
 function UserHome() {
-  
   const [open,setOpen] = useState(false)
   const [userData,setUserData] = useState({})
   const navigate = useNavigate()
@@ -29,11 +28,7 @@ function UserHome() {
   }
 
   const getProfile = async() =>{
-     const res = await axios.get(`${UserApi}/getProfileData`,{
-      headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-  })
+     const res = await userAxiosInstance.get(`/getProfileData`)
      if(res.data.success){
       console.log("userDetail : ",res.data.userDetail)
          setUserData(res.data.userDetail)

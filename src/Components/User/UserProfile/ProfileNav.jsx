@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { UserApi } from '../../../Apis/UserApi'
-import {useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { showProfile } from '../../../Store/userAuth'
+import { userAxiosInstance } from '../../../Utils/Axios'
+
 function ProfileNav() {
     const [file, setFile] = useState()
     const [userData, setUserData] = useState({})
-    const [loader,setLoader] =  useState(false)
+    const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
-    const profileOpen = useSelector((state)=>state.user.status)
+    const profileOpen = useSelector((state) => state.user.status)
     const dispatch = useDispatch()
     const handleUpload = async (e) => {
         e.preventDefault();
@@ -17,12 +17,7 @@ function ProfileNav() {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await axios.post(`${UserApi}/upload`, formData, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-
+            const res = await userAxiosInstance.post(`/upload`, formData);
             if (res.data.success) {
                 setUserData({ ...userData, image: res.data.img }); // Corrected syntax here
             }
@@ -34,13 +29,8 @@ function ProfileNav() {
     const getData = async () => {
         try {
             setLoader(true)
-        dispatch(showProfile({ status: false }))
-
-            const res = await axios.get(`${UserApi}/profile`,{
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
+            dispatch(showProfile({ status: false }))
+            const res = await userAxiosInstance.get(`/profile`)
             setLoader(false)
             if (res.data.success) {
                 console.log("userDetaisln infdjf ", res.data.userDetail)
@@ -54,87 +44,87 @@ function ProfileNav() {
         }
     }
     useEffect(() => {
-        console.log("EERjerwkljfsfksdfsd")
         getData()
     }, [])
+
     return (
         <>
-        {!loader?
-            <div className='flex py-10 gap-10 justify-center bg-no-repeat h-[35rem] bg-cover bg-center ' style={{ fontFamily: 'Noto Serif' }}>
+            {!loader ?
+                <div className='flex py-10 gap-10 justify-center bg-no-repeat h-[35rem] bg-cover bg-center ' style={{ fontFamily: 'Noto Serif' }}>
 
-                <div className='md:w-[20rem] flex flex-col  rounded-3xl bg-white  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
-                    <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
-                        {userData.image?<img
-                            src={`${userData.image}`}
-                            className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
-                            alt=''
-                        />:<img
-                        src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
-                        className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
-                        alt='' />}
-                        <label className="absolute inset-0 flex items-center justify-center bg-transparent text-white cursor-pointer opacity-0 hover:opacity-100">
-                            <input
-                                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                                type="file"
-                                name="file"
-                                onChange={(e) => setFile(e.target.files[0])}
-                            />
-                            Change Photo
-                        </label>
+                    <div className='md:w-[20rem] flex flex-col  rounded-3xl bg-white  items-center' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+                        <div className='border h-[12rem] w-[12rem] relative rounded-full my-6'>
+                            {userData.image ? <img
+                                src={`${userData.image}`}
+                                className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
+                                alt=''
+                            /> : <img
+                                src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+                                className='mx-auto h-[12rem] w-[12rem] object-cover rounded-full cursor-pointer'
+                                alt='' />}
+                            <label className="absolute inset-0 flex items-center justify-center bg-transparent text-white cursor-pointer opacity-0 hover:opacity-100">
+                                <input
+                                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                                    type="file"
+                                    name="file"
+                                    onChange={(e) => setFile(e.target.files[0])}
+                                />
+                                Change Photo
+                            </label>
+                        </div>
+                        <button className='my-5 border w-[10rem] rounded-[3px] border-gray-500 py-1 px-3 hover:bg-red-500 ' onClick={handleUpload}>Upload Photo</button>
+
+                        <p className='text-2xl my-5 font-bold' >{userData.fname} {userData.lname}</p>
                     </div>
-                    <button className='my-5 border w-[10rem] rounded-[3px] border-gray-500 py-1 px-3 hover:bg-red-500 ' onClick={handleUpload}>Upload Photo</button>
-
-                    <p className='text-2xl my-5 font-bold' >{userData.fname} {userData.lname}</p>
-                </div>
 
 
 
 
-                {/* Right Side------------------------------------------- */}
+                    {/* Right Side------------------------------------------- */}
 
-                <div className=' flex flex-col items-center w-[50rem] px-10 rounded-3xl bg-white' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
-                    <h1 className='text-3xl my-4'>My Profile</h1>
-                    <p className='text-gray-500 my-2 text-[15px]'>Look all your info, you could customize your profile.</p>
+                    <div className=' flex flex-col items-center w-[50rem] px-10 rounded-3xl bg-white' style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+                        <h1 className='text-3xl my-4'>My Profile</h1>
+                        <p className='text-gray-500 my-2 text-[15px]'>Look all your info, you could customize your profile.</p>
 
-                    <div className='grid grid-cols-2 my-12 md:grid-cols-3 gap-5'>
-                        <div>
-                            <p className='text-red-700'>First Name </p>
-                            <p className='font-bold my-2'>{userData.fname}</p>
+                        <div className='grid grid-cols-2 my-12 md:grid-cols-3 gap-5'>
+                            <div>
+                                <p className='text-red-700'>First Name </p>
+                                <p className='font-bold my-2'>{userData.fname}</p>
+                            </div>
+                            <div>
+                                <p className='text-red-700'>Last Name </p>
+                                <p className='font-bold my-2'>{userData.lname}</p>
+                            </div>
+                            <div>
+                                <p className='text-red-700'>Email </p>
+                                <p className='font-bold my-2' >{userData.email}</p>
+                            </div>
+                            <div>
+                                <p className='text-red-700'>Phone Number</p>
+                                <p className='font-bold my-2'>{userData.phone}</p>
+                            </div>
                         </div>
-                        <div>
-                            <p className='text-red-700'>Last Name </p>
-                            <p className='font-bold my-2'>{userData.lname}</p>
-                        </div>
-                        <div>
-                            <p className='text-red-700'>Email </p>
-                            <p className='font-bold my-2' >{userData.email}</p>
-                        </div>
-                        <div>
-                            <p className='text-red-700'>Phone Number</p>
-                            <p className='font-bold my-2'>{userData.phone}</p>
-                        </div>
+                        <button className='border border-gray-500 py-2 px-4 rounded  bg-green-700 text-white'>Edit Profile</button>
                     </div>
-                    <button className='border border-gray-500 py-2 px-4 rounded  bg-green-700 text-white'>Edit Profile</button>
                 </div>
-            </div>
-            // :<div className='w-full h-[35rem]   flex justify-center items-center'>
-            // <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
-            // </div>}
-            : <div class="w-full h-[35rem] flex justify-center items-center">
-            <div class="rounded-full h-20 w-20 bg-violet-800 animate-ping"></div>
-          </div>}
+                // :<div className='w-full h-[35rem]   flex justify-center items-center'>
+                // <img className='w-[20rem]' src='https://cdn.dribbble.com/users/2233427/screenshots/4870342/__.gif' alt='' />
+                // </div>}
+                : <div class="w-full h-[35rem] flex justify-center items-center">
+                    <div class="rounded-full h-20 w-20 bg-violet-800 animate-ping"></div>
+                </div>}
 
-          {
-          profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
-             <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{fontFamily:'Noto Serif'}}>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/profile')}>Profile</li>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookings')}>Bookings</li>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={()=>navigate('/bookingHistory')}>Booking History</li>
-               <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
+            {
+                profileOpen && <div className="bg-white absolute top-[6rem] right-[8rem] w-[15rem] h-[20rem]" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} >
+                    <ul className='flex flex-col py-4 px-4 rounded-[5px] ' style={{ fontFamily: 'Noto Serif' }}>
+                        <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/profile')}>Profile</li>
+                        <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/bookings')}>Bookings</li>
+                        <li className='cursor-pointer py-3 px-3 hover:bg-gray-300' onClick={() => navigate('/bookingHistory')}>Booking History</li>
+                        <li className='cursor-pointer py-3 px-3 hover:bg-gray-300'>Logout</li>
 
-             </ul>
-          </div>
-        }
+                    </ul>
+                </div>
+            }
         </>
     )
 }

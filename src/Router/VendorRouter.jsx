@@ -17,13 +17,15 @@ import WorkHistoryPage from '../Pages/VendorPages/WorkHistoryPage'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
-     const vendorDetails = JSON.parse(localStorage.getItem('vendorDetails'))
-     if(vendorDetails){
-        console.log("vendorDetails: " ,vendorDetails)
-        dispatch(addvendorDetails({ name: vendorDetails.vendorName, token:vendorDetails.vendorToken }))
+     const vendorToken = localStorage.getItem('vendorToken')
+     console.log("vendorDetailsssssssssssssssssssssssssssssss: " ,vendorToken)
+
+     if(vendorToken){
+        // console.log("vendorDetailsssssssssssssssssssssssssssssss: " ,vendorDetails)
+        dispatch(addvendorDetails({token:vendorToken}))
      }
   },[])
-  
+
   const vendorToken = useSelector((state)=>state.vendor.vendorToken)
   console.log("vendorToken : ",vendorToken)
 

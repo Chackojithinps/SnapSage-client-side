@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { AdminApi } from '../../../Apis/UserApi'
+import { AdminApi } from '../../../Utils/Api'
 
 function VendorLists() {
     const [vendorList, setVendorList] = useState([])

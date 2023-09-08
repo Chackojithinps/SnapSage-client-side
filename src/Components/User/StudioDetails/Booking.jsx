@@ -6,10 +6,10 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import axios from 'axios';
-import { UserApi } from '../../../Apis/UserApi';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { userAxiosInstance } from '../../../Utils/Axios';
+
 function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
     // const [open, setOpen] = useState(false)
     const navigate = useNavigate()
@@ -49,7 +49,7 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
     }
     const handleSubmit = async () => {
         try {
-            const res = await axios.post(`${UserApi}/bookStudio`, {
+            const res = await userAxiosInstance.post(`/bookStudio`, {
                 studioId: studio._id,
                 district:input.district,
                 city:input.city,
@@ -62,10 +62,6 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
                     categoryId
                 ))
 
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
             })
             if (res.data.success) {
                 //  toast.success("Request sent successfull")

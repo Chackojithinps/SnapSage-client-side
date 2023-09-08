@@ -1,9 +1,9 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { UserApi } from '../../../Apis/UserApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { showProfile } from '../../../Store/userAuth'
 import { useNavigate } from 'react-router-dom'
+import { UserApi } from '../../../Utils/Api'
+import { userAxiosInstance } from '../../../Utils/Axios'
 
 function BookingHistory() {
     const [bookingList, setBookingList] = useState([])
@@ -22,7 +22,7 @@ function BookingHistory() {
 
     const getBookingData = async () => {
         dispatch(showProfile({ status: false }))
-        const res = await axios.get(`${UserApi}/bookingHistory`, {
+        const res = await userAxiosInstance.get(`${UserApi}/bookingHistory`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

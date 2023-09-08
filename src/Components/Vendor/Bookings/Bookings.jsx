@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { toast } from 'react-hot-toast';
+import { vendorAxiosInstance } from '../../../Utils/Axios';
+
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
     const [searchInput, setSearchInput] = useState("")
     const [BookingStatus, setBookingStatus] = useState(false)
     const [message, setMessage] = useState("")
     console.log("bookingLists : ", bookingList)
-
-    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-
     const handleAccept = async (id,email) => {
         console.log("id : ", id)
         console.log("email : email : ",email)
-        const res = await axios.patch(`${VendorApi}/acceptBooking?id=${id}`, {
+        const res = await vendorAxiosInstance.patch(`acceptBooking?id=${id}`, {
             email:email
-        }, {
-            headers: {
-                Authorization: `Bearer ${vendorToken}`
-            }
-        })
+        },)
         if (res.data.success) {
             toast.success("Request Accepted")
             setBookingStatus(!BookingStatus)
@@ -40,11 +33,7 @@ function Bookings() {
       
     const getData = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/bookings?search=${searchInput}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.get(`/bookings?search=${searchInput}`)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)

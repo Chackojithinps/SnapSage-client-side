@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
-import { UserApi } from '../../Apis/UserApi'
-import axios from 'axios'
 import { adduserDetails } from '../../Store/userAuth'
+import { UserApi } from '../../Utils/Api'
+import { userAxiosInstance } from '../../Utils/Axios'
 function UserLogin() {
   console.log("Entered login for trying")
 
@@ -19,13 +19,12 @@ function UserLogin() {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await axios.post(`${UserApi}/login`, {
+        const res = await userAxiosInstance.post(`/login`, {
           email: email,
           password: password
         });
 
-        if (res.status === 200) {
-
+        if (res.status === 200){
           console.log("Data passing from login backend : ", res.data)
           localStorage.setItem("token", res.data.userDetail.token)
           dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token }))

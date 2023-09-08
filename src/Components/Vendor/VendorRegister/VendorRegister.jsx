@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { VendorApi } from '../../../Apis/UserApi'
+import { VendorApi } from '../../../Utils/Api'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,7 +22,6 @@ function VendorRegister() {
     try {
       if (isChecked) {
         if (input.password === input.confirmpass) {
-          console.log("Helooooooooooooooooooo")
            const formData = new FormData();
            formData.append("fname",input.firstname)
            formData.append("lname",input.lastname)
@@ -49,7 +48,7 @@ function VendorRegister() {
           if (res) {
             console.log("response otp : ", res.data)
             //  toast.success(res.data.message)
-            navigate('/vendor/getotp')
+            navigate('/vendor/login')
           }
         } else {
           setPassMessage("password doesn't match")

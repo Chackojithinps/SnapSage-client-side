@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { VendorApi } from '../../../Apis/UserApi'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { vendorAxiosInstance } from '../../../Utils/Axios';
 
 
 function WorkHistory() {
@@ -22,12 +21,7 @@ function WorkHistory() {
 
     const getData = async () => {
         try {
-            const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
-            const res = await axios.get(`${VendorApi}/workHistory?search=${searchInput}`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.get(`/workHistory?search=${searchInput}`)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)
@@ -93,10 +87,6 @@ function WorkHistory() {
 
                                     ))}
                                 </td>
-                                {/* 
-                                <td>
-                                    {bookings.email}
-                                </td> */}
 
                                 <td className='px-5'>
                                     <p className=''>{bookings.district}, {bookings.city}</p>

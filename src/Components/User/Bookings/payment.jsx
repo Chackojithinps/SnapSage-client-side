@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import { UserApi } from '../../../Apis/UserApi';
 import { toast } from 'react-hot-toast';
+import { userAxiosInstance } from '../../../Utils/Axios';
 
 function Payment() {
     // const [enteredAmount,setEnteredAmount] = useState(0)
@@ -26,12 +25,8 @@ function Payment() {
     }
 
     const verifyPayment =async (response,bookingId,amount)=>{
-       const res = await axios.post(`${UserApi}/verifyPayment`,{response,bookingId,amount,totalAmount},{
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-       })
-       if(res) {
+       const res = await userAxiosInstance.post(`/verifyPayment`,{response,bookingId,amount,totalAmount})
+       if(res){
          console.log("res.data :",res.data)
          console.log("res.data :",res)
          toast.success("payment done")
@@ -52,12 +47,8 @@ function Payment() {
            },3000)
         }else{
             console.log("hello")
-            const res = await axios.post(`${UserApi}/payment?id=${bookings._id}`,{
+            const res = await userAxiosInstance.post(`/payment?id=${bookings._id}`,{
                 amount:amount
-            },{
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
             })
             if(res.data.success){
                 console.log("entered payment")

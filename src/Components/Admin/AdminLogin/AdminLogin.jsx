@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
-import { AdminApi } from '../../../Apis/UserApi'
 import { useDispatch } from 'react-redux'
 import { addAdminDetails } from '../../../Store/AdminAuth'
+import { AdminApi } from '../../../Utils/Api'
 
 
 function AdminLogin() {

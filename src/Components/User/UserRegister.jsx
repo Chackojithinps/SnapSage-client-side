@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { UserApi } from '../../Apis/UserApi'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { UserApi } from '../../Utils/Api'
+import { userAxiosInstance } from '../../Utils/Axios'
 
 function UserRegister() {   
   const [input, setInput] = useState()
@@ -23,7 +23,7 @@ function UserRegister() {
     try {
       if (isChecked) {
         if (input.password === input.confirmpass) {
-          const res = await axios.post(`${UserApi}/register`, {   
+          const res = await userAxiosInstance.post(`/register`, {   
             email: input.email,
           })
           if (res.data.success) {

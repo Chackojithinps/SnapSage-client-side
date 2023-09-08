@@ -9,14 +9,13 @@ const vendorAuth = createSlice({
     reducers:{
         addvendorDetails(state,action){
             const vendorDetails = action.payload;
+            console.log("vendorDetiaalllllllllllllllll ; : : ",vendorDetails)
+            console.log("v________________nderDetials.token ; : : ",vendorDetails.token)
             state.vendorToken = vendorDetails.token;
-            state.vendorName = vendorDetails.name;
-            console.log("vendorDetails in redux : ",vendorDetails)
-            console.log("vendorToken",state.vendorToken)
         },
         vendorLogout(state,action){
-            state.vendorToken = ""
-            state.vendorName = ""
+            state.vendorToken =""
+            state.vendorName =""
         },
         addRegisterDetail(state,action){
             const registerDetails = action.payload;

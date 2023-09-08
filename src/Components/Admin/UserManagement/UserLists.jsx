@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import axios from 'axios'
-import { AdminApi } from '../../../Apis/UserApi'
+import { AdminApi } from '../../../Utils/Api'
 function UserLists() {
     const [userList, setUserList] = useState([])
     const [status, setStatus] = useState(false)

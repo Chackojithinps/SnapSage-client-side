@@ -3,8 +3,8 @@ import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import axios from 'axios'
-import { AdminApi, UserApi } from '../../../Apis/UserApi';
 import { toast } from 'react-hot-toast';
+import { AdminApi } from '../../../Utils/Api';
 function AddCategory() {
    const [category,setCategory] = useState()
    const [categories,setCategories] = useState([])

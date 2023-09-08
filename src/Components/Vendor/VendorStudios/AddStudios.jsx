@@ -1,54 +1,49 @@
 import React, { useEffect, useState } from "react";
 import VendorSidebar from "../VendorNav/VendorSidebar";
-import { VendorApi } from "../../../Apis/UserApi";
-import axios from 'axios'
+import { VendorApi } from "../../../Utils/Api";
 import { useNavigate } from "react-router-dom";
+import { vendorAxiosInstance } from "../../../Utils/Axios";
 function AddStudios() {
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([]); //
-    const [input,setInput] = useState()
+    const [input, setInput] = useState()
     const [categoryPrices, setCategoryPrices] = useState({});
-    const [pageReload,setPageReload] = useState(false)
-    const [open,setOpen] = useState(false)
-    const vendorToken = JSON.parse(localStorage.getItem('vendorDetails')).vendorToken;
+    const [pageReload, setPageReload] = useState(false)
+    const [open, setOpen] = useState(false)
     const navigate = useNavigate()
-    const handleChange=(e)=>{
-        setInput((prev)=>({
+    const handleChange = (e) => {
+        setInput((prev) => ({
             ...prev,
-            [e.target.name] : e.target.value,
+            [e.target.name]: e.target.value,
         }))
         console.log(`${e.target.name} : ${e.target.value}`);
-      }
-    
-    const handleSubmit =async ()=>{
-       const res = await axios.post(`${VendorApi}/addStudio`,{
-         studioName:input.studioName,
-         description:input.description,
-         district:input.district,
-         email:input.email,
-         place:input.place,
-         city:input.city,
-         zipcode:input.zipcode,
-         categories: selectedCategories.map(categoryId => ({
-            categoryId,
-            price: categoryPrices[categoryId] || 0 // Default to 0 if price not set
-        }))
-    }, {
-        headers: {
-            Authorization: `Bearer ${vendorToken}`
-        }
-    });
-    if(res.data.success){
-       setPageReload(!pageReload)
-       setOpen(true)
     }
+
+    const handleSubmit = async () => {
+        const res = await vendorAxiosInstance.post(`/addStudio`, {
+            studioName: input.studioName,
+            description: input.description,
+            district: input.district,
+            email: input.email,
+            place: input.place,
+            city: input.city,
+            zipcode: input.zipcode,
+            categories: selectedCategories.map(categoryId => ({
+                categoryId,
+                price: categoryPrices[categoryId] || 0
+            }))
+        });
+        if (res.data.success) {
+            setPageReload(!pageReload)
+            setOpen(true)
+        }
 
     }
     const handlePriceChange = (category, price) => {
         setCategoryPrices(prevPrices => ({ ...prevPrices, [category]: price }));
     };
     console.log("categoryPrices : ", categoryPrices)
-    
+
     const clearInputFields = () => {
         setInput({
             studioName: "",
@@ -64,7 +59,7 @@ function AddStudios() {
     };
 
 
-    const handleClose = () =>{
+    const handleClose = () => {
         clearInputFields();
         setOpen(false)
 
@@ -80,11 +75,7 @@ function AddStudios() {
 
     const getCategories = async () => {
         try {
-            const res = await axios.get(`${VendorApi}/getCategories`, {
-                headers: {
-                    Authorization: `Bearer ${vendorToken}`
-                }
-            })
+            const res = await vendorAxiosInstance.get(`/getCategories`)
             if (res.status === 200) {
                 console.log(res.data)
                 setCategories(res.data.categoryDatas)
@@ -127,7 +118,7 @@ function AddStudios() {
                                                 onChange={handleChange}
                                                 type="text"
                                                 // value={input.studioName}
-                                                value={input?input.studioName:""}
+                                                value={input ? input.studioName : ""}
                                                 name="studioName"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                             />
@@ -137,7 +128,7 @@ function AddStudios() {
                                             <label for="email">Description</label>
                                             <input
                                                 onChange={handleChange}
-                                                value={input?input.description:""}
+                                                value={input ? input.description : ""}
                                                 type="text"
                                                 name="description"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -148,19 +139,19 @@ function AddStudios() {
                                             <label for="address">Email of the company</label>
                                             <input
                                                 onChange={handleChange}
-                                                value={input?input.email:""}
+                                                value={input ? input.email : ""}
                                                 type="text"
                                                 name="email"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                 placeholder=""
                                             />
                                         </div>
-                                       
+
                                         <div class="md:col-span-2">
                                             <label for="city">District</label>
                                             <input
                                                 onChange={handleChange}
-                                                value={input?input.district:""}
+                                                value={input ? input.district : ""}
                                                 type="text"
                                                 name="district"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -171,7 +162,7 @@ function AddStudios() {
                                             <label for="address">City</label>
                                             <input
                                                 onChange={handleChange}
-                                                value={input?input.city:""}
+                                                value={input ? input.city : ""}
                                                 type="text"
                                                 name="city"
                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -182,7 +173,7 @@ function AddStudios() {
                                             <label for="zipcode">Zipcode</label>
                                             <input
                                                 onChange={handleChange}
-                                                value={input?input.zipcode:""}
+                                                value={input ? input.zipcode : ""}
                                                 type="text"
                                                 name="zipcode"
                                                 id="zipcode"
@@ -233,45 +224,45 @@ function AddStudios() {
                 </div>
             </div>
             <div>
-                {open && 
-                <div class="fixed z-10 inset-0 overflow-y-auto">
-                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                    <div class="fixed inset-0 transition-opacity">
-                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
-                    <div
-                        class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-                        <div class="sm:flex sm:items-start">
-                            <div
-                                class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
+                {open &&
+                    <div class="fixed z-10 inset-0 overflow-y-auto">
+                        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                            <div class="fixed inset-0 transition-opacity">
+                                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                             </div>
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                    Studio Request sent
-                                </h3>
-                                <div class="mt-2">
-                                    <p class="text-sm leading-5 text-gray-500">
-                                        SuccessFully Sent the Studio Submission request. we will notify once we varified.
-                                    </p>
+                            <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+                            <div
+                                class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                                <div class="sm:flex sm:items-start">
+                                    <div
+                                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                            Studio Request sent
+                                        </h3>
+                                        <div class="mt-2">
+                                            <p class="text-sm leading-5 text-gray-500">
+                                                SuccessFully Sent the Studio Submission request. we will notify once we varified.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+
+                                    <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                                        <button type="button" onClick={handleClose}
+                                            class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                            Ok
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                            
-                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                                <button type="button" onClick={handleClose}
-                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                    Ok
-                                </button>
-                            </span>
-                        </div>
                     </div>
-                </div>
-            </div>
                 }
             </div>
         </div>
