@@ -25,7 +25,7 @@ function ProfileNav() {
             console.log("error message: ", error.message);
         }
     }
-
+    
     const getData = async () => {
         try {
             setLoader(true)

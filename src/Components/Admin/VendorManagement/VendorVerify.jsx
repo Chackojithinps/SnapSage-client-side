@@ -3,16 +3,10 @@ import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast } from 'react-hot-toast';
-
-import { Fragment, useRef } from 'react'
-import { AdminApi } from '../../../Utils/Api';
 import { adminAxiosInstance } from '../../../Utils/Axios';
 
-
 function VendorVerify() {
-    const [open, setOpen] = useState(false)
 
-    const cancelButtonRef = useRef(null)
     const [vendorList, setVendorList] = useState([])
     const [varify, setVarify] = useState(false)
     const [vendorRejected, setVendorRejected] = useState(false)

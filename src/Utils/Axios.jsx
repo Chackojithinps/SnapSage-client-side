@@ -23,17 +23,29 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
     instance.interceptors.response.use(
         response => response,
         error => {
-            if (error.response && error.response.status === 500) {
-                // Navigate to the 500 error page
-                window.location.href = '/500';
+            if (error.response) {
+                if (error.response.status === 401) {
+                    // Redirect to login page if user is not authenticated
+                    window.location.href = '/error404';
+                } else if (error.response.status === 500) {
+                    // Redirect to a general error page for server errors
+                    window.location.href = '/error503';
+                } else {
+                    // Handle other HTTP error statuses or show a generic message
+                    // You can also display user-friendly error messages here
+                    console.log("HTTP Error: ", error.response.status);
+                }
+            } else {
+                // Handle network errors or other issues
+                console.log("Network Error: ", error.message);
             }
             return Promise.reject(error);
         })
     return instance
 }
 const userAxiosInstance = createAxiosInstanceWithInterceptor(UserApi, 'token');
-const vendorAxiosInstance = createAxiosInstanceWithInterceptor(VendorApi,'vendorToken')
-const adminAxiosInstance = createAxiosInstanceWithInterceptor(AdminApi,'adminToken')
+const vendorAxiosInstance = createAxiosInstanceWithInterceptor(VendorApi, 'vendorToken')
+const adminAxiosInstance = createAxiosInstanceWithInterceptor(AdminApi, 'adminToken')
 
 export {
     userAxiosInstance,

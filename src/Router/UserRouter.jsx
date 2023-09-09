@@ -13,6 +13,8 @@ import BookingsPage from '../Pages/UserPages/bookingsPage'
 import PaymentPages from '../Pages/UserPages/paymentPages'
 import BookingHistoryPage from '../Pages/UserPages/BookingHistoryPage'
 import StudioListspage from '../Pages/UserPages/StudioListspage'
+import Error404Page from '../Pages/UserPages/Error404Page'
+import Error500Page from '../Pages/UserPages/Error500Page'
 
 
 function UserRouter() {
@@ -40,6 +42,8 @@ function UserRouter() {
             <Route path='/payment' element={userToken?<PaymentPages/>:<UserLoginpage/>}/>
             <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<UserLoginpage/>}/>
             <Route path='/studioLists' element={userToken?<StudioListspage/>:<UserLoginpage/>}/>
+            <Route path='/error404' element={<Error404Page/>}/>
+            <Route path='/error503' element={<Error500Page/>}/>
             
         </Routes>
     </div>
