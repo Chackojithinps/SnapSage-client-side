@@ -60,7 +60,7 @@ function UserHome() {
           <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  Alegreya Sans SC hover:cursor-pointer" onClick={()=>navigate('/profile')}>
             PROFILE
           </li>
-          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:cursor-pointer">
+          <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:cursor-pointer" onClick={()=>navigate('/studioLists')}>
             STUDIOS
           </li>
           <li className="hover:text-red-400 my-7 md:my-0 md:ms-0   hover:cursor-pointer">

@@ -12,6 +12,7 @@ import { adduserDetails, showProfile } from '../Store/userAuth'
 import BookingsPage from '../Pages/UserPages/bookingsPage'
 import PaymentPages from '../Pages/UserPages/paymentPages'
 import BookingHistoryPage from '../Pages/UserPages/BookingHistoryPage'
+import StudioListspage from '../Pages/UserPages/StudioListspage'
 
 
 function UserRouter() {
@@ -38,6 +39,7 @@ function UserRouter() {
             <Route path='/bookings' element={userToken?<BookingsPage/>:<UserLoginpage/>}/>
             <Route path='/payment' element={userToken?<PaymentPages/>:<UserLoginpage/>}/>
             <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<UserLoginpage/>}/>
+            <Route path='/studioLists' element={userToken?<StudioListspage/>:<UserLoginpage/>}/>
             
         </Routes>
     </div>

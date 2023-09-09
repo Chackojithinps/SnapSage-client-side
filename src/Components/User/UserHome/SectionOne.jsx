@@ -25,10 +25,10 @@ function SectionOne() {
             <form className='flex'>
               <input
                 placeholder='Search for '
-                className='border my-5 border-gray-500 py-3 px-4 outline-none  md:w-[14rem] lg:w-[18rem] rounded-bl rounded-tl'
+                className=' my-5 py-3 px-4 outline-none  md:w-[14rem] lg:w-[18rem] rounded-bl rounded-tl'
                 style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}
               />
-              <button className='py-3 border border-gray-500 w-[10rem] md:w-[6rem] lg:w-[10rem] h-[50px] my-5 bg-red-600 rounded-br rounded-tr'>
+              <button className='py-3 w-[10rem] md:w-[6rem] lg:w-[10rem] h-[50px] my-5 bg-red-600 rounded-br rounded-tr'>
                 <span className='text-white text-[17px]'>Find</span>
               </button>
             </form>
