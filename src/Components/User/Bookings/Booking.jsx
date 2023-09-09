@@ -1,9 +1,7 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showProfile } from '../../../Store/userAuth'
 import { useNavigate } from 'react-router-dom'
-import { UserApi } from '../../../Utils/Api'
 import { userAxiosInstance } from '../../../Utils/Axios'
 
 function Booking() {
@@ -165,6 +163,7 @@ function Booking() {
                     }
                 </section>
             ))}
+            
         </>
     )
 }
