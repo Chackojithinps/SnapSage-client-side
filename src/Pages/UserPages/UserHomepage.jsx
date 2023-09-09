@@ -10,8 +10,8 @@ function UserHomepage() {
 
   return (
     <div>
-       <UserHome profileOpen={profileOpen} setProfileopen={setProfileopen} />
-       <SectionOne profileOpen={profileOpen}/>
+       <UserHome  />
+       <SectionOne/>
        <SectionTwo/>
        <SectionThree/>
        <UsersideFooter/>

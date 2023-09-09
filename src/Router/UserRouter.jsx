@@ -20,6 +20,7 @@ import Error500Page from '../Pages/UserPages/Error500Page'
 function UserRouter() {
   const dispatch = useDispatch()
   const userToken = useSelector((state)=>state.user.userToken)
+  console.log("token again : ___________________  : ",userToken)
   console.log("userToken page : " ,userToken)
 
   useEffect(()=>{

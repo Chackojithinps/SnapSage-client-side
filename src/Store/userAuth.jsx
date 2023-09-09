@@ -22,8 +22,13 @@ const UserAuth = createSlice({
             const profileDetails = action.payload
             console.log("action.status", action.status)
             state.status = profileDetails.status
+        },
+        showProfileImage(state,action){
+            const profileDatas = action.payload;
+            console.log("action.profileData : ",action.profileData)
+            state.profileData= profileDatas.profileData;
         }
     }
 })
-export const {adduserDetails,userLogout,showProfile} = UserAuth.actions;
+export const {adduserDetails,userLogout,showProfile,showProfileImage} = UserAuth.actions;
 export default UserAuth
