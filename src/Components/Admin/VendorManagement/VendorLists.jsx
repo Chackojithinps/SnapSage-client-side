@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { AdminApi } from '../../../Utils/Api'
+import { adminAxiosInstance } from '../../../Utils/Axios'
 
 function VendorLists() {
     const [vendorList, setVendorList] = useState([])
@@ -9,7 +9,7 @@ function VendorLists() {
 
     const getData = async () => {
         try {
-            const res = await axios.get(`${AdminApi}/vendorlists?search=${searchInput}`, {
+            const res = await adminAxiosInstance.get(`/vendorlists?search=${searchInput}`, {
 
             })
             if (res.data.success) {

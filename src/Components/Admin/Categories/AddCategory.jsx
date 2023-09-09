@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react'
 import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import axios from 'axios'
 import { toast } from 'react-hot-toast';
-import { AdminApi } from '../../../Utils/Api';
+import { adminAxiosInstance } from '../../../Utils/Axios';
 function AddCategory() {
    const [category,setCategory] = useState()
    const [categories,setCategories] = useState([])
@@ -26,7 +25,7 @@ function AddCategory() {
             },3000)
         }else{
             
-            const res = await axios.post(`${AdminApi}/addCategory`,{  
+            const res = await adminAxiosInstance.post(`/addCategory`,{  
                category:category
             })
             if (res.status === 200) {
@@ -76,7 +75,7 @@ function AddCategory() {
             },3000)
         }else{
 
-            const res = await axios.patch(`${AdminApi}/editCategory?id=${id}`,{
+            const res = await adminAxiosInstance.patch(`/editCategory?id=${id}`,{
                category
             })
             if (res.status === 200) {
@@ -102,7 +101,7 @@ function AddCategory() {
 
    const getCategory = async()=>{
       try{
-         const res = await axios.get(`${AdminApi}/categories`)
+         const res = await adminAxiosInstance.get(`/categories`)
          console.log("responeses : ",res.data)
          if (res.status === 200) {
             setCategories(res.data.categoryDatas)

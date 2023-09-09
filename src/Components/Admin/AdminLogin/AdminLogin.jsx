@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addAdminDetails } from '../../../Store/AdminAuth'
-import { AdminApi } from '../../../Utils/Api'
+import { adminAxiosInstance } from '../../../Utils/Axios'
 
 
 function AdminLogin() {
@@ -17,7 +16,7 @@ function AdminLogin() {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await axios.post(`${AdminApi}/login`, {
+        const res = await adminAxiosInstance.post(`/login`, {
           email: email,
           password: password
         });

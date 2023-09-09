@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import AdminSidebar from '../AdminNavbar/AdminSidebar'
-import axios from 'axios'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { toast } from 'react-hot-toast';
 import { AdminApi } from '../../../Utils/Api';
+import { adminAxiosInstance } from '../../../Utils/Axios';
 
 function StudioUnvarified() {
     const [studios,setStudios] = useState([])
@@ -14,7 +14,7 @@ function StudioUnvarified() {
     const [studioRejected,setStudioRejected] = useState(false)
 
     const handleVarify =async (id) =>{
-        const res = await axios.patch(`${AdminApi}/verifyStudio?id=${id}`)
+        const res = await adminAxiosInstance.patch(`/verifyStudio?id=${id}`)
         if (res.data.success) {
             toast.success( "Request accepted ")
             setVarify(!varify)
@@ -22,7 +22,7 @@ function StudioUnvarified() {
     }
     const handleReject =async (id) => {
         try {
-            const res = await axios.post(`${AdminApi}/rejectStudio?id=${id}`)
+            const res = await adminAxiosInstance.post(`/rejectStudio?id=${id}`)
             if (res.data.success) {
              toast.error("Request rejected")
             //  setVarify(!varify)
@@ -34,7 +34,7 @@ function StudioUnvarified() {
     }
     const getUnvarifiedStudios=async()=>{
         try {
-            const res = await axios.get(`${AdminApi}/getUnvarifiedStudios?search=${searchInput}`)
+            const res = await adminAxiosInstance.get(`/getUnvarifiedStudios?search=${searchInput}`)
             if(res.data.success){
                 if(res.data.message){
                     setMessage(res.data.message)

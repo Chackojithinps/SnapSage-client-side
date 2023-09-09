@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,6 +6,7 @@ import { toast } from 'react-hot-toast';
 
 import { Fragment, useRef } from 'react'
 import { AdminApi } from '../../../Utils/Api';
+import { adminAxiosInstance } from '../../../Utils/Axios';
 
 
 function VendorVerify() {
@@ -24,7 +24,7 @@ function VendorVerify() {
     console.log("selected Vendor : ", selectedVendor)
     console.log("vendor list : ", vendorList)
     const handleVarify = async (id) => {
-        const res = await axios.patch(`${AdminApi}/verifyVendor?id=${id}`)
+        const res = await adminAxiosInstance.patch(`/verifyVendor?id=${id}`)
         if (res.data.success) {
             toast.success("Request accepted")
             setVarify(!varify)
@@ -34,10 +34,9 @@ function VendorVerify() {
 
     const handleReject = async (id) => {
         try {
-            const res = await axios.post(`${AdminApi}/rejectVendor?id=${id}`)
+            const res = await adminAxiosInstance.post(`/rejectVendor?id=${id}`)
             if (res.data.success) {
                 toast.error("Request rejected")
-                //  setVarify(!varify)
                 setVendorRejected(!vendorRejected)
             }
         } catch (error) {
@@ -47,7 +46,7 @@ function VendorVerify() {
 
     const getUnVerifiedreq = async () => {
         try {
-            const res = await axios.get(`${AdminApi}/getUnverified?search=${searchInput}`)
+            const res = await adminAxiosInstance.get(`/getUnverified?search=${searchInput}`)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)
@@ -61,7 +60,7 @@ function VendorVerify() {
         }
     }
 
-    const handleView = (id) => { // Pass the vendor's ID as an argument
+    const handleView = (id) => { 
         console.log("id : ", id)
         const selectedVendor = vendorList.find(vendor => vendor._id === id);
         console.log("first vendor : ", selectedVendor)
