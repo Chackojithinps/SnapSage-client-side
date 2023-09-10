@@ -22,7 +22,7 @@ function StudioUnvarified() {
     }
     const handleReject =async (id) => {
         try {
-            const res = await adminAxiosInstance.post(`/rejectStudio?id=${id}`)
+            const res = await adminAxiosInstance.post(`/rejectStudio?id=${id}`)         
             if (res.data.success) {
              toast.error("Request rejected")
             //  setVarify(!varify)
@@ -94,7 +94,7 @@ function StudioUnvarified() {
                                     {studio.email}
                                 </td>
 
-                                <div className='flex flex-row gap-4 mx-8 cursor-pointer'>
+                                <div className='flex flex-row gap-4 mx-8 cursor-pointer mb-7'>
 
                                             <td className=''>
                                                 <div className='flex' >

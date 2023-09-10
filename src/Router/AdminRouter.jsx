@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes,Route } from 'react-router-dom'
+import { Routes,Route, Navigate } from 'react-router-dom'
 import LoginPage from '../Pages/AdminPages/LoginPage'
 import AdminhomePage from '../Pages/AdminPages/AdminhomePage'
 import UserlistPages from '../Pages/AdminPages/UserlistPages'
@@ -28,12 +28,13 @@ function AdminRouter() {
   return (
     <div>
       <Routes>
-        <Route path='/' element={adminToken?<AdminhomePage/>:<LoginPage/>} />
-        <Route path='/userlists' element={adminToken?<UserlistPages/>:<LoginPage/>}/>
-        <Route path='/vendorlists' element={adminToken?<VendorlistPage/>:<LoginPage/>}/>
-        <Route path='/categories' element={adminToken?<CategoryPage/>:<LoginPage/>} />
-        <Route path='/vendorRequests' element={adminToken?<VendorvarifyPage/>:<LoginPage/>} />
-        <Route path='/studioVarify' element={adminToken?<StudiovarifyPage/>:<LoginPage/>}/>
+        <Route path='/' element={adminToken?<AdminhomePage/>:<Navigate to='/admin/login' />} />
+        <Route path='/login' element={adminToken?<Navigate to='/admin' />:<LoginPage/>} />
+        <Route path='/userlists' element={adminToken?<UserlistPages/>:<Navigate to='/admin/login' />}/>
+        <Route path='/vendorlists' element={adminToken?<VendorlistPage/>:<Navigate to='/admin/login' />}/>
+        <Route path='/categories' element={adminToken?<CategoryPage/>:<Navigate to='/admin/login'/>} />
+        <Route path='/vendorRequests' element={adminToken?<VendorvarifyPage/>:<Navigate to='/admin/login'/>} />
+        <Route path='/studioVarify' element={adminToken?<StudiovarifyPage/>:<Navigate to='/admin/login'/>}/>
       </Routes>
     </div>
   )

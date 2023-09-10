@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Dashboard from '../Pages/VendorPages/Dashboard'
 import LoginPage from '../Pages/VendorPages/LoginPage'
 import RegisterPage from '../Pages/VendorPages/RegisterPage'
@@ -33,17 +33,15 @@ function VendorRouter() {
     <div>
       <Routes>
         <Route path='/' element={vendorToken?<Dashboard/>:<JoinusPage/>}/>
-        <Route path='/login' element={vendorToken?<Dashboard/>:<LoginPage/>}/>
-        <Route path='/register' element={vendorToken?<Dashboard/>:<RegisterPage/>}/>
-        <Route path='/getOtp' element={<OtpPage/>}/>
-        <Route path='/profile' element={vendorToken?<ProfilePage/>:<LoginPage/>}/>
-        <Route path='/addStudio' element={vendorToken?<AddstudioPage/>:<LoginPage/>}/>
-        <Route path='/addPhotos' element={vendorToken?<AddphotosPage/>:<LoginPage/>}/>
-        <Route path='/' element={<JoinusPage/>}/>
-        <Route path='/bookings' element={vendorToken?<BookingPages/>:<LoginPage/>}/>
-        <Route path='/upcomingEvents' element={vendorToken?<UpcomingEventsPage/>:<LoginPage/>}/>
-        <Route path='/unpaidBookings' element={vendorToken?<UnpaidBookingsPage/>:<LoginPage/>}/>
-        <Route path='/workHistory' element={vendorToken?<WorkHistoryPage/>:<LoginPage/>}/>
+        <Route path='/login' element={vendorToken?<Navigate to='/vendor'/>:<LoginPage/>}/>
+        <Route path='/register' element={vendorToken?<Navigate to='/vendor'/>:<RegisterPage/>}/>
+        <Route path='/profile' element={vendorToken?<ProfilePage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/addStudio' element={vendorToken?<AddstudioPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/addPhotos' element={vendorToken?<AddphotosPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/bookings' element={vendorToken?<BookingPages/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/upcomingEvents' element={vendorToken?<UpcomingEventsPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/unpaidBookings' element={vendorToken?<UnpaidBookingsPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/workHistory' element={vendorToken?<WorkHistoryPage/>:<Navigate to='/vendor/login'/>}/>
       </Routes>
     </div>
 

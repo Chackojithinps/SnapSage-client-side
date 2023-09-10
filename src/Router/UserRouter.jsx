@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Routes,Route} from 'react-router-dom'
+import {Routes,Route, Navigate} from 'react-router-dom'
 import UserHomepage from '../Pages/UserPages/UserHomepage'
 import RegisterPage from '../Pages/UserPages/RegisterPage'
 import UserLoginpage from '../Pages/UserPages/UserLoginpage'
@@ -34,15 +34,15 @@ function UserRouter() {
     <div>
         <Routes>
             <Route path='/' element={<UserHomepage/>}/>
-            <Route path='/login' element={userToken?<UserHomepage/>:<UserLoginpage/>}/>
-            <Route path='/register' element={userToken?<UserHomepage /> :<RegisterPage/>} />
+            <Route path='/login' element={userToken?<Navigate to='/' />:<UserLoginpage/>}/>
+            <Route path='/register' element={userToken?<Navigate to='/'/> :<RegisterPage/>} />
             <Route path='/getotp' element={<UserotpPage/>} />
-            <Route path='/profile' element={userToken ? <ProfilePage /> : <UserLoginpage/> }/> 
+            <Route path='/profile' element={userToken ? <ProfilePage /> : <Navigate to='/login'/> }/> 
             <Route path='/studioDetails/:id' element={<StudiodetailsPage/>}/> 
-            <Route path='/bookings' element={userToken?<BookingsPage/>:<UserLoginpage/>}/>
-            <Route path='/payment' element={userToken?<PaymentPages/>:<UserLoginpage/>}/>
-            <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<UserLoginpage/>}/>
-            <Route path='/studioLists' element={userToken?<StudioListspage/>:<UserLoginpage/>}/>
+            <Route path='/bookings' element={userToken?<BookingsPage/>:<Navigate to='/login'/>}/>
+            <Route path='/payment' element={userToken?<PaymentPages/>:<Navigate to='/login'/>}/>
+            <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<Navigate to='/login'/>}/>
+            <Route path='/studioLists' element={userToken?<StudioListspage/>:<Navigate to='/login'/>}/>
             <Route path='/error404' element={<Error404Page/>}/>
             <Route path='/error503' element={<Error500Page/>}/>
             

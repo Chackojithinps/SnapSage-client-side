@@ -117,7 +117,7 @@ function VendorVerify() {
                                              */}
                                             <p className='cursor-pointer ' onClick={() => handleView(user._id)}>view</p>
                                         </td>
-                                        <div className='flex flex-row gap-4 mx-8 cursor-pointer'>
+                                        <div className='flex flex-row gap-4 mx-8 cursor-pointer mb-7'>
 
                                             <td className=''>
                                                 <div className='flex ' >
