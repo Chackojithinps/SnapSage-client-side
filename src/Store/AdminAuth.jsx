@@ -8,11 +8,15 @@ const AdminAuth = createSlice({
     reducers:{
         addAdminDetails(state,action){
             const adminDetails = action.payload;
-            state.adminToken = adminDetails.token;
+            state.AdminToken = adminDetails.token;
             console.log("adminDetails in redux : ",adminDetails)
             console.log("admdinTooken",state.adminToken)
+        },
+        adminLogout(state,action){
+            state.AdminToken =""
+            // state.vendorName =""
         }
     }
 })
-export const {addAdminDetails} = AdminAuth.actions;
+export const {addAdminDetails,adminLogout} = AdminAuth.actions;
 export default AdminAuth

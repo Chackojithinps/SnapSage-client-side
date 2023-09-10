@@ -12,7 +12,7 @@ import StudiovarifyPage from '../Pages/AdminPages/StudiovarifyPage'
 
 function AdminRouter() {
   const dispatch = useDispatch()
-  const adminToken = useSelector((state)=>state.admin.adminToken)
+  const adminToken = useSelector((state)=>state.admin.AdminToken)
   console.log("adminToken inrouter page : ",adminToken)
 
 
@@ -29,12 +29,11 @@ function AdminRouter() {
     <div>
       <Routes>
         <Route path='/' element={adminToken?<AdminhomePage/>:<LoginPage/>} />
-        {/* <Route path='/login' element={adminToken?<LoginPage/>} /> */}
-        <Route path='/userlists' element={<UserlistPages/>}/>
-        <Route path='/vendorlists' element={<VendorlistPage/>}/>
-        <Route path='/categories' element={<CategoryPage/>} />
-        <Route path='/vendorRequests' element={<VendorvarifyPage/>} />
-        <Route path='/studioVarify' element={<StudiovarifyPage/>}/>
+        <Route path='/userlists' element={adminToken?<UserlistPages/>:<LoginPage/>}/>
+        <Route path='/vendorlists' element={adminToken?<VendorlistPage/>:<LoginPage/>}/>
+        <Route path='/categories' element={adminToken?<CategoryPage/>:<LoginPage/>} />
+        <Route path='/vendorRequests' element={adminToken?<VendorvarifyPage/>:<LoginPage/>} />
+        <Route path='/studioVarify' element={adminToken?<StudiovarifyPage/>:<LoginPage/>}/>
       </Routes>
     </div>
   )
