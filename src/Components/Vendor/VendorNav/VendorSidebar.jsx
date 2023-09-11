@@ -5,8 +5,10 @@ import PermContactCalendarRoundedIcon from "@mui/icons-material/PermContactCalen
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 function VendorSidebar() {
   const [bookings, setBookings] = useState(false)
+  const [offer,setOffer] = useState(false)
   const navigate = useNavigate();
   const [submenuStates, setSubmenuStates] = useState({
     profile: false,
@@ -132,6 +134,31 @@ function VendorSidebar() {
                  Work History
               </li>
 
+            </ul>
+          )}
+          <li onClick={() =>setOffer(!offer)} className="opcion-con-desplegable">
+            <div className="flex cursor-pointer items-center justify-between p-2 hover:bg-[#0ea5e9]">
+              <div
+
+                className="flex items-center"
+              >
+                <i className="fas fa-calendar-alt mr-2"></i>
+                <LocalOfferIcon style={{color:'violet'}} />
+                <span className="ms-3">Offers</span>
+              </div>
+              <i className="fas fa-chevron-down text-xs"></i>
+            </div>
+          </li>
+          {offer && (
+            <ul className="desplegable ms-10 flex cursor-pointer flex-col">
+              <li onClick={() => navigate("/vendor/addOffer")} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Add Offer
+              </li>
+              <li onClick={() => navigate('/vendor/offers')} className="hover:bg-[#0ea5e9] h-11 flex items-center">
+                <KeyboardArrowRightIcon color="primary" />
+                Offer Lists
+              </li>   
             </ul>
           )}
         </ul>

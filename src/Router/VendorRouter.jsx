@@ -14,6 +14,8 @@ import BookingPages from '../Pages/AdminPages/BookingPages'
 import UpcomingEventsPage from '../Pages/VendorPages/UpcomingEventsPage'
 import UnpaidBookingsPage from '../Pages/VendorPages/UnpaidBookingsPage'
 import WorkHistoryPage from '../Pages/VendorPages/WorkHistoryPage'
+import OfferPage from '../Pages/VendorPages/OfferPage'
+import AddOfferPage from '../Pages/VendorPages/AddOfferPage'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -42,6 +44,8 @@ function VendorRouter() {
         <Route path='/upcomingEvents' element={vendorToken?<UpcomingEventsPage/>:<Navigate to='/vendor/login'/>}/>
         <Route path='/unpaidBookings' element={vendorToken?<UnpaidBookingsPage/>:<Navigate to='/vendor/login'/>}/>
         <Route path='/workHistory' element={vendorToken?<WorkHistoryPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/offers' element={vendorToken?<OfferPage/>:<Navigate to='/vendor/login'/>}/>
+        <Route path='/addOffer' element={vendorToken?<AddOfferPage/>:<Navigate to='/vendor/login'/>}/>
       </Routes>
     </div>
 

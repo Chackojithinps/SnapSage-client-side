@@ -6,6 +6,8 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ClassIcon from '@mui/icons-material/Class';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+
 function AdminSidebar() {
     const navigate = useNavigate()
   return (
@@ -72,6 +74,17 @@ function AdminSidebar() {
                   {/* <i className="fas fa-file-alt mr-2"></i> */}
                   <RecentActorsIcon color=''/>
                   <span className='mx-2' >User Lists</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-100">
+                <div onClick={()=>navigate('/admin/userlists')} className="flex items-center mx-1">
+                  {/* <i className="fas fa-file-alt mr-2"></i> */}
+                  <LocalOfferIcon style={{color:'violet'}}/>
+                  <span className='mx-2' >Offers</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
