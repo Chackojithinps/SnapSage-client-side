@@ -2,7 +2,7 @@ import React from 'react'
 
 function UsersideFooter() {
   return (
-    <div class="flex items-end w-full mt-5  bg-white">
+    <div class="flex items-end w-full mt-5  bg-white"  style={{ fontFamily: "Noto Serif" }}>
 
     <footer class="w-full text-gray-700 bg-gray-100 body-font">
         <div

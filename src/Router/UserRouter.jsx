@@ -14,7 +14,7 @@ import PaymentPages from '../Pages/UserPages/paymentPages'
 import BookingHistoryPage from '../Pages/UserPages/BookingHistoryPage'
 import StudioListspage from '../Pages/UserPages/StudioListspage'
 import Error404Page from '../Pages/UserPages/Error404Page'
-import Error500Page from '../Pages/UserPages/Error500Page'
+import Error500Page from '../Pages/UserPages/Error505'
 
 
 function UserRouter() {
