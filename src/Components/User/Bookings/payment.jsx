@@ -61,7 +61,7 @@ function Payment() {
                     currency: "INR",
                     name: "SnapSage",
                     description: "India's best Mens Fashion website",
-                    image: "/public/img/logo.png",
+                    image: "/public/img/loo.png",
                     order_id: res.data.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                     handler: function (response) {
                         verifyPayment(response,bookings._id,amount);

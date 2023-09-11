@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 
 function Offer() {
     const [list,setList] = useState(false)
-    const handleInputChange = ()=>{
-
-    }
+  
   return (
     <div className='flex flex-col' style={{ fontFamily: 'Noto Serif' }}>
     {/* <div className='flex mt-7 ms-6 text-white'>

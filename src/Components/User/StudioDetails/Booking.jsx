@@ -10,12 +10,20 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userAxiosInstance } from "../../../Utils/Axios";
 
-function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
-  // const [open, setOpen] = useState(false)
+function Booking({
+  studio,
+  offers,
+  profileId,
+  open,
+  setOpen,
+  successMessage,
+  setSuccessMessage,
+}){ 
   const navigate = useNavigate();
   const [price, setPrice] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [offerPrice,setOfferPrice] = useState(0)
   const [input, setInput] = useState();
   const [offer, setOffer] = useState(false);
   var userToken = useSelector((state) => state.user.userToken);
@@ -28,6 +36,30 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
       navigate("/login");
     } else {
       setOpen(true);
+
+      if(offers.length>0){
+
+          const unUsedOffer = offers.filter((offer) => (
+            offer.oneTime === true &&
+            !offer.user.some((userId) => userId === profileId)
+          ));
+          const commonOffer = offers.filter((offer)=>{
+           return offer.oneTime === false
+          })
+        console.log("unUsed Offer: ", unUsedOffer);
+        console.log("common Offer : ",commonOffer)
+        const percentage = commonOffer.reduce((total, offer) => total + offer.percentage, 0);
+        const percentage1 = unUsedOffer.reduce((total, offer) => total + offer.percentage, 0);
+        const totalPercentage=percentage+percentage1;
+        console.log("percentage : ",percentage)
+        console.log("percentage1 : ",percentage1)
+        console.log("totalPercentage : ",totalPercentage)
+        var discount = Math.floor((totalPrice * totalPercentage)/100 );// Calculate 5% of totalPrice
+        var totalAmount = totalPrice - discount; 
+        setOfferPrice(totalAmount)
+      }else{
+        setOfferPrice(totalPrice)
+      }
     }
   };
   const handleCheckboxChange = (categoryId, price) => {
@@ -49,17 +81,18 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = async () => {
     try {
       const res = await userAxiosInstance.post(`/bookStudio`, {
-        studioId: studio._id,
-        district: input.district,
-        city: input.city,
-        message: input.message,
-        email: input.email,
-        phone: input.phone,
-        eventDate: input.eventDate,
-        totalAmount: totalPrice,
+        studioId : studio._id,
+        district :input.district,
+        city :input.city,
+        message :input.message,
+        email:input.email,
+        phone:input.phone,
+        eventDate:input.eventDate,
+        totalAmount:offerPrice,
         categories: selectedCategories.map((categoryId) => categoryId),
       });
       if (res.data.success) {
@@ -77,7 +110,9 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
       <div
         className={`rounded-2xl px-7 py-7 w-[25rem] ${
           successMessage || open ? "opacity-70" : "opacity-1"
-        }  my-4 sticky top-16 right-5 ${price ? "h-[38rem]" : "h-[27rem]"}`}
+        }  my-4 sticky top-16 right-5 ${price ? "h-[40rem]" : "h-[27rem]"} ${
+          offer ? "h-[32rem]" : "h-[27rem]"
+        }`}
         style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
       >
         <div className="flex flex-col gap-3">
@@ -139,14 +174,35 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
               {studio.district},{studio.city}
             </p>
           </div>
-          <div className="flex gap-2">
-            <LocalOfferOutlinedIcon color="action" />
-            <p
-              className="text-red-500 hover:underline"
-              onClick={() => setOffer(!offer)}
-            >
-              20% discount
-            </p>
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-2">
+              <LocalOfferOutlinedIcon color="action" />
+              <p
+                className="text-red-500 hover:underline cursor-pointer"
+                onClick={() => setOffer(!offer)}
+              >
+                Available offers
+              </p>
+            </div>
+            {offer && (
+              <div>
+                {offers.length>0?
+                offers.map((offer) => (
+                  <div className="flex gap-2 text-[12px]  mx-7 mt-2">
+                    <LocalOfferOutlinedIcon
+                      color="action"
+                      style={{ width: "15px" }}
+                    />
+                    <p className="">
+                      {offer.description}
+                      {/* Get 5% off on first Booking on wedding mubarak */}
+                    </p>
+                  </div>
+                )):<div>
+                <p className="text-[12px]  mx-7 mt-2">Currently there is no offers available</p>
+                </div>}
+              </div>
+            )}
           </div>
           <div className="flex justify-between">
             <p className="text-[16px]">Per Day Price Estimate</p>
@@ -232,7 +288,7 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
         >
           <div className="flex flex-col">
             <div className="flex justify-between">
-              <p className="text-gray-500">Studio Name</p>
+              <p className="text-gray-500">{studio.companyName}</p>
               <CloseOutlinedIcon
                 color="action"
                 style={{ fontSize: "30px", cursor: "pointer" }}
@@ -254,7 +310,7 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
                 {" "}
                 Total Price :{" "}
                 <span className="text-red-600 text-[20px]">
-                  Rs {totalPrice}
+                  Rs {offerPrice}
                 </span>
               </p>
             </div>
@@ -407,22 +463,6 @@ function Booking({ studio, open, setOpen, successMessage, setSuccessMessage }) {
       )}
 
       {/* -----------------------------------------------------Modal 3 ------------------------------------------------------ */}
-      {offer && (
-        <div className="mt-20 mx-24 absolute right-[-40px] top-[10rem]"  style={{ fontFamily: "Noto Serif" }}>
-          <div className=" w-[25rem] h-[17rem] px-4 rounded-xl mt-8 bg-gradient-to-br from-red-200 to-gray-300">
-          {/* bg-gradient-to-br from-red-200 to-gray-300 */}
-            <button className="bg-white py-1 mt-5 rounded px-5">
-              EXCLUSIVE
-            </button>
-            <p className="mt-4 font-bold text-[29px]">
-              5% Discount for your First Booking with Wedding wire
-            </p>
-            <button className="py-2 px-5 bg-red-500 mt-4 rounded text-white font-bold">
-              SN137
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

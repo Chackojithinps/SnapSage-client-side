@@ -12,7 +12,7 @@ import {
 } from "../../Store/userAuth";
 import { userAxiosInstance } from "../../Utils/Axios";
 
-function UserHome() {
+function UserHome({ setProfileId }) {
   const [open, setOpen] = useState(false);
   // const [userData, setUserData] = useState({});
   const navigate = useNavigate();
@@ -34,6 +34,11 @@ function UserHome() {
     console.log("token entered : _______________________");
     const res = await userAxiosInstance.get(`/getProfileData`);
     if (res.data.success) {
+      console.log("res.data.userDetail._id : ",res.data.userDetail._id)
+      if(setProfileId){
+
+        setProfileId(res.data.userDetail._id)
+      }
       dispatch(showProfileImage({ profileData: res.data.userDetail }));
     }
   };
