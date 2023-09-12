@@ -18,12 +18,12 @@ function Booking({
   setOpen,
   successMessage,
   setSuccessMessage,
-}){ 
+}) {
   const navigate = useNavigate();
   const [price, setPrice] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [offerPrice,setOfferPrice] = useState(0)
+  const [offerPrice, setOfferPrice] = useState(0);
   const [input, setInput] = useState();
   const [offer, setOffer] = useState(false);
   var userToken = useSelector((state) => state.user.userToken);
@@ -31,37 +31,42 @@ function Booking({
   const profileOpen = useSelector((state) => state.user.status);
 
   // const [successMessage, setSuccessMessage] = useState(false)
+  const allOffers = offers.filter((offer) => {
+    if (offer.oneTime) {
+      // Check if the offer is a one-time offer and if it contains the profileId in offer.user
+      return !offer.user.some((userId) => userId === profileId);
+    } else {
+      // Include offers where oneTime is false
+      return true;
+    }
+  });
+  const offerLength = allOffers.length;
+  const percentage = allOffers.reduce(
+    (total, offer) => total + offer.percentage,
+    0
+  );
+  console.log("all  Offer: ", allOffers);
+
   const handlePrice = () => {
     if (!userToken) {
       navigate("/login");
     } else {
       setOpen(true);
-
-      if(offers.length>0){
-
-          const unUsedOffer = offers.filter((offer) => (
-            offer.oneTime === true &&
-            !offer.user.some((userId) => userId === profileId)
-          ));
-          const commonOffer = offers.filter((offer)=>{
-           return offer.oneTime === false
-          })
-        console.log("unUsed Offer: ", unUsedOffer);
-        console.log("common Offer : ",commonOffer)
-        const percentage = commonOffer.reduce((total, offer) => total + offer.percentage, 0);
-        const percentage1 = unUsedOffer.reduce((total, offer) => total + offer.percentage, 0);
-        const totalPercentage=percentage+percentage1;
-        console.log("percentage : ",percentage)
-        console.log("percentage1 : ",percentage1)
-        console.log("totalPercentage : ",totalPercentage)
-        var discount = Math.floor((totalPrice * totalPercentage)/100 );// Calculate 5% of totalPrice
-        var totalAmount = totalPrice - discount; 
-        setOfferPrice(totalAmount)
-      }else{
-        setOfferPrice(totalPrice)
+      if (allOffers.length > 0) {
+        // const percentage1 = unUsedOffer.reduce((total, offer) => total + offer.percentage, 0);
+        // const totalPercentage=percentage+percentage1;
+        console.log("percentage : ", percentage);
+        // console.log("percentage1 : ",percentage1)
+        console.log("totalPercentage : ", percentage);
+        var discount = Math.floor((totalPrice * percentage) / 100); // Calculate 5% of totalPrice
+        var totalAmount = totalPrice - discount;
+        setOfferPrice(totalAmount);
+      } else {
+        setOfferPrice(totalPrice);
       }
     }
   };
+
   const handleCheckboxChange = (categoryId, price) => {
     if (selectedCategories.includes(categoryId)) {
       setSelectedCategories((prevSelected) =>
@@ -85,14 +90,15 @@ function Booking({
   const handleSubmit = async () => {
     try {
       const res = await userAxiosInstance.post(`/bookStudio`, {
-        studioId : studio._id,
-        district :input.district,
-        city :input.city,
-        message :input.message,
-        email:input.email,
-        phone:input.phone,
-        eventDate:input.eventDate,
-        totalAmount:offerPrice,
+        offers: allOffers,
+        studioId: studio._id,
+        district: input.district,
+        city: input.city,
+        message: input.message,
+        email: input.email,
+        phone: input.phone,
+        eventDate: input.eventDate,
+        totalAmount: offerPrice,
         categories: selectedCategories.map((categoryId) => categoryId),
       });
       if (res.data.success) {
@@ -110,7 +116,7 @@ function Booking({
       <div
         className={`rounded-2xl px-7 py-7 w-[25rem] ${
           successMessage || open ? "opacity-70" : "opacity-1"
-        }  my-4 sticky top-16 right-5 ${price ? "h-[40rem]" : "h-[27rem]"} ${
+        }  my-4 sticky top-16 right-5 ${price ? "h-auto" : "h-[27rem]"} ${
           offer ? "h-[32rem]" : "h-[27rem]"
         }`}
         style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
@@ -164,8 +170,8 @@ function Booking({
             >
               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <p className="font-bold px-3">5.0 Fantastic </p>
-            <p className="underline"> 18 reviews</p>
+            <p className="font-bold px-3">5.0 Fantastic</p>
+            <p className="underline">18 reviews</p>
           </div>
 
           <div className="flex gap-2">
@@ -186,21 +192,26 @@ function Booking({
             </div>
             {offer && (
               <div>
-                {offers.length>0?
-                offers.map((offer) => (
-                  <div className="flex gap-2 text-[12px]  mx-7 mt-2">
-                    <LocalOfferOutlinedIcon
-                      color="action"
-                      style={{ width: "15px" }}
-                    />
-                    <p className="">
-                      {offer.description}
-                      {/* Get 5% off on first Booking on wedding mubarak */}
+                {offers.length > 0 ? (
+                  allOffers.map((offer) => (
+                    <div className="flex gap-2 text-[12px]  mx-7 mt-2">
+                      <LocalOfferOutlinedIcon
+                        color="action"
+                        style={{ width: "15px" }}
+                      />
+                      <p className="">
+                        {offer.description}
+                        {/* Get 5% off on first Booking on wedding mubarak */}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <p className="text-[12px]  mx-7 mt-2">
+                      Currently there is no offers available
                     </p>
                   </div>
-                )):<div>
-                <p className="text-[12px]  mx-7 mt-2">Currently there is no offers available</p>
-                </div>}
+                )}
               </div>
             )}
           </div>
@@ -303,16 +314,32 @@ function Booking({
             </p>
 
             <div className="">
-              <p
-                className="mt-2 font-bold"
-                style={{ fontFamily: "Noto Serif" }}
-              >
-                {" "}
-                Total Price :{" "}
-                <span className="text-red-600 text-[20px]">
-                  Rs {offerPrice}
-                </span>
-              </p>
+              <div className="flex">
+                {/* <p
+                  className="mt-2 font-bold"
+                  style={{ fontFamily: "Noto Serif" }}
+                >
+                  <span className="text-red-600 text-[20px]">
+                    Rs {totalPrice}
+                  </span>
+                </p> */}
+                <p
+                  className="mt-2 font-bold"
+                  style={{ fontFamily: "Noto Serif" }}
+                >
+                  {" "}
+                  Total Price :{" "}
+                  <span className="text-red-600 text-[20px]">
+                    <span className="text-gray-400 ms-1  text-[15px] me-2" style={{ textDecoration: "line-through" }}>₹ {totalPrice} </span>₹{offerPrice} <span className="text-green-500 text-[15px] ms-1 font-medium">{percentage}% off</span>
+                  </span>
+                </p>
+              </div>
+
+              <div className="flex gap-1 text-red-500">
+                <LocalOfferOutlinedIcon style={{ fontSize: "15px" }} />
+
+                <p className="text-[10px]">{offerLength} offer applied</p>
+              </div>
             </div>
 
             <p className="text-gray-500 mt-4 text-[12px]">
@@ -363,7 +390,6 @@ function Booking({
                 />
               </div>
               <div className="flex flex-col gap-1">
-                {/* <label className='text-[15px] text-gray-500'>Event date</label> */}
                 <input
                   type="date"
                   placeholder="Event date"
