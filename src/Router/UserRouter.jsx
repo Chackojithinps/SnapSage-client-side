@@ -15,6 +15,7 @@ import BookingHistoryPage from '../Pages/UserPages/BookingHistoryPage'
 import StudioListspage from '../Pages/UserPages/StudioListspage'
 import Error404Page from '../Pages/UserPages/Error404Page'
 import Error500Page from '../Pages/UserPages/Error505'
+import ReviewPage from '../Pages/UserPages/ReviewPage'
 
 
 function UserRouter() {
@@ -43,6 +44,7 @@ function UserRouter() {
             <Route path='/payment' element={userToken?<PaymentPages/>:<Navigate to='/login'/>}/>
             <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<Navigate to='/login'/>}/>
             <Route path='/studioLists' element={userToken?<StudioListspage/>:<Navigate to='/login'/>}/>
+            <Route path='/review' element={userToken?<ReviewPage/>:<Navigate to='/login'/>}/>
             <Route path='/error404' element={<Error404Page/>}/>
             <Route path='/error503' element={<Error500Page/>}/>
             

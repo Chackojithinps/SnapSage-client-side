@@ -30,16 +30,19 @@ function Booking({
 
   const profileOpen = useSelector((state) => state.user.status);
 
-  // const [successMessage, setSuccessMessage] = useState(false)
+  // const allOffers = offers.filter((offer) => {
+  //   if(offer.isListed){
+  //     if (offer.oneTime) {
+  //       return !offer.user.some((userId) => userId === profileId);
+  //     } else {
+  //       return true;
+  //     }
+  //   }
+  // });
   const allOffers = offers.filter((offer) => {
-    if (offer.oneTime) {
-      // Check if the offer is a one-time offer and if it contains the profileId in offer.user
-      return !offer.user.some((userId) => userId === profileId);
-    } else {
-      // Include offers where oneTime is false
-      return true;
-    }
+    return offer.isListed && (offer.oneTime ? !offer.user.some((userId) => userId === profileId) : true);
   });
+  console.log("all Offers : : : : ",allOffers)
   const offerLength = allOffers.length;
   const percentage = allOffers.reduce(
     (total, offer) => total + offer.percentage,
@@ -53,12 +56,10 @@ function Booking({
     } else {
       setOpen(true);
       if (allOffers.length > 0) {
-        // const percentage1 = unUsedOffer.reduce((total, offer) => total + offer.percentage, 0);
-        // const totalPercentage=percentage+percentage1;
+     
         console.log("percentage : ", percentage);
-        // console.log("percentage1 : ",percentage1)
         console.log("totalPercentage : ", percentage);
-        var discount = Math.floor((totalPrice * percentage) / 100); // Calculate 5% of totalPrice
+        var discount = Math.floor((totalPrice * percentage) / 100);
         var totalAmount = totalPrice - discount;
         setOfferPrice(totalAmount);
       } else {
@@ -192,7 +193,7 @@ function Booking({
             </div>
             {offer && (
               <div>
-                {offers.length > 0 ? (
+                {allOffers.length > 0 ? (
                   allOffers.map((offer) => (
                     <div className="flex gap-2 text-[12px]  mx-7 mt-2">
                       <LocalOfferOutlinedIcon
