@@ -15,6 +15,8 @@ function StudiodetailsPage() {
   const [successMessage, setSuccessMessage] = useState(false);
   const [offers,setOffers] = useState([])
   const [profileId,setProfileId]= useState()
+  const [rating,setRating] = useState(5)
+  const [text,setText] = useState("")
   const location = useLocation();
   const studio = location.state.studio;
   console.log("profileId ; : : : ", profileId);
@@ -26,15 +28,37 @@ function StudiodetailsPage() {
        setOffers(res.data.offerDatas)
     }
   }
+  const calculateRating = () => {
+    const sumOfRatings = studio.review.reduce((total, review) => total + review.rating, 0);
+    console.log("sumofRatings : ", sumOfRatings)
+    const average = Math.floor(sumOfRatings / studio.review.length);
+    console.log("average : ", average)
+    setRating(average)
+    if (average === 1) {
+      setText("Very Bad")
+    } else if (average === 2) {
+      setText("Bad")
+    } else if (average === 3) {
+      setText("Good")
+    } else if (average === 4) {
+      setText("Very Good")
+    } else if (average === 5) {
+      setText("Excellent")
+    }
+  }
   useEffect(()=>{
     console.log("Hello get Offers page entered ___________________________________________________ ")
     getOffers()
+    if (studio.review.length > 0) {
+      // If there are no reviews, return 0 or any default value you prefer
+      calculateRating()
+    }
   },[])
   return (
     <>
-      <UserHome studio={studio}  setProfileId={setProfileId} />
+      <UserHome studio={studio}   setProfileId={setProfileId} />
       <div className="flex">
-        <div className={``}>
+        <div>
           <StudioImages
             studio={studio}
             open={open}
@@ -46,6 +70,7 @@ function StudiodetailsPage() {
         </div>
         <div className={`w-2/5`}>
           <Booking
+            text={text} rating={rating}
             offers={offers}
             studio={studio}
             open={open}
@@ -56,8 +81,8 @@ function StudiodetailsPage() {
           />
         </div>
       </div>
-      <Offer/>
-      <div className="mt-[5rem]">
+      
+      <div className={`mt-[15rem]`}>
         <UsersideFooter />
       </div>
     </>

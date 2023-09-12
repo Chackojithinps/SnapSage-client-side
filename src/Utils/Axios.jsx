@@ -25,6 +25,7 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
         error => {
             if (error.response) {
                 if (error.response.status === 401) {
+                    console.log(error.message)
                     // Redirect to login page if user is not authenticated
                     window.location.href = '/error404';
                 } else if (error.response.status === 500) {

@@ -43,7 +43,7 @@ function UserHome({ setProfileId }) {
     }
   };
 
-
+  
   const profileData = useSelector((state) => state.user.profileData);
   useEffect(() => {
     console.log("userEffect entered ")
