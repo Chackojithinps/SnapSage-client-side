@@ -174,9 +174,9 @@ export const bookingHistory = async () => {
 
 // -------------------------------------------------------------  Verify Payment -----------------------------------------------------------
 
-export const verifyPaymentData  = async (response,totalAmount,amount) => {
+export const verifyPaymentData  = async (response,bookingId,amount,totalAmount) => {
     try {
-        const data = await userAxiosInstance.post(`/verifyPayment`,{response,amount,totalAmount})
+        const data = await userAxiosInstance.post(`/verifyPayment`,{response,bookingId,amount,totalAmount})
         return data
     } catch (error) {
         alert("userSignin ")

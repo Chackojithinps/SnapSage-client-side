@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { paymentData, verifyPaymentData } from '../../../Utils/UserEndpoints';
 
 function Payment() {
+    // const [enteredAmount,setEnteredAmount] = useState(0)
     const [validationMessage, setValidationMessage] = useState('')
     const [amount,setAmount] = useState(0)
     const [open,setOpen] = useState(false)
@@ -23,36 +24,37 @@ function Payment() {
     }
 
     const verifyPayment =async (response,bookingId,amount)=>{
-      const res = await verifyPaymentData(response,bookingId,amount)
-       if(res){
+       const res = await verifyPaymentData(response,bookingId,amount,totalAmount)
+       if(res){       
          toast.success("payment done")
-       } else{
+       } else{       
          toast.error("payment failed")
        }
     }
 
     const handleSubmit = async(e) =>{
         e.preventDefault()
-       
+        console.log("etnetedd")
         if(validationMessage){
-           
            setOpen(true)
            setTimeout(()=>{
               setOpen(false)
            },3000)
         }else{
-            const res = await paymentData(bookings,amount)
+       
+            const res= await paymentData(bookings._id,amount)
             if(res.data.success){
+               
                 var amount1 = res.data.data.amount * 100
                 console.log(amount);
                 var options = {
-                    key: "rzp_test_Qt18oumm8k0BKa", 
-                    amount: amount1,
+                    key: "rzp_test_Qt18oumm8k0BKa", // Enter the Key ID generated from the Dashboard
+                    amount: amount1, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     currency: "INR",
                     name: "SnapSage",
                     description: "India's best Mens Fashion website",
                     image: "/public/img/loo.png",
-                    order_id: res.data.data.id,
+                    order_id: res.data.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                     handler: function (response) {
                         verifyPayment(response,bookings._id,amount);
                         console.log("response : ", response)
@@ -60,8 +62,8 @@ function Payment() {
             }
             var rzp1 = new window.Razorpay(options);
             rzp1.open();
-
-            } else{
+        
+            }else{
                 console.log("Error happened")
             }
           }
