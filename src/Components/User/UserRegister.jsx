@@ -2,14 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { UserApi } from '../../Utils/Api'
-import { userAxiosInstance } from '../../Utils/Axios'
+import { userRegister } from '../../Utils/UserEndpoints'
 
 function UserRegister() {   
   const [input, setInput] = useState()
   const [passMessage, setPassMessage] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const navigate = useNavigate()
+
+
   const handleChange = (e) => {
     setInput((prev) => ({
       ...prev,
@@ -18,17 +19,12 @@ function UserRegister() {
     console.log(`${e.target.name} : ${e.target.value}`);
   }
 
-
   const handleSubmit = async () => {
     try {
       if (isChecked) {
         if (input.password === input.confirmpass) {
-          const res = await userAxiosInstance.post(`/register`, {   
-            email: input.email,
-          })
+          const res = await userRegister(input.email)
           if (res.data.success) {
-            console.log("response otp : ", res.data)
-            //  toast.success(res.data.message)
             navigate('/getOtp', { state: { data: input } });
           }
         } else {

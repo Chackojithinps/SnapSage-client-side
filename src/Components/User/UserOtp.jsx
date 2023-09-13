@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import toast from 'react-hot-toast'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userAxiosInstance } from '../../Utils/Axios';
+import { otpVerify } from '../../Utils/UserEndpoints';
 
 function UserOtp() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const navigate= useNavigate()
   const location = useLocation()
-  console.log("location.state",location.state)
   const userData = location.state.data;
   const inputRefs = useRef([...Array(6)].map(() => React.createRef()));
   const handleChange = (index, value) => {
@@ -22,11 +22,8 @@ function UserOtp() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const enteredOTP = otp.join(''); // Concatenate all the values from the otp state array
-    console.log('Entered OTP:', enteredOTP);
-    const res= await userAxiosInstance.post("/verifyOtp",{
-        otp:enteredOTP,
-        userData:userData
-    })
+
+    const res = await otpVerify(enteredOTP,userData)
     if(res){
         console.log("res is there" , res)
         toast.success(res.data.message)

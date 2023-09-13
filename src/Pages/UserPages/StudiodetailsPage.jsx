@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import {useLocation } from "react-router-dom";
 import UserHome from "../../Components/User/UserHome";
 import StudioImages from "../../Components/User/StudioDetails/StudioImages";
 import StudioAbout from "../../Components/User/StudioDetails/StudioAbout";
@@ -7,8 +7,7 @@ import CategoryImages from "../../Components/User/StudioDetails/CategoryImages";
 import Review from "../../Components/User/StudioDetails/Review";
 import Booking from "../../Components/User/StudioDetails/Booking";
 import UsersideFooter from "../../Components/User/Footer/UsersideFooter";
-import Offer from "../../Components/User/StudioDetails/Offer";
-import { userAxiosInstance } from "../../Utils/Axios";
+import { getOfferData } from "../../Utils/UserEndpoints";
 
 function StudiodetailsPage() {
   const [open, setOpen] = useState(false);
@@ -19,20 +18,16 @@ function StudiodetailsPage() {
   const [text,setText] = useState("")
   const location = useLocation();
   const studio = location.state.studio;
-  console.log("profileId ; : : : ", profileId);
   
   const getOffers =async()=>{
-    console.log("Hello get Offers page entered : : : : : ; ; ;; ; : ; ; ;: ; ")
-    const res = await userAxiosInstance.get(`/getOffers?id=${studio.vendorId}`)
+    const res = await getOfferData(studio)
     if(res.data.success){
        setOffers(res.data.offerDatas)
     }
   }
   const calculateRating = () => {
     const sumOfRatings = studio.review.reduce((total, review) => total + review.rating, 0);
-    console.log("sumofRatings : ", sumOfRatings)
     const average = Math.floor(sumOfRatings / studio.review.length);
-    console.log("average : ", average)
     setRating(average)
     if (average === 1) {
       setText("Very Bad")
@@ -47,10 +42,8 @@ function StudiodetailsPage() {
     }
   }
   useEffect(()=>{
-    console.log("Hello get Offers page entered ___________________________________________________ ")
     getOffers()
     if (studio.review.length > 0) {
-      // If there are no reviews, return 0 or any default value you prefer
       calculateRating()
     }
   },[])

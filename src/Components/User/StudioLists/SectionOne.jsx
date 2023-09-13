@@ -18,7 +18,7 @@ function SectionOne() {
             </form>
       </div>
       <div className=' -green-500 w-[50%] h-[15rem]'>
-          <img className='object-cover w-[90%] h-[15rem]' src='https://cdn1.weddingwire.in/assets/img/home/bg_home3.jpg'/>
+          <img className='object-cover w-[90%] h-[15rem]' src='https://cdn1.weddingwire.in/assets/img/home/bg_home3.jpg' alt=''/>
       </div>
     </div>
   )

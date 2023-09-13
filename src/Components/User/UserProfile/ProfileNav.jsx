@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { showProfile } from '../../../Store/userAuth'
 import { userAxiosInstance } from '../../../Utils/Axios'
 import { toast } from 'react-hot-toast'
+import { getProfile } from '../../../Utils/UserEndpoints'
 
 function ProfileNav() {
     const [file, setFile] = useState()
@@ -53,7 +54,7 @@ function ProfileNav() {
         try {
             setLoader(true)
             dispatch(showProfile({ status: false }))
-            const res = await userAxiosInstance.get(`/profile`)
+            const res = await getProfile()
             setLoader(false)
             if (res.data.success) {
                 console.log("userDetaisln infdjf ", res.data.userDetail)

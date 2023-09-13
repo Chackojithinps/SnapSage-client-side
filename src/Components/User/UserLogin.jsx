@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
 import { adduserDetails } from '../../Store/userAuth'
-import { UserApi } from '../../Utils/Api'
-import { userAxiosInstance } from '../../Utils/Axios'
+import { userSignin } from '../../Utils/UserEndpoints'
 function UserLogin() {
   console.log("Entered login for trying")
 
@@ -16,31 +15,20 @@ function UserLogin() {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    try {
       e.preventDefault();
       if (checked) {
-        const res = await userAxiosInstance.post(`/login`, {
-          email: email,
-          password: password
-        });
-
+        const res = await userSignin(email,password)
         if (res.status === 200){
-          console.log("Data passing from login backend : ", res.data)
           localStorage.setItem("token", res.data.userDetail.token)
-          dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token }))
+          dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token}))
           toast.success(res.data.message);
           navigate('/')
-
         } else {
           toast.error(res.data.message);
         }
       } else {
         return;
       }
-    } catch (error) {
-      console.log("userlogin", error.message);
-      toast.error("Something went wrong");
-    }
   };
   return (
     <>

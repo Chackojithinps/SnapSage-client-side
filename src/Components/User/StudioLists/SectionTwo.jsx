@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { userAxiosInstance } from '../../../Utils/Axios'
 import { useNavigate } from 'react-router-dom'
+import { getStudiosHome } from '../../../Utils/UserEndpoints'
 
 function SectionTwo() {
     const [studioDetails,setStudioDetails] = useState([])
     const navigate = useNavigate()
     const getStudios = async () => {
         try {
-            const res = await userAxiosInstance.get(`/getStudios`)
+            const res = await getStudiosHome()
             if (res.data.success) {
-                console.log("res.data.studioDetails : " ,res.data.studioDetails)
                 setStudioDetails(res.data.studioDetails)
             }
         } catch (error) {

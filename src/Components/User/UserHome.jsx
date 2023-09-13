@@ -10,11 +10,10 @@ import {
   showProfileImage,
   userLogout,
 } from "../../Store/userAuth";
-import { userAxiosInstance } from "../../Utils/Axios";
+import { userNavbar } from "../../Utils/UserEndpoints";
 
 function UserHome({ setProfileId }) {
   const [open, setOpen] = useState(false);
-  // const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.user.userToken);
   const profileOpen = useSelector((state) => state.user.status);
@@ -31,12 +30,9 @@ function UserHome({ setProfileId }) {
   };
 
   const getProfile = async () => {
-    console.log("token entered : _______________________");
-    const res = await userAxiosInstance.get(`/getProfileData`);
+    const res = await userNavbar();
     if (res.data.success) {
-      console.log("res.data.userDetail._id : ",res.data.userDetail._id)
       if(setProfileId){
-
         setProfileId(res.data.userDetail._id)
       }
       dispatch(showProfileImage({ profileData: res.data.userDetail }));
@@ -46,7 +42,6 @@ function UserHome({ setProfileId }) {
   
   const profileData = useSelector((state) => state.user.profileData);
   useEffect(() => {
-    console.log("userEffect entered ")
     const userToken1= localStorage.getItem('token')
     if (userToken1) {
       getProfile();

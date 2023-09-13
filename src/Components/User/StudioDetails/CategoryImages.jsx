@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 function CategoryImages({ studio }) {
    const [selectedCategory, setSelectedCategory] = useState(null);
-   console.log("selectedCategory : : ",selectedCategory)
 
    useEffect(() => {
       setSelectedCategory('all');

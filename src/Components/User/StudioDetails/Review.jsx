@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAxiosInstance } from "../../../Utils/Axios";
 import { useSelector } from "react-redux";
+import { isuserBooked } from "../../../Utils/UserEndpoints";
 
 function Review({ studio }) {
   const [user, setUser] = useState(false);
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("")
-  const profileData = useSelector((state) => state.user.profileData);
 
   const navigate = useNavigate();
   function formatDate(inputDate) {
@@ -17,6 +17,7 @@ function Review({ studio }) {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
   const calculateRating = () => {
     const sumOfRatings = studio.review.reduce((total, review) => total + review.rating, 0);
     console.log("sumofRatings : ", sumOfRatings)
@@ -37,7 +38,7 @@ function Review({ studio }) {
   }
 
   const isUserBooked = async () => {
-    const res = await userAxiosInstance.get(`/isUserBooked?id=${studio._id}`);
+    const res = await isuserBooked(studio)
     if (res.data.success) {
       console.log("isuserDataas : ", res.data.isUser);
       const bookingDatas = res.data.isUser;

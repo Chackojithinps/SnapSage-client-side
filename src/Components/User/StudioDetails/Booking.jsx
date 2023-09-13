@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -8,7 +8,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { userAxiosInstance } from "../../../Utils/Axios";
+import { BookingData } from "../../../Utils/UserEndpoints";
 
 function Booking({
   studio,
@@ -31,18 +31,16 @@ function Booking({
   var userToken = useSelector((state) => state.user.userToken);
 
   const profileOpen = useSelector((state) => state.user.status);
-  console.log("rating_____________________________________ : ",rating)
   
   const allOffers = offers.filter((offer) => {
     return offer.isListed && (offer.oneTime ? !offer.user.some((userId) => userId === profileId) : true);
   });
-  console.log("all Offers : : : : ",allOffers)
+
   const offerLength = allOffers.length;
   const percentage = allOffers.reduce(
     (total, offer) => total + offer.percentage,
     0
   );
-  console.log("all  Offer: ", allOffers);
 
   const handlePrice = () => {
     if (!userToken) {
@@ -50,9 +48,6 @@ function Booking({
     } else {
       setOpen(true);
       if (allOffers.length > 0) {
-     
-        console.log("percentage : ", percentage);
-        console.log("totalPercentage : ", percentage);
         var discount = Math.floor((totalPrice * percentage) / 100);
         var totalAmount = totalPrice - discount;
         setOfferPrice(totalAmount);
@@ -73,7 +68,6 @@ function Booking({
       setTotalPrice((prevTotal) => prevTotal + price);
     }
   };
-  console.log("selected Category items :  : :; ", selectedCategories);
 
   const handleChange = (e) => {
     setInput((prev) => ({
@@ -84,20 +78,9 @@ function Booking({
 
   const handleSubmit = async () => {
     try {
-      const res = await userAxiosInstance.post(`/bookStudio`, {
-        offers: allOffers,
-        studioId: studio._id,
-        district: input.district,
-        city: input.city,
-        message: input.message,
-        email: input.email,
-        phone: input.phone,
-        eventDate: input.eventDate,
-        totalAmount: offerPrice,
-        categories: selectedCategories.map((categoryId) => categoryId),
-      });
+      const res = await BookingData(input,studio,allOffers,offerPrice,selectedCategories)
       if (res.data.success) {
-        //  toast.success("Request sent successfull")
+        //  toast.success("Request sent successfull");
         setOpen(false);
         setSuccessMessage(true);
       }

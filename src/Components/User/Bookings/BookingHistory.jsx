@@ -4,6 +4,7 @@ import { showProfile } from '../../../Store/userAuth'
 import { useNavigate } from 'react-router-dom'
 import { UserApi } from '../../../Utils/Api'
 import { userAxiosInstance } from '../../../Utils/Axios'
+import { bookingHistory } from '../../../Utils/UserEndpoints'
 
 function BookingHistory() {
     const [bookingList, setBookingList] = useState([])
@@ -22,13 +23,8 @@ function BookingHistory() {
 
     const getBookingData = async () => {
         dispatch(showProfile({ status: false }))
-        const res = await userAxiosInstance.get(`${UserApi}/bookingHistory`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        const res = await bookingHistory()
         if (res.data.success) {
-            console.log("bookingList______ : ", res.data.BookingList)
             setBookingList(res.data.BookingList)
             setPhotos(res.data.photos)
         }

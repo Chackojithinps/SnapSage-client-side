@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showProfile } from '../../../Store/userAuth'
 import { useNavigate } from 'react-router-dom'
-import { userAxiosInstance } from '../../../Utils/Axios'
+import { bookingLists } from '../../../Utils/UserEndpoints'
 
 function Booking() {
     const [bookingList, setBookingList] = useState([])
@@ -25,9 +25,8 @@ function Booking() {
     }
     const getBookingData = async () => {
         dispatch(showProfile({ status: false }))
-        const res = await userAxiosInstance.get(`/bookings`)
+        const res = await bookingLists()
         if (res.data.success) {
-            console.log("bookingList______ : ", res.data.BookingList)
             setBookingList(res.data.BookingList)
             setPhotos(res.data.photos)
         }

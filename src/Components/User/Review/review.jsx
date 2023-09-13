@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { userAxiosInstance } from '../../../Utils/Axios'
 import { toast } from 'react-hot-toast'
+import { reviewData } from '../../../Utils/UserEndpoints'
 
 function Review() {
 	const [rating,setRating] = useState(0)
@@ -10,14 +10,9 @@ function Review() {
 	console.log(feedback)
 	const location = useLocation()
 	const studioId= location.state.studioId;
-	console.log("location.studioId ",studioId)
     
 	const handleSubmit = async()=>{
-		const res = await userAxiosInstance.post('/addReview',{
-			studioId,
-			rating,
-			feedback
-		})
+		const res = await reviewData(studioId,rating,feedback)
 		if(res.data.success){
 			toast.success("Review added Successfully")
 			navigate(`/`)

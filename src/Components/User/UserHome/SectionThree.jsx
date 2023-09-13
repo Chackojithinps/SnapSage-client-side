@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { userAxiosInstance } from '../../../Utils/Axios'
+import { getStudiosHome } from '../../../Utils/UserEndpoints'
 
 
 function SectionThree() {
     const navigate = useNavigate()
     const [studioDetails, setStudioDetails] = useState([])
-    console.log("studioDetail : ", studioDetails)
   
     const getStudios = async () => {
         try {
-            const res = await userAxiosInstance.get(`/getStudios`)
+            const res = await getStudiosHome()
             if (res.data.success) {
                 setStudioDetails(res.data.studioDetails)
             }
