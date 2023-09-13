@@ -22,7 +22,7 @@ function AdminLogin() {
         });
   
         if (res.status === 200) {
-          localStorage.setItem("AdminToken",res.data.AdminToken)
+          localStorage.setItem("token",res.data.AdminToken)
           dispatch(addAdminDetails({token:res.data.AdminToken}))
           toast.success(res.data.message);
           navigate('/admin')

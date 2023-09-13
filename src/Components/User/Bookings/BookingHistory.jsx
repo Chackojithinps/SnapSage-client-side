@@ -148,10 +148,14 @@ function BookingHistory() {
                                             </div>
                                         </div>
                                     </div>
-                                    {bookings.isCancelled && 
+                                    {bookings.isCancelled ?
                                     <div className='py-8'>
                                             <p>This Booking cancelled By vendor</p>
-                                    </div>
+                                    </div>:<div>
+                                           <button className='py-2 px-7 bg-violet-600 mt-3 rounded' onClick={()=>navigate('/review',{ state: { studioId: bookings.studio._id } })}>
+                                               Add Review
+                                           </button>
+                                        </div>
                                     }
                                 </div>
 

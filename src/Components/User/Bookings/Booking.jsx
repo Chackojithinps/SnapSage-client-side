@@ -7,6 +7,7 @@ import { userAxiosInstance } from '../../../Utils/Axios'
 function Booking() {
     const [bookingList, setBookingList] = useState([])
     const [Photos, setPhotos] = useState({})
+    const [rating,setRating] = useState(0)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const profileOpen = useSelector((state) => state.user.status)
@@ -31,6 +32,7 @@ function Booking() {
             setPhotos(res.data.photos)
         }
     }
+  
     useEffect(() => {
         getBookingData()
     }, [])
@@ -95,46 +97,118 @@ function Booking() {
                                 <div className="sm:flex sm:justify-between">
                                     <div>
                                         <div className="text-lg text-gray-700">
-                                            <span className="text-gray-900 font-bold">196 km</span> from Dhaka
+                                            <span className="text-gray-900 font-bold"></span> {bookings.district}, {bookings.city}
                                         </div>
 
-                                        <div className="flex items-center">
-                                            <div className="flex">
-                                                <svg className="w-4 h-4 mx-px fill-current text-green-600"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
-                                                    <path
-                                                        d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z">
-                                                    </path>
-                                                </svg>
-                                                <svg className="w-4 h-4 mx-px fill-current text-green-600"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
-                                                    <path
-                                                        d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z">
-                                                    </path>
-                                                </svg>
-                                                <svg className="w-4 h-4 mx-px fill-current text-green-600"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
-                                                    <path
-                                                        d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z">
-                                                    </path>
-                                                </svg>
-                                                <svg className="w-4 h-4 mx-px fill-current text-green-600"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
-                                                    <path
-                                                        d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z">
-                                                    </path>
-                                                </svg>
-                                                <svg className="w-4 h-4 mx-px fill-current text-green-600"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
-                                                    <path
-                                                        d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <div className="text-gray-600 ml-2 text-sm md:text-base mt-1">
-                                                16 reviews
-                                            </div>
-                                        </div>
+                                        
+ 
+
+{/* 
+                   
+
+                     
+
+                                        <div className="flex mx-3">
+                <div className="flex text-[10px]">
+                  <button
+                    type="button"
+                    title="Rate 1 stars"
+                    aria-label="Rate 1 stars"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`w-5 h-5 ${bookings.studio.review.rating === 1 ||
+                        rating === 2 ||
+                        rating === 3 ||
+                        rating === 4 ||
+                        rating === 5
+                        ? "dark:text-yellow-500"
+                        : "text-gray-400"
+                        } `}
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                  </button>
+
+                  <button
+                    type="button"
+                    title="Rate 2 stars"
+                    aria-label="Rate 2 stars"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`w-5 h-5  ${bookings.studio.review.rating === 2 || bookings.studio.review.rating === 3 || bookings.studio.review.rating === 4 || bookings.studio.review.rating === 5
+                        ? "dark:text-yellow-500"
+                        : "text-gray-400"
+                        } `}
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    title="Rate 3 stars"
+                    aria-label="Rate 3 stars"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`w-5 h-5  ${bookings.studio.review.rating === 3 || bookings.studio.review.rating === 4 || bookings.studio.review.rating === 5
+                        ? "dark:text-yellow-500"
+                        : "text-gray-400"
+                        } `}
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    title="Rate 4 stars"
+                    aria-label="Rate 4 stars"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`w-5 h-5  ${bookings.studio.review.rating === 4 || bookings.studio.review.rating == 5
+                        ? "dark:text-yellow-500"
+                        : "text-gray-400"
+                        } `}
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    title="Rate 5 stars"
+                    aria-label="Rate 5 stars"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`w-5 h-5  ${bookings.studio.review.rating === 5 ? "dark:text-yellow-500" : "text-gray-400"
+                        } `}
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <p><span className="mx-2 text-gray-500">{bookings.studio.review.rating}.0</span></p>
+              </div>
+ */}
+
+
+
+
+
+
+
                                     </div>
                                     {bookings.bookingStatus && !bookings.advanceAmount?
                                         <button className="mt-3 py-2 px-5 md:py-3 md:px-6 bg-purple-700 hover:bg-purple-600 font-bold text-white md:text-lg rounded-lg shadow-md"

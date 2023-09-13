@@ -15,10 +15,9 @@ function AdminRouter() {
   const adminToken = useSelector((state)=>state.admin.AdminToken)
   console.log("adminToken inrouter page : ",adminToken)
 
-
   useEffect(()=>{
-     if(localStorage.getItem("AdminToken")){
-       const AdminDetails =localStorage.getItem('AdminToken')
+     if(localStorage.getItem("token")){
+       const AdminDetails =localStorage.getItem('token')
        console.log("admintoken in router page 2 ")
        dispatch(addAdminDetails({"token":AdminDetails}))
      }

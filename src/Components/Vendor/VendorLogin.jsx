@@ -29,7 +29,7 @@ function VendorLogin() {
         if (res.status === 200){
           console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
-          localStorage.setItem("vendorToken",res.data.vendorDetail.token);
+          localStorage.setItem("token",res.data.vendorDetail.token);
           dispatch(addvendorDetails({token: res.data.vendorDetail.token }))
           navigate("/vendor");
         } else {

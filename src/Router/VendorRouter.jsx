@@ -19,7 +19,7 @@ import AddOfferPage from '../Pages/VendorPages/AddOfferPage'
 function VendorRouter() {
   const dispatch = useDispatch()
   useEffect(()=>{
-     const vendorToken = localStorage.getItem('vendorToken')
+     const vendorToken = localStorage.getItem('token')
      console.log("vendorDetailsssssssssssssssssssssssssssssss: " ,vendorToken)
 
      if(vendorToken){

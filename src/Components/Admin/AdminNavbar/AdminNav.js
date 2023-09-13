@@ -7,15 +7,14 @@ function AdminNav() {
   const navigate = useNavigate()
   const handleLogout = () =>{
     try {
-       localStorage.removeItem('AdminToken')
        dispatch(adminLogout())
+       localStorage.removeItem('token')
        navigate('/admin')
     } catch (error) {
       console.log("error : ",error.message)
     }
   }
   return (
-    
      <div className='' style={{ fontFamily: 'Noto Serif' }}>
       <nav className="bg-white border border-gray-200  p-4 flex items-center justify-between">
         <div>

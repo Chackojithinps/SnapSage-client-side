@@ -45,8 +45,8 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
     return instance
 }
 const userAxiosInstance = createAxiosInstanceWithInterceptor(UserApi, 'token');
-const vendorAxiosInstance = createAxiosInstanceWithInterceptor(VendorApi, 'vendorToken')
-const adminAxiosInstance = createAxiosInstanceWithInterceptor(AdminApi, 'adminToken')
+const vendorAxiosInstance = createAxiosInstanceWithInterceptor(VendorApi, 'token')
+const adminAxiosInstance = createAxiosInstanceWithInterceptor(AdminApi, 'token')
 
 export {
     userAxiosInstance,

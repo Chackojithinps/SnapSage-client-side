@@ -10,7 +10,7 @@ function VendorNav() {
   // ------------------------------------- HandleLogout---------------------------------
   const handleLogout = () => {
     dispatch(vendorLogout())
-    localStorage.removeItem("vendorToken")
+    localStorage.removeItem("token")
   }
   // ------------------------------------- getProfile---------------------------------
   const getProfile = async () => {
