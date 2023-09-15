@@ -3,6 +3,7 @@ import VendorSidebar from "../VendorNav/VendorSidebar";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { toast } from "react-hot-toast";
 import { vendorAxiosInstance } from "../../../Utils/Axios";
+import { AddPhotosData, getCategoriesData, getStudioData, uploadStudioImages } from "../../../Utils/VendorEndpoints";
 function AddPhotos() {
     const [studios, setStudios] = useState([])
 
@@ -14,51 +15,36 @@ function AddPhotos() {
     const [loader, setLoader] = useState(false)
     const [imageLoader, setImageLoader] = useState(false)
     const [imageRefresh,setImageRefresh] =useState(false)
-    console.log("selectedCategories : ", selectedCategories)
-    console.log("selectedStudio : ", selectedStudio)
-    console.log("studios : ", studios)
-
 
     const getImagesByCategory = async (studioId) => {
         try {
             setImageLoader(true)
-            const res = await vendorAxiosInstance.get(`/getStudioImages?id=${studioId}`)
+            const res = await AddPhotosData(studioId)
+            // const res = await vendorAxiosInstance.get(`/getStudioImages?id=${studioId}`)
             setImageLoader(false)
             if (res.data.success) {
-                console.log("this is res.data :", res.data)
-
-                console.log("this is res.data.categoryDatawihtimages :", res.data.categoryDataWithImages)
                 setSelectedCategoryData(res.data.categoryDataWithImages)
             }
         } catch (error) {
             console.log("getImagesByCategory : ", error.message)
         }
     }
-    console.log("selelteced category data :  :  : ", selectedCategoryData)
-
-
-
 
     const handleStudioSelection = async (studio) => {
         setSelectedStudio(studio._id);
         setSelectedCategories([])
         setLoader(false)
-        // await getImagesByCategory(studio._id);
     };
 
     const handleImageSelection = (category, selectedFiles) => {
-
         setCategoryImages(prevState => ({
             ...prevState,
             [category]: selectedFiles
         }));
     };
-
-    console.log("the categoryImages are : ", categoryImages)
-
+    
     const handleSubmit = async () => {
         try {
-            // window.location.reload()
             const formData = new FormData();
             formData.append('studioId', selectedStudio)
             const categoryData = selectedCategories.map(categoryId => ({
@@ -67,35 +53,23 @@ function AddPhotos() {
             }));
 
             formData.append('categoryData', JSON.stringify(categoryData));
-            console.log("categoryData :-----------------> ", categoryData)
             // Append image files to FormData
             for (const category of selectedCategories) {
-                console.log("categroy fo seletedeCAtegories : ", category)
                 for (const file of categoryImages[category]) {
-                    console.log("file of categoryImages : ", file)
                     formData.append('file', file);
                 }
             }
-            const res = await vendorAxiosInstance.post(`/uploadStudioimg`, formData
-            //  {
-            //     headers: {
-            //         Authorization: `Bearer ${vendorToken}`,
-            //         'Content-Type': 'multipart/form-data'
-            //     },
-            // }
-            );
 
-            console.log("Response from backend: ", res.data);
+            // const res = await vendorAxiosInstance.post(`/uploadStudioimg`,formData);
+            const res = await uploadStudioImages(formData)
             if (res.data.success) {
-                console.log("Hello")
                 setImageRefresh(!imageRefresh)
                 toast.success("Images addedd Successfully")
             } else {
-                console.log("somehting wrooooooooooooooooooooooooong")
+                console.log("error in photo uploading")
             }
         } catch (error) {
             toast.error("somehing error")
-            console.log("Error uploading images: ", error.message);
         }
     };
 
@@ -112,7 +86,8 @@ function AddPhotos() {
     const getStudios = async () => {
 
         try {
-            const res = await vendorAxiosInstance.get(`/getStudios`)
+            // const res = await vendorAxiosInstance.get(`/getStudios`)
+            const res = getStudioData()
             if (res.status === 200) {
                 setStudios(res.data.studioDatas)
 
@@ -122,13 +97,13 @@ function AddPhotos() {
         } catch (error) {
             console.log("error in Addstudio category111 : ", error.message)
         }
-
     }
     // 
     const getCategories = async () => {
         try {
             setLoader(true)
-            const res = await vendorAxiosInstance.get(`/getimageCategories?id=${selectedStudio}`)
+            const res = getCategoriesData(selectedStudio)
+            // const res = await vendorAxiosInstance.get(`/getimageCategories?id=${selectedStudio}`)
             setLoader(false)
             if (res.status === 200) {
                 console.log(res.data.categoryDatas)

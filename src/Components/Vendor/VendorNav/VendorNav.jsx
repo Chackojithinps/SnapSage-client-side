@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { vendorLogout } from '../../../Store/vendorAuth'
-import { vendorAxiosInstance } from '../../../Utils/Axios';
+import { getProfileVendor } from '../../../Utils/VendorEndpoints';
 
 function VendorNav() {
   const [vendorData, setVendorData] = useState({})
@@ -14,7 +14,8 @@ function VendorNav() {
   }
   // ------------------------------------- getProfile---------------------------------
   const getProfile = async () => {
-    const res = await vendorAxiosInstance.get(`/profile`)
+    // const res = await vendorAxiosInstance.get(`/profile`)
+    const res = await getProfileVendor()
     if (res.data.success) {
       console.log("userDetail : ", res.data.vendorDetail)
       setVendorData(res.data.vendorDetail)

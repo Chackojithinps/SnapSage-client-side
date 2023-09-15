@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { vendorAxiosInstance } from "../../../Utils/Axios";
 import { toast } from "react-hot-toast";
+import { getOfferDatas, listOfferData, unlistOfferData } from "../../../Utils/VendorEndpoints";
 
 function Offer() {
   const [list, setList] = useState(false);
@@ -8,22 +9,25 @@ function Offer() {
   const handleList = async(id) =>{
       setList(!list)
 
-       const res = await vendorAxiosInstance.patch('/listOffer',{id})
+      //  const res = await vendorAxiosInstance.patch('/listOffer',{id})
+      const res =   await listOfferData(id)
        if(res.data.success){
          toast.success("successfully listed")
        }
   }
   const handleunList= async(id) =>{
     setList(!list)
-    const res = await vendorAxiosInstance.patch('/unlistOffer',{id})
+    // const res = await vendorAxiosInstance.patch('/unlistOffer',{id})
+    const res = await unlistOfferData(id)
     if(res.data.success){
         toast.success("successfully unlisted")
       }
   }
   const getOffers = async () => {
-    const res = await vendorAxiosInstance.get("/getOffers");
+    // const res = await vendorAxiosInstance.get("/getOffers");
+    const res = await getOfferDatas()
     if (res.data.success) {
-      console.log("get offer data ");
+      console.log("get offer data");
       setOffers(res.data.offers);
     }
   };

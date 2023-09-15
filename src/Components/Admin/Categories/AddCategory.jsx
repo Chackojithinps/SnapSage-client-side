@@ -4,6 +4,7 @@ import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { toast } from 'react-hot-toast';
 import { adminAxiosInstance } from '../../../Utils/Axios';
+import { addCategoryData, categoriesData, editCategoryData } from '../../../Utils/AdminEndpoints';
 function AddCategory() {
    const [category,setCategory] = useState()
    const [categories,setCategories] = useState([])
@@ -25,9 +26,10 @@ function AddCategory() {
             },3000)
         }else{
             
-            const res = await adminAxiosInstance.post(`/addCategory`,{  
-               category:category
-            })
+            // const res = await adminAxiosInstance.post(`/addCategory`,{  
+            //    category:category
+            // })
+            const res = await addCategoryData(category)
             if (res.status === 200) {
                 if(res.data.exists){
                     setMessage(res.data.message)
@@ -75,9 +77,10 @@ function AddCategory() {
             },3000)
         }else{
 
-            const res = await adminAxiosInstance.patch(`/editCategory?id=${id}`,{
-               category
-            })
+            // const res = await adminAxiosInstance.patch(`/editCategory?id=${id}`,{
+            //    category
+            // })
+            const res = await editCategoryData(id,category)
             if (res.status === 200) {
                if(res.data.exists){
                    setMessage(res.data.message)
@@ -101,7 +104,8 @@ function AddCategory() {
 
    const getCategory = async()=>{
       try{
-         const res = await adminAxiosInstance.get(`/categories`)
+        //  const res = await adminAxiosInstance.get(`/categories`)
+        const res = await categoriesData()
          console.log("responeses : ",res.data)
          if (res.status === 200) {
             setCategories(res.data.categoryDatas)

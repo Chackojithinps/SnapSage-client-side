@@ -1,7 +1,7 @@
 import React from 'react'
 import VendorSidebar from '../VendorNav/VendorSidebar'
 import { useState, useEffect } from 'react'
-import { vendorAxiosInstance } from '../../../Utils/Axios'
+import { AddprofileImage, getProfileVendor } from '../../../Utils/VendorEndpoints'
 function VendorProfile() {
   const [file, setFile] = useState()
   const [img, setImg] = useState(false)
@@ -12,7 +12,8 @@ function VendorProfile() {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await vendorAxiosInstance.post(`/upload`, formData);
+      // const res = await vendorAxiosInstance.post(`/upload`, formData);
+      const res =  await AddprofileImage(formData)
       if (res.status === 200) {
         setImg(!img)
         console.log("______________________________")
@@ -27,7 +28,8 @@ function VendorProfile() {
   const getData = async () => {
     try {
       setLoader(true)
-      const res = await vendorAxiosInstance.get(`/profile`)
+      // const res = await vendorAxiosInstance.get(`/profile`)
+      const res = await getProfileVendor()
       setLoader(false)
       if (res.data.success) {
         console.log("userDetaisln infdjf ", res.data.vendorDetail)

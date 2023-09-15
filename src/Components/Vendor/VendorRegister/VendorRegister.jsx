@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { VendorApi } from '../../../Utils/Api'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { vendorAxiosInstance } from '../../../Utils/Axios'
+import { registerData } from '../../../Utils/VendorEndpoints'
 
 function VendorRegister() {
   const [input, setInput] = useState()
@@ -40,11 +40,8 @@ function VendorRegister() {
               formData.append('image', imageInput.files[i]);
             }
           }
-          const res = await axios.post(`${VendorApi}/register`,formData,{
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
+          // const res = await vendorAxiosInstance.post(`/register`,formData)
+          const res = await registerData(formData)
           if (res) {
             console.log("response otp : ", res.data)
             //  toast.success(res.data.message)

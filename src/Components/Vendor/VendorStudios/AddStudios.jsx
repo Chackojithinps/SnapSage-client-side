@@ -3,6 +3,7 @@ import VendorSidebar from "../VendorNav/VendorSidebar";
 import { VendorApi } from "../../../Utils/Api";
 import { useNavigate } from "react-router-dom";
 import { vendorAxiosInstance } from "../../../Utils/Axios";
+import { addstudioData, getCategoriesData, getCategoriesDatas } from "../../../Utils/VendorEndpoints";
 function AddStudios() {
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([]); //
@@ -20,19 +21,20 @@ function AddStudios() {
     }
 
     const handleSubmit = async () => {
-        const res = await vendorAxiosInstance.post(`/addStudio`, {
-            studioName: input.studioName,
-            description: input.description,
-            district: input.district,
-            email: input.email,
-            place: input.place,
-            city: input.city,
-            zipcode: input.zipcode,
-            categories: selectedCategories.map(categoryId => ({
-                categoryId,
-                price: categoryPrices[categoryId] || 0
-            }))
-        });
+        // const res = await vendorAxiosInstance.post(`/addStudio`, {
+        //     studioName: input.studioName,
+        //     description: input.description,
+        //     district: input.district,
+        //     email: input.email,
+        //     place: input.place,
+        //     city: input.city,
+        //     zipcode: input.zipcode,
+        //     categories: selectedCategories.map(categoryId => ({
+        //         categoryId,
+        //         price: categoryPrices[categoryId] || 0
+        //     }))
+        // });
+        const res = await addstudioData(input,selectedCategories,categoryPrices);
         if (res.data.success) {
             setPageReload(!pageReload)
             setOpen(true)
@@ -75,7 +77,8 @@ function AddStudios() {
 
     const getCategories = async () => {
         try {
-            const res = await vendorAxiosInstance.get(`/getCategories`)
+            // const res = await vendorAxiosInstance.get(`/getCategories`)
+            const res = await getCategoriesDatas()
             if (res.status === 200) {
                 console.log(res.data)
                 setCategories(res.data.categoryDatas)

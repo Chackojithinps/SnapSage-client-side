@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { addAdminDetails } from '../../../Store/AdminAuth'
 import { adminAxiosInstance } from '../../../Utils/Axios'
+import { adminSignin } from '../../../Utils/AdminEndpoints'
 
 
 function AdminLogin() {
@@ -16,10 +17,11 @@ function AdminLogin() {
     try {
       e.preventDefault();
       if (checked) {
-        const res = await adminAxiosInstance.post(`/login`, {
-          email: email,
-          password: password
-        });
+        // const res = await adminAxiosInstance.post(`/login`, {
+        //   email: email,
+        //   password: password
+        // });
+        const res = await adminSignin(email,password)
   
         if (res.status === 200) {
           localStorage.setItem("token",res.data.AdminToken)

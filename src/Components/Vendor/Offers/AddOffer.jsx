@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { vendorAxiosInstance } from "../../../Utils/Axios";
 import { toast } from "react-hot-toast";
+import { addOfferData } from "../../../Utils/VendorEndpoints";
 
 function AddOffer() {
   const [input, setInput] = useState({});
@@ -14,7 +15,8 @@ function AddOffer() {
   console.log("inut : : ",input)
   const handleAddOffer = async (e) => {
     e.preventDefault();
-    const res = await vendorAxiosInstance.post("/addOffer", { input });
+    // const res = await vendorAxiosInstance.post("/addOffer", { input });
+    const res = addOfferData(input)
     if (res.data.success) {
       console.log(res.data);
       toast.success("successfully offer addded");

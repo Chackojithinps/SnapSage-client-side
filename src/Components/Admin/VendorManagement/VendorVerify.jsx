@@ -4,6 +4,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import CloseIcon from '@mui/icons-material/Close';
 import { toast } from 'react-hot-toast';
 import { adminAxiosInstance } from '../../../Utils/Axios';
+import { getUnvarfiedData, rejectVendorData, verifyVendorData } from '../../../Utils/AdminEndpoints';
 
 function VendorVerify() {
 
@@ -18,7 +19,8 @@ function VendorVerify() {
     console.log("selected Vendor : ", selectedVendor)
     console.log("vendor list : ", vendorList)
     const handleVarify = async (id) => {
-        const res = await adminAxiosInstance.patch(`/verifyVendor?id=${id}`)
+        // const res = await adminAxiosInstance.patch(`/verifyVendor?id=${id}`)
+        const res = await verifyVendorData(id)
         if (res.data.success) {
             toast.success("Request accepted")
             setVarify(!varify)
@@ -28,7 +30,8 @@ function VendorVerify() {
 
     const handleReject = async (id) => {
         try {
-            const res = await adminAxiosInstance.post(`/rejectVendor?id=${id}`)
+            // const res = await adminAxiosInstance.post(`/rejectVendor?id=${id}`)
+            const res = await rejectVendorData(id)
             if (res.data.success) {
                 toast.error("Request rejected")
                 setVendorRejected(!vendorRejected)
@@ -40,7 +43,8 @@ function VendorVerify() {
 
     const getUnVerifiedreq = async () => {
         try {
-            const res = await adminAxiosInstance.get(`/getUnverified?search=${searchInput}`)
+            // const res = await adminAxiosInstance.get(`/getUnverified?search=${searchInput}`)
+            const res = await getUnvarfiedData(searchInput)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)

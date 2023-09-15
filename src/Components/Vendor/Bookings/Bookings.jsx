@@ -4,6 +4,7 @@ import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { toast } from 'react-hot-toast';
 import { vendorAxiosInstance } from '../../../Utils/Axios';
+import { acceptBookingData, bookingData } from '../../../Utils/VendorEndpoints';
 
 function Bookings() {
     const [bookingList, setBookingList] = useState([])
@@ -14,9 +15,10 @@ function Bookings() {
     const handleAccept = async (id,email) => {
         console.log("id : ", id)
         console.log("email : email : ",email)
-        const res = await vendorAxiosInstance.patch(`acceptBooking?id=${id}`, {
-            email:email
-        },)
+        // const res = await vendorAxiosInstance.patch(`acceptBooking?id=${id}`, {
+        //     email:email
+        // })
+        const res = await acceptBookingData(id,email)
         if (res.data.success) {
             toast.success("Request Accepted")
             setBookingStatus(!BookingStatus)
@@ -33,7 +35,8 @@ function Bookings() {
       
     const getData = async () => {
         try {
-            const res = await vendorAxiosInstance.get(`/bookings?search=${searchInput}`)
+            // const res = await vendorAxiosInstance.get(`/bookings?search=${searchInput}`)
+            const res = bookingData(searchInput)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)

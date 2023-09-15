@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import toast from "react-hot-toast";
 import { addvendorDetails } from "../../Store/vendorAuth";
-import { vendorAxiosInstance } from "../../Utils/Axios";
+import { vendorLogin } from "../../Utils/VendorEndpoints";
 
 function VendorLogin() {
   const [email, setEmail] = useState();
@@ -21,13 +21,9 @@ function VendorLogin() {
       e.preventDefault();
       if (checked) {
         setLoader(true)
-        const res = await vendorAxiosInstance.post(`/login`, {
-          email: email,
-          password: password,
-        });
+       const res = await vendorLogin(email,password)
         setLoader(false)
         if (res.status === 200){
-          console.log("res.data.data.std : ",res.data)
           toast.success(res.data.message);
           localStorage.setItem("token",res.data.vendorDetail.token);
           dispatch(addvendorDetails({token: res.data.vendorDetail.token }))
@@ -39,7 +35,6 @@ function VendorLogin() {
         return;
       }
     } catch (error) {
-      console.log("userlogin", error.message);
       toast.error("Something went wrong");
     }
   };

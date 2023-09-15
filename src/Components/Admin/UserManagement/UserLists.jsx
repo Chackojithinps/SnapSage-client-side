@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AdminSidebar from '../AdminNavbar/AdminSidebar'
 import { adminAxiosInstance } from '../../../Utils/Axios'
+import { blockUser, unblockUserData, userlistsData } from '../../../Utils/AdminEndpoints'
 function UserLists() {
     const [userList, setUserList] = useState([])
     const [status, setStatus] = useState(false)
@@ -9,7 +10,8 @@ function UserLists() {
     const [searchInput, setSearchInput] = useState("")
     const handleBlock = async (userId) => {
         try {
-            const res = await adminAxiosInstance.patch(`/blockUser?id=${userId}`, {})
+            // const res = await adminAxiosInstance.patch(`/blockUser?id=${userId}`, {})
+            const res = await blockUser(userId)
             console.log(res.data)
             if (res.data.success) {
                 setStatus(!status)
@@ -21,7 +23,8 @@ function UserLists() {
 
     const handleUnblock = async (userId) => {
         try {
-            const res = await adminAxiosInstance.patch(`/unblockUser?id=${userId}`)
+            // const res = await adminAxiosInstance.patch(`/unblockUser?id=${userId}`)
+            const res  =  await unblockUserData(userId)
             if (res.data.success) {
                 setStatus(!status)
             }
@@ -32,7 +35,8 @@ function UserLists() {
     const getData = async () => {
         try {
             setLoading(true)
-            const res = await adminAxiosInstance.get(`/userlists?search=${searchInput}`)
+            // const res = await adminAxiosInstance.get(`/userlists?search=${searchInput}`)
+            const res = await userlistsData(searchInput)
             setLoading(false)
             if (res.data.success) {
                 if(res.data.message){
