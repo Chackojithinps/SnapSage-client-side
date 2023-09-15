@@ -12,7 +12,7 @@ import {
 } from "../../Store/userAuth";
 import { userNavbar } from "../../Utils/UserEndpoints";
 
-function UserHome({ setProfileId }) {
+function UserHome({ setProfileId,setUserDetails }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.user.userToken);
@@ -32,10 +32,11 @@ function UserHome({ setProfileId }) {
   const getProfile = async () => {
     const res = await userNavbar();
     if (res.data.success) {
-      if(setProfileId){
-        setProfileId(res.data.userDetail._id)
+      if(setUserDetails){
+        console.log("userDetails in userNavabar : ",res.data.userDetail)
+        setUserDetails(res.data.userDetail)
       }
-      dispatch(showProfileImage({ profileData: res.data.userDetail }));
+      dispatch(showProfileImage({profileData: res.data.userDetail}));
     }
   };
 
@@ -51,7 +52,7 @@ function UserHome({ setProfileId }) {
 
   return (
     <nav
-      className="md:flex w-full justify-evenly h-10 items-center bg-white md:h-24"
+      className="md:flex w-full justify-evenly h-10 border items-center bg-white md:h-24"
       style={{ fontFamily: "Noto Serif" }}
     >
       <div className="flex justify-center px-7 md:">
