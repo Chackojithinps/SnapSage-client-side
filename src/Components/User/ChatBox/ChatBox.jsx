@@ -8,7 +8,7 @@ function ChatBox({ userDetails }) {
   console.log("userDetails in chatebox: ", userDetails);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  console.log("messageList : : : ",messageList)
+  console.log("messageList : : : ", messageList);
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
@@ -29,6 +29,7 @@ function ChatBox({ userDetails }) {
       const res = await getChat();
       if (res.data.message) {
         console.log("message of chat : ", res.data.messageData);
+
         setMessageList(res.data.messageData);
       }
     } catch (error) {
@@ -48,8 +49,6 @@ function ChatBox({ userDetails }) {
     <div className="flex justify-center">
       <div class="h-[40rem] flex flex-col w-[50rem] mt-5  ">
         <div class="bg-gray-100 flex-1 overflow-y-auto rounded-[5px]">
-       
-
           <div class="px-4 py-2">
             <div class="flex items-center mb-2">
               <img
@@ -59,24 +58,25 @@ function ChatBox({ userDetails }) {
               />
               <div class="font-medium">John Doe</div>
             </div>
-          
-              <div class="bg-white rounded-lg p-2 shadow mb-2 max-w-sm">
-                hello
-              </div>
-           
             {messageList.map((item) => (
-            <div class="flex items-center justify-end">
-              <div class="bg-blue-500 text-white rounded-lg p-2 mb-2 shadow mr-2 max-w-sm">
-                {item.message}
-              </div>
+              <div>
                 
-           
-              <img
-                class="w-8 h-8 rounded-full"
-                src="https://picsum.photos/50/50"
-                alt="User Avatar"
-              />
-            </div>
+                <div class={`bg-white rounded-lg p-2 shadow mb-2 max-w-sm`}>
+                  hello
+                </div>
+                
+                <div class={`flex items-center justify-end`}>
+                  <div class="bg-blue-500 text-white rounded-lg p-2 mb-2 shadow mr-2 max-w-sm">
+                    {item.message}
+                  </div>
+
+                  <img
+                    class="w-8 h-8 rounded-full"
+                    src="https://picsum.photos/50/50"
+                    alt="User Avatar"
+                  />
+                </div>
+              </div>
             ))}
           </div>
         </div>
