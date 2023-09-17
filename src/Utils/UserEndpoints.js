@@ -199,4 +199,17 @@ export const paymentData  = async (bookings,amount) => {
 }
 
 
+// -------------------------------------------------------------  get chat -----------------------------------------------------------
+
+export const getChat  = async () => {
+    try {
+        const data = await userAxiosInstance.get(`/getChats`)
+        console.log("data >>>>>>>>>>>>>>>>>>: ",data)
+        return data
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
+
 

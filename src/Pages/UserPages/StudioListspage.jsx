@@ -10,12 +10,11 @@ function StudioListspage() {
       <UserHome/>
       <SectionOne/>
       <SectionTwo/>
-      <div className='mt-[15rem]'>
+      <div className='mt-[7rem]'>
 
-      <UsersideFooter/>
+      <UsersideFooter />
       </div>
     </div>
   )
 }
-
 export default StudioListspage

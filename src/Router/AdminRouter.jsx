@@ -23,11 +23,10 @@ function AdminRouter() {
      }
   },[])
 
-
   return (
     <div>
       <Routes>
-        <Route path='/' element={adminToken?<AdminhomePage/>:<Navigate to='/admin/login' />} />
+        <Route path='/' element={adminToken?<AdminhomePage/>:<Navigate to='/admin/login'/>}/>
         <Route path='/login' element={adminToken?<Navigate to='/admin' />:<LoginPage/>} />
         <Route path='/userlists' element={adminToken?<UserlistPages/>:<Navigate to='/admin/login' />}/>
         <Route path='/vendorlists' element={adminToken?<VendorlistPage/>:<Navigate to='/admin/login' />}/>

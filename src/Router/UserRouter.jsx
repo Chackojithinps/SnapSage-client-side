@@ -29,7 +29,7 @@ function UserRouter() {
   useEffect(()=>{
     dispatch(showProfile({status:false}))
     if(localStorage.getItem('token')){
-       dispatch(adduserDetails({token: localStorage.getItem('token') }))
+       dispatch(adduserDetails({token: localStorage.getItem('token')}))
     }
   },[])
   return (

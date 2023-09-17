@@ -52,7 +52,7 @@ function UserHome({ setProfileId,setUserDetails }) {
 
   return (
     <nav
-      className="md:flex w-full justify-evenly h-10 border items-center bg-white md:h-24"
+      className="md:flex w-full justify-evenly  h-10 border items-center bg-white md:h-24"
       style={{ fontFamily: "Noto Serif" }}
     >
       <div className="flex justify-center px-7 md:">
@@ -72,9 +72,9 @@ function UserHome({ setProfileId,setUserDetails }) {
           open ? "left-0" : "left-[-123rem]"
         }`}
       >
-        <ul className="md:flex md:gap-10" style={{ fontFamily: "Noto Serif" }}>
+        <ul className="md:flex md:gap-10 bg-white" style={{ fontFamily: "Noto Serif" }}>
           <li
-            className="hover:text-red-400  my-7 md:my-0 md:ms-0   Alegreya-Sans-SC   hover:cursor-pointer"
+            className="hover:text-red-400  my-7 md:my-0 md:ms-0  bg-white Alegreya-Sans-SC   hover:cursor-pointer"
             onClick={() => navigate("/")}
           >
             HOME
