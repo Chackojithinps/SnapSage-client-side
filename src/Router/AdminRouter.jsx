@@ -9,6 +9,7 @@ import VendorvarifyPage from '../Pages/AdminPages/VendorvarifyPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { addAdminDetails } from '../Store/AdminAuth'
 import StudiovarifyPage from '../Pages/AdminPages/StudiovarifyPage'
+import ChatBoxPage from '../Pages/AdminPages/ChatBoxPage'
 
 function AdminRouter() {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ function AdminRouter() {
         <Route path='/categories' element={adminToken?<CategoryPage/>:<Navigate to='/admin/login'/>} />
         <Route path='/vendorRequests' element={adminToken?<VendorvarifyPage/>:<Navigate to='/admin/login'/>} />
         <Route path='/studioVarify' element={adminToken?<StudiovarifyPage/>:<Navigate to='/admin/login'/>}/>
+        <Route path='/chatBox' element={adminToken?<ChatBoxPage/>:<Navigate to='/admin/login'/>}/>
       </Routes>
     </div>
   )

@@ -4,6 +4,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import RecentActorsIcon from '@mui/icons-material/RecentActors'; 
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ClassIcon from '@mui/icons-material/Class';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -83,8 +84,19 @@ function AdminSidebar() {
               <div className="flex items-center justify-between p-2 hover:bg-gray-100">
                 <div onClick={()=>navigate('/admin/userlists')} className="flex items-center mx-1">
                   {/* <i className="fas fa-file-alt mr-2"></i> */}
-                  <LocalOfferIcon style={{color:'violet'}}/>
+                  <LocalOfferIcon color='warning'/>
                   <span className='mx-2' >Offers</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              
+            </li>
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-gray-100">
+                <div onClick={()=>navigate('/admin/chatBox')} className="flex items-center mx-1">
+                  {/* <i className="fas fa-file-alt mr-2"></i> */}
+                  <QuestionAnswerIcon style={{color:'green'}}/>
+                  <span className='mx-2' >Chats</span>
                 </div>
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
