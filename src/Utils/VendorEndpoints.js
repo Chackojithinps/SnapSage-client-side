@@ -48,7 +48,7 @@ export const uploadStudioImages = async (formData) => {
 export const getStudioData = async () => {
     try {
         const data = await vendorAxiosInstance.get(`/getStudios`)
-
+        console.log("data ____________________ : ",data)
         return data;
     } catch (error) {
         alert("vendorside ")

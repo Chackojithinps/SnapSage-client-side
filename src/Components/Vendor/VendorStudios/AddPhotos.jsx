@@ -84,11 +84,11 @@ function AddPhotos() {
     };
 
     const getStudios = async () => {
-
         try {
             // const res = await vendorAxiosInstance.get(`/getStudios`)
-            const res = getStudioData()
+            const res = await getStudioData()
             if (res.status === 200) {
+                console.log("res.data.studioDatas : : ",res.data.studioDatas)
                 setStudios(res.data.studioDatas)
 
             } else {
@@ -102,7 +102,7 @@ function AddPhotos() {
     const getCategories = async () => {
         try {
             setLoader(true)
-            const res = getCategoriesData(selectedStudio)
+            const res = await getCategoriesData(selectedStudio)
             // const res = await vendorAxiosInstance.get(`/getimageCategories?id=${selectedStudio}`)
             setLoader(false)
             if (res.status === 200) {
