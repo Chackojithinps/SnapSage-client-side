@@ -119,13 +119,14 @@ function ProfileNav() {
                                 <p className='text-red-700'>Last Name </p>
                                 <p className='font-bold my-2'>{userData.lname}</p>
                             </div>
-                            <div>
-                                <p className='text-red-700'>Email </p>
-                                <p className='font-bold my-2' >{userData.email}</p>
-                            </div>
+                            
                             <div>
                                 <p className='text-red-700'>Phone Number</p>
                                 <p className='font-bold my-2'>{userData.phone}</p>
+                            </div>
+                            <div>
+                                <p className='text-red-700'>Email </p>
+                                <p className='font-bold my-2' >{userData.email}</p>
                             </div>
                         </div>
                         <button className='border border-gray-500 py-2 px-4 rounded  bg-green-700 text-white' onClick={()=>setEdit(true)}>Edit Profile</button>

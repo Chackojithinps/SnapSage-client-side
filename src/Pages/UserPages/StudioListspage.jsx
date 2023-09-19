@@ -8,7 +8,7 @@ function StudioListspage() {
   return (
     <div>
       <UserHome/>
-      <SectionOne/>
+      {/* <SectionOne/> */}
       <SectionTwo/>
       <div className='mt-[7rem]'>
 

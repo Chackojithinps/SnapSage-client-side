@@ -52,7 +52,28 @@ function SectionTwo() {
   }, []);
   return (
     <div>
-      <div className="mx-28 px-2 mt-" style={{ fontFamily: "Noto Serif" }}>
+      <div className=' px-20   border  h-[12rem] flex gap-2'>
+        <div className="flex flex-col w-[50%]">
+
+          <p className='text-gray-400 font-bold'>Studio / Studio Vendors</p>
+          <p className='font-bold text-[40px]'>Studio Vendors</p>
+          <form className='flex'>
+              <input
+                placeholder='Search for '
+                className=' my-5 -gray-500 py-3 px-4 outline-none  md:w-[14rem] lg:w-[22rem] rounded-bl rounded-tl'
+                style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}
+              />
+              <button className='py-3  -gray-500 w-[10rem] md:w-[6rem] lg:w-[10rem] h-[50px] my-5 bg-red-600 rounded-br rounded-tr'>
+                <span className='text-white text-[17px]'>Find</span>
+              </button>
+            </form>
+        </div>
+        <div className="ms-[8rem]">
+          <img className=" object-cover w-[100rem] h-[12rem]" src="/Images/Picsart_23-09-19_18-18-00-295.jpg" alt=""/>
+        </div>
+
+      </div> 
+      <div className="mx-14 px-2 mt-" style={{ fontFamily: "Noto Serif" }}>
       
 
         {/* <div className="flex justify-evenly gap-12">
@@ -157,7 +178,7 @@ function SectionTwo() {
         </div> */}
         </div>
 
-        <div class="grid-cols-1 grid lg:grid-cols-3 md:grid-cols-2">
+        <div class="grid-cols-1 grid lg:grid-cols-4 md:grid-cols-2">
           {studioDetails.map((studio) => (
             <div
               className="mx-3 flex flex-col mt-6 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  sm:shrink-0 sm:grow sm:basis-0"
@@ -165,7 +186,7 @@ function SectionTwo() {
             >
               <div>
                 <img
-                  className="h-[15rem] w-[23rem] mx-3 mt-3 object-cover"
+                  className="h-[15rem] w-full object-cover"
                   src={studio?.images?.images[0]?.photos[0]}
                   alt=""
                 />
