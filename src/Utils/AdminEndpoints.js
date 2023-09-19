@@ -177,10 +177,23 @@ export const rejectVendorData = async (id) => {
 
 // ----------------------------------------------------- user Navbar ----------------------------------------
 
-
 export const getUnvarfiedData = async (searchInput) => {
     try {
         const data = await adminAxiosInstance.get(`/getUnverified?search=${searchInput}`)
+        return data;
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
+
+// ----------------------------------------------------- Chat Lists ----------------------------------------
+
+
+export const chatListsData = async (searchInput) => {
+    try {
+        const data = await adminAxiosInstance.get(`/chatLists`)
+        console.log("chatLists : : : : : ",data)
         return data;
     } catch (error) {
         alert("userSignin ")
