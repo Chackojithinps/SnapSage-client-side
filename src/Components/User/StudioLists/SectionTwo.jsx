@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getStudiosHome } from "../../../Utils/UserEndpoints";
+import { getCategoriesData, getStudiosHome } from "../../../Utils/UserEndpoints";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CurrencyRupeeOutlinedIcon from "@mui/icons-material/CurrencyRupeeOutlined";
 
 function SectionTwo() {
   const [studioDetails, setStudioDetails] = useState([]);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+  console.log("location : ",location)
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   console.log("studioDetails in list page : ", studioDetails);
   const calculateAverageRating = (reviews) => {
@@ -32,7 +36,7 @@ function SectionTwo() {
 
   const getStudios = async () => {
     try {
-      const res = await getStudiosHome();
+      const res = await getStudiosHome(search,location);
       if (res.data.success) {
         const studiosWithAverageRating = res.data.studioDetails.map(
           (studio) => ({
@@ -47,8 +51,20 @@ function SectionTwo() {
       console.log("getSTudios : ", error.message);
     }
   };
+
   useEffect(() => {
     getStudios();
+  }, [search,location]);
+  
+  const getCategories = async() =>{
+    const res = await getCategoriesData()
+    if(res.data.message){
+      console.log("category: ",res.data.categoryDatas)
+      setCategories(res.data.categoryDatas)
+    }
+  }
+  useEffect(() => {
+    getCategories();
   }, []);
   return (
     <div>
@@ -58,7 +74,7 @@ function SectionTwo() {
           <p className='text-gray-400 font-bold'>Studio / Studio Vendors</p>
           <p className='font-bold text-[40px]'>Studio Vendors</p>
           <form className='flex'>
-            <input
+            <input onChange={(e)=>setSearch(e.target.value)}
               placeholder='Search for '
               className=' my-5 -gray-500 py-3 px-4 outline-none  md:w-[14rem] lg:w-[22rem] rounded-bl rounded-tl'
               style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}
@@ -78,24 +94,43 @@ function SectionTwo() {
       
       <div className="px-2 mt-5 py-4 w-full text-right  rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
         {/* <label for="cars">Choose a car:</label> */}
+        {/* <input type="text" placeholder="Search here ...." className="border border-[2px] outline-none py-3 w-[450px] px-6 border-500 "/> */}
+        <select name="cars" id="cars" className="border border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500">
+          <option value='all'>Choose Category</option>
+          {categories.map((category)=>(
+             <option value={category.categoryName}>{category.categoryName}</option>
 
-        <select name="cars" id="cars" className="border border-[2px] outline-none py-3 w-[18rem] px-6 border-500">
-          <option value='all'>Select Category</option>
-          <option value="saab">Saab</option>
+          ))}
+          
+          {/* <option value="saab">Saab</option>
           <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
+          <option value="audi">Audi</option> */}
         </select>
-        <select name="cars" id="cars" className="border border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500 ">
-          <option value='all'>Select District</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
+        <select name="cars" id="cars" className="border border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500 " onChange={(e)=>setLocation(e.target.value)}>
+          <option value=''>Choose Location</option>
+          <option value="kannur">Kannur</option>
+          <option value="kozhikode">Kozhikode</option>
+          <option value="wayanad">Wayanad</option>
+          <option value="thrissur">Thrissur</option>
+          <option value="palakkad">Palakkad</option>
+          <option value="malappuram">Malappuram</option>
+          <option value="ernakulam">Ernakulam</option>
+          <option value="idukki">Idukki</option>
+          <option value="kollam">Kollam</option>
+          <option value="kottayam">Kottayam</option>
+          <option value="alappuzha">Alappuzha</option>
+          <option value="kasargod">Kasargod</option>
+          <option value="pathanamthitta">Pathanamthitta</option>
+          <option value="thiruvananthapuram">Thiruvananthapuram</option>
+
         </select>
         <select name="cars" id="cars" className="border border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500">
           <option value='all'>Select Price</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
+          <option value="saab">below ₹15000</option>
+          <option value="saab">₹15000 - ₹30000</option>
+          <option value="saab">₹30000 - ₹70000</option>
+          <option value="mercedes">₹70000 - ₹100000</option>
+          <option value="audi">above ₹100000</option>
         </select>
         <div>
         </div>

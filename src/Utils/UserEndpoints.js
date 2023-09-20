@@ -73,9 +73,9 @@ export const getProfile = async () => {
 
 // ----------------------------------------------------- user Home page get Studios  ----------------------------------------
 
-export const getStudiosHome = async () => {
+export const getStudiosHome = async (search,location) => {
     try {
-        const data = await userAxiosInstance.get(`/getStudios`)
+        const data = await userAxiosInstance.get(`/getStudios?search=${search}&location=${location}`)
         return data;
     } catch (error) {
         alert("userSignin ")
@@ -204,6 +204,18 @@ export const paymentData  = async (bookings,amount) => {
 export const getChat  = async () => {
     try {
         const data = await userAxiosInstance.get(`/getChats`)
+        console.log("data >>>>>>>>>>>>>>>>>>: ",data)
+        return data
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
+// -------------------------------------------------------------  get chat -----------------------------------------------------------
+
+export const getCategoriesData  = async () => {
+    try {
+        const data = await userAxiosInstance.get(`/getCategories`)
         console.log("data >>>>>>>>>>>>>>>>>>: ",data)
         return data
     } catch (error) {

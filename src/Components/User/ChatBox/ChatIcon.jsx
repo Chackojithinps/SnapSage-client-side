@@ -27,7 +27,6 @@ function ChatIcon1() {
                             for or you can also call us on 991-050-2284 and talk to a wedding
                             expert for free.
                         </p>
-
                     </div>
                     <div className="w-full mt-10 bg-gray-200 h-3">
 
