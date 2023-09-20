@@ -213,3 +213,22 @@ export const userChats = async (id) => {
         return { status: 'failed', message: error.response.data.error }
     }
 }
+
+
+// ----------------------------------------------------- handle user single chat  ----------------------------------------
+
+
+export const adminSendMessage = async (id,message) => {
+    try {
+        const data = await adminAxiosInstance.post(`/addChat`,{
+              id:id,
+              message:message,
+              sender:'admin'
+        })
+        console.log("chatData : : : : : ",data)
+        return data;
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}

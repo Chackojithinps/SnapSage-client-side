@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { chatListsData, userChats } from "../../../Utils/AdminEndpoints";
+import { adminSendMessage, chatListsData, userChats } from "../../../Utils/AdminEndpoints";
 
 
 function ChatBox() {
   const [chatLists, setChatLists] = useState([])
   const [chats,setChats] = useState([])
+  const [id,setId] = useState()
+  const [currentMessage,setCurrentMessage] = useState("")
 
   const handleuserChat = async(id)=>{
     console.log("id : ",id)
+    setId(id)
     const res = await userChats(id)
     if(res.data.message){
       console.log("res.data.userChats",res.data.userChats)
@@ -15,6 +18,12 @@ function ChatBox() {
     }
   }
 
+  const handleSendmessage = async()=>{
+    console.log("entered _______________________________________________")
+    console.log(id,currentMessage)
+     const res= await adminSendMessage(id,currentMessage)
+
+  }
   const getChatLists = async () => {
     const res = await chatListsData();
     if (res.data.message) {
@@ -110,9 +119,9 @@ function ChatBox() {
                   class="w-full border outline-none mb-4 rounded-full py-2 px-4 mr-2"
                   type="text"
                   placeholder="Type your message..."
-                //   onChange={(e) => setCurrentMessage(e.target.value)}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
                 />
-                <button class="bg-blue-500 mb-4  hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full">
+                <button onClick={handleSendmessage} class="bg-blue-500 mb-4  hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full">
                   Send
                 </button>
               </div>
