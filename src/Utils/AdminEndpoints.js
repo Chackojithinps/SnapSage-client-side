@@ -190,10 +190,23 @@ export const getUnvarfiedData = async (searchInput) => {
 // ----------------------------------------------------- Chat Lists ----------------------------------------
 
 
-export const chatListsData = async (searchInput) => {
+export const chatListsData = async () => {
     try {
         const data = await adminAxiosInstance.get(`/chatLists`)
-        console.log("chatLists : : : : : ",data)
+        return data;
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
+
+// ----------------------------------------------------- handle user single chat  ----------------------------------------
+
+
+export const userChats = async (id) => {
+    try {
+        const data = await adminAxiosInstance.get(`/userChats?id=${id}`)
+        console.log("chatData : : : : : ",data)
         return data;
     } catch (error) {
         alert("userSignin ")

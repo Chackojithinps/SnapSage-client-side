@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { chatListsData } from "../../../Utils/AdminEndpoints";
+import { chatListsData, userChats } from "../../../Utils/AdminEndpoints";
 
 
 function ChatBox() {
   const [chatLists, setChatLists] = useState([])
+  const [chats,setChats] = useState([])
+
+  const handleuserChat = async(id)=>{
+    console.log("id : ",id)
+    const res = await userChats(id)
+    if(res.data.message){
+      console.log("res.data.userChats",res.data.userChats)
+      setChats(res.data.userChats)
+    }
+  }
+
   const getChatLists = async () => {
     const res = await chatListsData();
     if (res.data.message) {
@@ -11,10 +22,12 @@ function ChatBox() {
       setChatLists(res.data.chatLists)
     }
   }
+ 
 
   useEffect(() => {
     getChatLists()
   }, [])
+
   return (
     <div className="flex" >
       <div className="h-[37rem] mt-5 rounded-bl rounded-tl w-[22rem] border">
@@ -32,7 +45,7 @@ function ChatBox() {
           {chatLists.map((chat) => (
             <div className="pt-4">
              
-            <div className="flex  h-[4rem] items-center px-3 hover:bg-gray-300 ">
+            <div className="flex  h-[4rem] items-center px-3 hover:bg-gray-200 " onClick={()=>handleuserChat(chat._id)}>
               <img
                 className="h-[3rem] object-cover w-[3rem] rounded-full"
                 src={chat.userDetails.image}
@@ -41,10 +54,10 @@ function ChatBox() {
               <div className="flex">
                 <div className="mx-4 ">
                   <p className=" font-medium w-[12rem]">{chat.userDetails.fname} {chat.userDetails.lname}</p>
-                  <p className="font text-gray-500">{chat.latestChat.message}</p>
+                  <p className=" text-gray-500">{chat.latestChat.message}</p>
                 </div>
                 <div className="">
-                  <p className=" text-[14px]">{chat.latestChat.time}</p>
+                  <p className=" text-[14px] text-gray-500 font-medium">{chat.latestChat.time}</p>
                 </div>
               </div>
             </div>
@@ -73,10 +86,11 @@ function ChatBox() {
                   <div class={`bg-white rounded-lg p-2 shadow mb-2 max-w-sm`}>
                     hello
                   </div>
+                  {chats.map((chat)=>(
 
                   <div class={`flex items-center justify-end`}>
                     <div class="bg-blue-500 text-white rounded-lg p-2 mb-2 shadow mr-2 max-w-sm">
-                      {/* {item.message} */}
+                      {chat.message}
                     </div>
 
                     <img
@@ -85,6 +99,7 @@ function ChatBox() {
                       alt="User Avatar"
                     />
                   </div>
+                  ))}
                 </div>
                 {/* ))} */}
               </div>
