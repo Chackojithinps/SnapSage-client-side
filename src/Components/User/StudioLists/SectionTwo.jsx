@@ -118,7 +118,7 @@ function SectionTwo() {
 
             <div className="p-6">
               <h5 className="mb-2 text-xl font-medium leading-tight text-black dark:black cursor-pointer">
-                Weddding Mubark
+                {studio.companyName}
               </h5>
 
               <div>
