@@ -52,9 +52,9 @@ function ChatBox() {
 
   return (
     <div className="flex" >
-      <div className="h-[37rem] bg-gray-800 mt-5 rounded-bl rounded-tl w-[22rem] border">
+      <div className="h-[37rem] bg--200 mt-5 rounded-bl rounded-tl w-[22rem] border">
         <div className="">
-          <div className="px-3 py-2 text-white  bg-black-400">
+          <div className="px-3 py-2 text-black  bg-black-400">
             <p className="text-[25px] font-medium" style={{ fontFamily: 'Noto Serif' }}>Chats</p>
           </div>
           <div className="px-3 mt-2">
@@ -67,7 +67,7 @@ function ChatBox() {
           {chatLists.map((chat) => (
             <div className="pt-4">
              
-            <div className="flex  h-[4rem] items-center px-3 hover:bg-blue-400 " onClick={()=>handleuserChat(chat._id,chat.userDetails.image,chat.userDetails.fname,chat.userDetails.lname)}>
+            <div className="flex  h-[4rem] items-center px-3 hover:bg-gray-200 " onClick={()=>handleuserChat(chat._id,chat.userDetails.image,chat.userDetails.fname,chat.userDetails.lname)}>
               <img
                 className="h-[3rem] object-cover w-[3rem] rounded-full"
                 src={chat.userDetails.image}
@@ -75,11 +75,11 @@ function ChatBox() {
               />
               <div className="flex">
                 <div className="mx-4 ">
-                  <p className=" font-medium text-white w-[12rem]">{chat.userDetails.fname} {chat.userDetails.lname}</p>
-                  <p className=" text-white text-[14px]">{chat.latestChat.message}</p>
+                  <p className=" font-medium text-black w-[12rem]">{chat.userDetails.fname} {chat.userDetails.lname}</p>
+                  <p className=" text-black text-[14px]">{chat.latestChat.message}</p>
                 </div>
                 <div className="">
-                  <p className=" text-[14px] text-white hover:text-black font-medium">{chat.latestChat.time}</p>
+                  <p className=" text-[14px] text-black hover:text-black font-medium">{chat.latestChat.time}</p>
                 </div>
               </div>
             </div>

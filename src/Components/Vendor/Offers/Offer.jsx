@@ -5,21 +5,24 @@ import { getOfferDatas, listOfferData, unlistOfferData } from "../../../Utils/Ve
 
 function Offer() {
   const [list, setList] = useState(false);
+  // const [unlist, setUnlist] = useState(false);
   const [offers, setOffers] = useState([]);
   const handleList = async(id) =>{
-      setList(!list)
+      
 
       //  const res = await vendorAxiosInstance.patch('/listOffer',{id})
       const res =   await listOfferData(id)
        if(res.data.success){
+         setList(!list)
          toast.success("successfully listed")
        }
   }
   const handleunList= async(id) =>{
-    setList(!list)
+    // setUnlist(!unlist)
     // const res = await vendorAxiosInstance.patch('/unlistOffer',{id})
     const res = await unlistOfferData(id)
     if(res.data.success){
+       setList(!list)
         toast.success("successfully unlisted")
       }
   }
@@ -85,11 +88,11 @@ function Offer() {
                 <td className="px-8">
                   <div className="">
                     {offer.isListed ? (
-                      <button onClick={()=>handleunList(offer._id)} className="py-1 px-4 w-[5rem] rounded-[5px] bg-green-500 text-black text-white">
+                      <button className="py-1 px-4 w-[5rem] rounded-[5px] bg-red-500 text-black text-white" onClick={()=>handleunList(offer._id)} >
                         Unlist
                       </button>
                     ) : (
-                      <button onClick={()=>handleList(offer._id)} className="py-1 w-[5rem] px-4 rounded-[5px] bg-red-500 text-white">
+                      <button  className="py-1 w-[5rem] px-4 rounded-[5px] bg-green-500 text-white" onClick={()=>handleList(offer._id)}>
                         List
                       </button>
                     )}

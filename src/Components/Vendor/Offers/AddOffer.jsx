@@ -16,7 +16,7 @@ function AddOffer() {
   const handleAddOffer = async (e) => {
     e.preventDefault();
     // const res = await vendorAxiosInstance.post("/addOffer", { input });
-    const res = addOfferData(input)
+    const res =await addOfferData(input)
     if (res.data.success) {
       console.log(res.data);
       toast.success("successfully offer addded");
