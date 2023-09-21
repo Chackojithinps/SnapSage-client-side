@@ -8,8 +8,9 @@ function SectionTwo() {
   const [studioDetails, setStudioDetails] = useState([]);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
-  console.log("location : ",location)
   const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
   const navigate = useNavigate();
   console.log("studioDetails in list page : ", studioDetails);
   const calculateAverageRating = (reviews) => {
@@ -36,7 +37,7 @@ function SectionTwo() {
 
   const getStudios = async () => {
     try {
-      const res = await getStudiosHome(search,location);
+      const res = await getStudiosHome(search,location,category);
       if (res.data.success) {
         const studiosWithAverageRating = res.data.studioDetails.map(
           (studio) => ({
@@ -54,7 +55,7 @@ function SectionTwo() {
 
   useEffect(() => {
     getStudios();
-  }, [search,location]);
+  }, [search,location,category]);
   
   const getCategories = async() =>{
     const res = await getCategoriesData()
@@ -95,18 +96,16 @@ function SectionTwo() {
       <div className="px-2 mt-5 py-4 w-full text-right  rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
         {/* <label for="cars">Choose a car:</label> */}
         {/* <input type="text" placeholder="Search here ...." className="border border-[2px] outline-none py-3 w-[450px] px-6 border-500 "/> */}
-        <select name="cars" id="cars" className="border border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500">
-          <option value='all'>Choose Category</option>
+
+        <select name="" id="" className="border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500" onChange={(e)=>setCategory(e.target.value)}>
+          <option value="">Choose Category</option>
           {categories.map((category)=>(
              <option value={category.categoryName}>{category.categoryName}</option>
 
           ))}
           
-          {/* <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option> */}
         </select>
-        <select name="cars" id="cars" className="border border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500 " onChange={(e)=>setLocation(e.target.value)}>
+        <select name="" id="cars" className="border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500 " onChange={(e)=>setLocation(e.target.value)}>
           <option value=''>Choose Location</option>
           <option value="kannur">Kannur</option>
           <option value="kozhikode">Kozhikode</option>
@@ -124,19 +123,13 @@ function SectionTwo() {
           <option value="thiruvananthapuram">Thiruvananthapuram</option>
 
         </select>
-        <select name="cars" id="cars" className="border border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500">
-          <option value='all'>Select Price</option>
-          <option value="saab">below ₹15000</option>
-          <option value="saab">₹15000 - ₹30000</option>
-          <option value="saab">₹30000 - ₹70000</option>
-          <option value="mercedes">₹70000 - ₹100000</option>
-          <option value="audi">above ₹100000</option>
-        </select>
+       
         <div>
         </div>
 
       </div>
       </div>
+      {studioDetails.length>0?
       <div class="grid-cols-1 mx-16 grid lg:grid-cols-4 md:grid-cols-2">
         {studioDetails.map((studio) => (
           <div
@@ -294,7 +287,15 @@ function SectionTwo() {
         ))}
 
       
-      </div>
+      </div>:
+         <div className="flex justify-center" style={{ fontFamily: "Noto Serif" }}>
+            <div className="w-[25rem]  text-center flex justify-center items-center flex-col gap-4 mt-16" >
+               <img src="https://www.weddingwire.in/assets/img/components/listing/no_reults/broken_heart.svg" className="w-[6rem]" alt="" />
+               <p style={{fontFamily:'sans-serif'}}>NO RESULTS</p>
+               <p style={{fontFamily:'sans-serif'}}>Sorry, we couldn’t find any vendors that match your search. Please update your filters and try again.</p>
+            </div>
+        </div>
+      }
 
       <div class="inline-flex rounded-xl mt-10 w-full">
         <ul class="flex items-center w-full justify-center mt-[5rem]">

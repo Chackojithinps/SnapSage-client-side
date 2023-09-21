@@ -73,9 +73,10 @@ export const getProfile = async () => {
 
 // ----------------------------------------------------- user Home page get Studios  ----------------------------------------
 
-export const getStudiosHome = async (search,location) => {
+export const getStudiosHome = async (search,location,category) => {
     try {
-        const data = await userAxiosInstance.get(`/getStudios?search=${search}&location=${location}`)
+        console.log("category : : : ",category)
+        const data = await userAxiosInstance.get(`/getStudios?search=${search}&location=${location}&category=${category}`)
         return data;
     } catch (error) {
         alert("userSignin ")
