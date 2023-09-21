@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { adminSendMessage, chatListsData, userChats } from "../../../Utils/AdminEndpoints";
 
 
@@ -10,6 +10,7 @@ function ChatBox() {
   // const [image,setImage] = useState()
   // const [name,setName]= useState("")
   const [currentMessage,setCurrentMessage] = useState("")
+  const chatContainerRef = useRef(null);
 
   const handleuserChat = async(id,image,fname,lname)=>{
     // console.log("id : ",id)
@@ -20,6 +21,7 @@ function ChatBox() {
     if(res.data.message){
       console.log("res.data.userChats",res.data.userChats)
       setChats(res.data.userChats)
+      scrollToBottom()
     }
   }
 
@@ -27,8 +29,14 @@ function ChatBox() {
     console.log("entered _______________________________________________")
     console.log(userData.id,currentMessage)
      const res= await adminSendMessage(userData.id,currentMessage)
-
   }
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+
   const getChatLists = async () => {
     const res = await chatListsData();
     if (res.data.message) {
@@ -86,7 +94,7 @@ function ChatBox() {
       <div className="h-[37rem] mt-5 rounded-br rounded-tr w-[55rem] border">
         <div className="flex justify-center">
           <div class="h-[37rem] flex flex-col w-[55rem] ">
-            <div class="bg-gray-100 flex-1 overflow-y-auto rounded-[5px]">
+            <div ref={chatContainerRef} class="bg-gray-100 flex-1 overflow-y-auto rounded-[5px]">
             <div class="flex items-center mb-2 h-[53px] px-4 bg-blue-900">
                   <img
                     class="w-8 h-8 rounded-full mr-2"

@@ -205,19 +205,17 @@ export const paymentData  = async (bookings,amount) => {
 export const getChat  = async () => {
     try {
         const data = await userAxiosInstance.get(`/getChats`)
-        console.log("data >>>>>>>>>>>>>>>>>>: ",data)
         return data
     } catch (error) {
         alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
-// -------------------------------------------------------------  get chat -----------------------------------------------------------
+// -------------------------------------------------------------  get categories -----------------------------------------------------------
 
 export const getCategoriesData  = async () => {
     try {
         const data = await userAxiosInstance.get(`/getCategories`)
-        console.log("data >>>>>>>>>>>>>>>>>>: ",data)
         return data
     } catch (error) {
         alert("userSignin ")
@@ -225,4 +223,33 @@ export const getCategoriesData  = async () => {
     }
 }
 
+// -------------------------------------------------------------- get chat -----------------------------------------------------------
+
+export const getChatData  = async () => {
+    try {
+        console.log("entered chat data")
+        const data = await userAxiosInstance.get(`/getChats`)
+        return data
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
+
+
+// -------------------------------------------------------------- add Chat by user -----------------------------------------------------------
+
+export const userSendMessage = async (message) => {
+    try {
+        const data = await userAxiosInstance.post(`/addChat`,{
+              message:message,
+              sender:'user'
+        })
+        console.log("chatData : : : : : >>>>>>>>>>>>>>>>>>>>>>>>>> ",data)
+        return data;
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
 
