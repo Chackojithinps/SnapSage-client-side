@@ -48,7 +48,7 @@ function AdminHome() {
             
         ],
         // borderColor: "white",
-        data: [17, 10, 5, 2, 20, 30, 40,17, 10, 5, 2, 40, 45, 45],
+        data: [1,0,0,4,0],
       },
     ],
   };
@@ -185,7 +185,7 @@ function AdminHome() {
           {/* ---------------------------------------------------------------------------------- */}
           <div className="flex">
           {/* bg-[#1e293b] */}
-            <div className="border py-24 border-gray-500 ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
+            <div className="border py-24  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
               <div className="px-16 " >
                 <p>Bar chart</p>
                 <Bar data={data1}  />
@@ -194,7 +194,7 @@ function AdminHome() {
                 <Line data={data1} />
               </div> */}
             </div>
-            <div className="border border-red-500 h-[30rem] py-10 bg-white absolute top-[23rem] right-[3rem] rounded-xl w-[25%]">
+            <div className="border h-[30rem] py-10 bg-white absolute top-[23rem] right-[3rem] rounded-xl w-[25%]">
               <div className="">
                 <Pie data={data} />
               </div>

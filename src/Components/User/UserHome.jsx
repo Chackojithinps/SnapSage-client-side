@@ -131,12 +131,12 @@ function UserHome({ setProfileId,setUserDetails }) {
       ) : (
         <div className="flex gap-10">
           <div className="flex gap-2 cursor-pointer" onClick={handleProfileBar}>
-          {profileData?<img
+          {profileData.image?<img
               src={profileData.image}
               alt=""
               className=" w-[40px] h-[40px] rounded-full"
             />:<img
-            src=''
+             src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
             alt=""
             className=" w-[40px] h-[40px] rounded-full"
           />}

@@ -1,59 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VendorSidebar from "../VendorNav/VendorSidebar";
 import Chart from "chart.js/auto";
 import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+import { allbookingData } from "../../../Utils/VendorEndpoints";
 
-const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets: [
-    {
-      data: [12, 19, 3, 5, 2, 3],
-      // label: "My First dataset",
-      backgroundColor: [
-        '#EF4444',
-        '#3B82F6',
-        '#FBBF24',
-        '#10B981',
-        '#A78BFA',
-        '#F59E0B',
-      ],
-      hoverOffset: 4,
-    },
-  ],
-};
+
 function Vendordashboard() {
-  // const data = {
-  //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  //   datasets: [
-  //     {
-  //       data: [12, 19, 3, 5, 2, 3],
-  //       backgroundColor: [
-  //         '#EF4444',
-  //         '#3B82F6',
-  //         '#FBBF24',
-  //         '#10B981',
-  //         '#A78BFA',
-  //         '#F59E0B',
-  //       ],
-  //       hoverOffset: 4,
-  //     },
-  //   ],
-  // };
 
-  //  const options = {
-  //   plugins: {
-  //     legend: {
-  //       display: false,
-  //     },
-  //   },
-  //   aspectRatio: 1,
-  //   cutout: '50%',
-  //   animation: {
-  //     animateRotate: false,
-  //   },
-  // };
+  const [bookingData,setBookingData] = useState({})
+  const [days,setDays] = useState({})
 
+  const data = {
+    labels: ['Booking Requests', 'Upcoming Events', 'Unpaid Bookings ', 'Work History'],
 
+    datasets: [
+      {
+        data: [bookingData.bookingRequest,bookingData.upcomingEvents,bookingData.unpaidBookings,bookingData.workHistory],
+        label: "Total counts",
+        backgroundColor: [
+          '#3B82F6',
+          '#F59E0B',
+          '#EF4444',
+          '#10B981',
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+  console.log("Days : ",days)
+  const barChartData = {
+    labels : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    datasets: [
+      {
+        data: [days.Sunday,days.Monday,days.Tuesday,days.Wednesday,days.Thursday,days.Friday,days.Saturday],
+        label:"Total Booking reqests",
+        backgroundColor: [
+          'skyBlue',
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const getBookings =async ()=>{
+    const res = await allbookingData()
+    if(res.data.success){
+      setBookingData({
+        bookingRequest:res.data.bookingRequest,
+        workHistory:res.data.workHistory,
+        upcomingEvents:res.data.upcomingEvents,
+        unpaidBookings:res.data.unpaidBookings,
+        totalPrice : res.data.totalPrice
+      })
+      setDays(res.data.Days)
+    }
+  }
+  useEffect(()=>{
+      getBookings()
+  },[])
   return (
 
 
@@ -75,9 +80,9 @@ function Vendordashboard() {
                           <div className="flex flex-wrap">
                             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                               <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                                Traffic
+                                Bookings Requests
                               </h5>
-                              <span className="font-bold text-xl">350,897</span>
+                              <span className="font-bold text-xl">{bookingData.bookingRequest}</span>
                             </div>
                             <div className="relative w-auto pl-4 flex-initial">
                               <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
@@ -100,9 +105,9 @@ function Vendordashboard() {
                           <div className="flex flex-wrap">
                             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                               <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                                NEW USERS
+                                upcoming events
                               </h5>
-                              <span className="font-bold text-xl">2,356</span>
+                              <span className="font-bold text-xl">{bookingData.upcomingEvents}</span>
                             </div>
                             <div className="relative w-auto pl-4 flex-initial">
                               <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
@@ -125,9 +130,9 @@ function Vendordashboard() {
                           <div className="flex flex-wrap">
                             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                               <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                                SALES
+                                Finished works
                               </h5>
-                              <span className="font-bold text-xl">924</span>
+                              <span className="font-bold text-xl">{bookingData.workHistory}</span>
                             </div>
                             <div className="relative w-auto pl-4 flex-initial">
                               <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-pink-500">
@@ -150,9 +155,9 @@ function Vendordashboard() {
                           <div className="flex flex-wrap">
                             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                               <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                                PERFORMANCE
+                                Total Amount
                               </h5>
-                              <span className="font-bold text-xl">49,65%</span>
+                              <span className="font-bold text-xl">₹{bookingData.totalPrice}</span>
                             </div>
                             <div className="relative w-auto pl-4 flex-initial">
                               <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500">
@@ -177,10 +182,14 @@ function Vendordashboard() {
           {/* ---------------------------------------------------------------------------------- */}
           <div className="flex">
 
-            <div className="border border-gray-500 ms-10 bg-[#1e293b] absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
-
+          <div className="border py-24  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
+              <div className="px-16 " >
+                <p>Bar chart</p>
+                <Bar data={barChartData}  />
+              </div> 
+            
             </div>
-            <div className="border border-red-500 h-[30rem] py-10 bg-white absolute top-[23rem] right-[3rem] rounded-xl w-[25%]">
+            <div className="border h-[30rem] py-10 bg-white absolute top-[23rem] right-[3rem] rounded-xl w-[25%]">
               <div className="">
                 <Pie data={data} />
               </div>

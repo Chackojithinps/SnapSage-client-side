@@ -59,7 +59,7 @@ function Booking() {
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Venue place
                                     </p>
-                                    <p className=''>{bookings.studio.district},{bookings.studio.city}</p>
+                                    <p className=''>{bookings.district},{bookings.city}</p>
                                     <p className="text-[15px] underline font-bold  md:mt-5 leading-relaxed">
                                         Event Date
                                     </p>

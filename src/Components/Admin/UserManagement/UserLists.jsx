@@ -81,11 +81,15 @@ function UserLists() {
                                     <tr key={user._id} className="hover:bg-gray-50">
                                         <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                             <div className="relative h-10 w-10">
-                                                <img
+                                                {user.image?<img
                                                     className="h-full w-full rounded-full object-cover object-center"
                                                     src={`${user.image}`}
                                                     alt=""
-                                                />
+                                                />:<img
+                                                className="h-full w-full rounded-full object-cover object-center"
+                                                src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+                                                alt=""
+                                            />}
                                             </div>
                                             <div className="text-sm">
                                                 <div className="font-medium text-gray-700">{user.fname} {user.lname}</div>

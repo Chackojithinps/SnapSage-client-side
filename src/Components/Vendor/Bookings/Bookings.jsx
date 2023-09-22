@@ -3,7 +3,6 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { toast } from 'react-hot-toast';
-import { vendorAxiosInstance } from '../../../Utils/Axios';
 import { acceptBookingData, bookingData } from '../../../Utils/VendorEndpoints';
 
 function Bookings() {
@@ -36,7 +35,7 @@ function Bookings() {
     const getData = async () => {
         try {
             // const res = await vendorAxiosInstance.get(`/bookings?search=${searchInput}`)
-            const res = bookingData(searchInput)
+            const res = await bookingData(searchInput)
             if (res.data.success) {
                 if (res.data.message) {
                     setMessage(res.data.message)
@@ -67,7 +66,7 @@ function Bookings() {
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Username</th>
+                            <th scope="col" class="px-10 py-4 font-bold text-gray-900 ">Studio Branch</th>
                             <th scope="col" class="px- py-4 font-bold text-gray-900">Selected Categories</th>
                             {/* <th scope="col" class="px-2 font-bold text-gray-900">Phone</th> */}
                             <th scope="col" class="px-9 py-4 font-bold text-gray-900">Venue Place</th>
@@ -87,7 +86,7 @@ function Bookings() {
                                    
                                     <div class="text-sm">
                                         <div class=" text-gray-700">{bookings.studio.companyName}</div>
-                                        <div class= "text-gray-400">{bookings.studio.district}</div>
+                                        <div class= "text-gray-400">{bookings.studio.city}</div>
                                     </div>
                                 </td>
                                 

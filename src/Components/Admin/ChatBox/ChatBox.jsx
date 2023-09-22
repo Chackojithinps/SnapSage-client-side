@@ -68,11 +68,15 @@ function ChatBox() {
             <div className="pt-4">
              
             <div className="flex  h-[4rem] items-center px-3 hover:bg-gray-200 " onClick={()=>handleuserChat(chat._id,chat.userDetails.image,chat.userDetails.fname,chat.userDetails.lname)}>
-              <img
+              {chat.userDetails.image?<img
                 className="h-[3rem] object-cover w-[3rem] rounded-full"
                 src={chat.userDetails.image}
                 alt=""
-              />
+              />:<img
+              className="h-[3rem] object-cover w-[3rem] rounded-full"
+              src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+              alt=""
+            />}
               <div className="flex">
                 <div className="mx-4 ">
                   <p className=" font-medium text-black w-[12rem]">{chat.userDetails.fname} {chat.userDetails.lname}</p>
@@ -96,11 +100,16 @@ function ChatBox() {
           <div class="h-[37rem] flex flex-col w-[55rem] ">
             <div ref={chatContainerRef} class="bg-gray-100 flex-1 overflow-y-auto rounded-[5px]">
             <div class="flex items-center mb-2 h-[53px] px-4 bg-blue-900">
-                  <img
+                  {userData.image?<img
                     class="w-8 h-8 rounded-full mr-2"
                     src={userData.image}
                     alt="User Avatar"
-                  />
+                  />:<img
+                  class="w-8 h-8 rounded-full mr-2"
+                  src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+
+                  alt="User Avatar"
+                />}
                   <div class="font-medium w-full text-white">{userData.fname} {userData.lname}</div>
                 </div>
               <div class="px-4 py-2">

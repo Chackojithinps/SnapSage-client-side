@@ -234,3 +234,17 @@ export const bookingData = async (searchInput) => {
         return { status: 'failed', message: error.response.data.error }
     }
 }
+
+// -------------------------------------------------------- get all Booking data for dashboard  --------------------------------------------------
+
+
+export const allbookingData = async () => {
+    try {
+        const data = await vendorAxiosInstance.get(`/allBookings`)
+        console.log("data >>>>>>>>>>>>>... ,",data)
+        return data;
+    } catch (error){
+        alert("vendorside ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}
