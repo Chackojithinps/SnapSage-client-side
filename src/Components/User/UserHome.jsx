@@ -131,8 +131,8 @@ function UserHome({ setProfileId,setUserDetails }) {
       ) : (
         <div className="flex gap-10">
           <div className="flex gap-2 cursor-pointer" onClick={handleProfileBar}>
-          {profileData.image?<img
-              src={profileData.image}
+          {profileData?<img
+              src={profileData?.image}
               alt=""
               className=" w-[40px] h-[40px] rounded-full"
             />:<img

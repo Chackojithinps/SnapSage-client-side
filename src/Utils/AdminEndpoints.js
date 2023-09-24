@@ -232,3 +232,17 @@ export const adminSendMessage = async (id,message) => {
         return { status: 'failed', message: error.response.data.error }
     }
 }
+
+// ----------------------------------------------------- get pie chart data for admin dash  ----------------------------------------
+
+
+export const getDatasData = async () => {
+    try {
+        const data = await adminAxiosInstance.get(`/getDatas`)
+        console.log("chatData : : : : : ",data)
+        return data;
+    } catch (error) {
+        alert("userSignin ")
+        return { status: 'failed', message: error.response.data.error }
+    }
+}

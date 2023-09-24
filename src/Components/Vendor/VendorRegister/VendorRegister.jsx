@@ -85,10 +85,25 @@ function VendorRegister() {
             {/* <input type='text' placeholder='District *' name='district' onChange={handleChange} className='py-2 px-2 outline-green-200 rounded w-full md:w-80' />  */}
             <select id="cars" name="district" onChange={handleChange} className='py-2 px-2   outline-green-200 rounded border  w-full md:w-80' >
               <option value="">Select district</option>
-              <option value="Kannur">Kannur</option>
+              {/* <option value="Kannur">Kannur</option>
               <option value="Kozhikode">Kozhikode</option>
               <option value="Malappuram">Malappuram</option>
               <option value="Wayanad">Wayanad</option>
+              <option value="Wayanad"></option> */}
+          <option value="kannur">Kannur</option>
+          <option value="kozhikode">Kozhikode</option>
+          <option value="wayanad">Wayanad</option>
+          <option value="thrissur">Thrissur</option>
+          <option value="palakkad">Palakkad</option>
+          <option value="malappuram">Malappuram</option>
+          <option value="ernakulam">Ernakulam</option>
+          <option value="idukki">Idukki</option>
+          <option value="kollam">Kollam</option>
+          <option value="kottayam">Kottayam</option>
+          <option value="alappuzha">Alappuzha</option>
+          <option value="kasargod">Kasargod</option>
+          <option value="pathanamthitta">Pathanamthitta</option>
+          <option value="thiruvananthapuram">Thiruvananthapuram</option>
             </select>
           </div>
           <div className='flex gap-4 my-3'>

@@ -99,7 +99,7 @@ function BookingHistory() {
 
 
                             </div>
-                            <div className="bg-blue-50 px-8 py-2 h-[5rem] md:max-w-[63rem]">
+                            <div className="bg-blue-50 px-8 py-2 h-[5rem] md:max-w-[60rem]">
                                 <div className="sm:flex sm:justify-between">
                                     <div>
                                         <div className="text-lg text-gray-700">

@@ -1,74 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import AdminSidebar from '../AdminNavbar/AdminSidebar'
 // import Chart from "chart.js/auto";
 import { Pie } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
+import { getDatasData } from "../../../Utils/AdminEndpoints";
 
 function AdminHome() {
-  const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  const [data,setDatas] = useState({})
+  const [days,setDays] = useState({})
+  const data1 = {
+    labels: ['VendorRequests', 'VarifiedVendor', 'StudioRequests', 'VarifiedStudios'],
     datasets: [
       {
-        data: [12, 19, 3, 5, 2, 3],
-        // label: "My First dataset",
-        backgroundColor: [
+        data: [data.PartnerRequests,data.VarifiedPartner,data.studioRequests,data.VarifiedStudios],
+        label: "count",
+        backgroundColor:[
           '#EF4444',
           '#3B82F6',
           '#FBBF24',
           '#10B981',
-          '#A78BFA',
-          '#F59E0B',
         ],
         hoverOffset: 4,
       },
     ],
   };
 
-  const data1 = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','Red', 'Blue'],
-
+  const data2 = {
+    labels : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: [
-          // '#EF4444',
-          // '#3B82F6',
-          // '#FBBF24',
-          // '#10B981',
-          // '#A78BFA',
-          // '#F59E0B',
-            // '#EF4444',
-            // '#3B82F6',
-            // '#FBBF24',
-            // '#10B981',
-            // '#A78BFA',
-            // '#F59E0B',
-            'skyblue',
-            
-            
+        data: [days.Sunday,days.Monday,days.Tuesday,days.Wednesday,days.Thursday,days.Friday,days.Saturday],
+        label: "count",
+        backgroundColor:[
+          'skyBlue'
         ],
-        // borderColor: "white",
-        data: [1,0,0,4,0],
+        hoverOffset: 4,
       },
     ],
   };
-    // const options = {
-    //   responsive: true,
-    //   plugins: {
-    //     legend: {
-    //       position: 'top',
-    //     },
-    //     title: {
-    //       display: true,
-    //       text: 'Chart.js Bar Chart',
-    //     },
-    //   },
-    // };
 
+  const getDatas=async ()=>{
+     const res = await getDatasData()
+     if(res.data.success){  
+       setDatas(res.data.Datas)
+       setDays(res.data.Days)
+     }
+  }
+
+  useEffect(()=>{
+     getDatas()
+  },[])
 
   return (
     <div>
-
       <div className="flex">
 
         <div className="h-full bg-[#cbd5e1] w-[79rem] ">
@@ -188,7 +172,7 @@ function AdminHome() {
             <div className="border py-24  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
               <div className="px-16 " >
                 <p>Bar chart</p>
-                <Bar data={data1}  />
+                <Bar data={data2}  />
               </div>
               {/* <div>
                 <Line data={data1} />
@@ -196,7 +180,7 @@ function AdminHome() {
             </div>
             <div className="border h-[30rem] py-10 bg-white absolute top-[23rem] right-[3rem] rounded-xl w-[25%]">
               <div className="">
-                <Pie data={data} />
+                <Pie data={data1} />
               </div>
             </div>
           </div>
