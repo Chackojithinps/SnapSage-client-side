@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategoriesData, getStudiosHome } from "../../../Utils/UserEndpoints";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LocationOnIcon from "@mui/icons-material/LocationOn";    
 import CurrencyRupeeOutlinedIcon from "@mui/icons-material/CurrencyRupeeOutlined";
-
 function SectionTwo() {
   const [studioDetails, setStudioDetails] = useState([]);
   const [search, setSearch] = useState("");
@@ -17,7 +16,6 @@ function SectionTwo() {
     if (!reviews || reviews.length === 0) {
       return 0;
     }
-
     const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
     return Math.floor(totalRating / reviews.length);
   };
