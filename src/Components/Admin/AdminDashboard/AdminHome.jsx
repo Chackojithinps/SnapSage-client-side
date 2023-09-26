@@ -63,9 +63,9 @@ function AdminHome() {
 
   return (
     <div>
-      <div className="flex">
-        <div className="h-[90rem] bg-[#cbd5e1] w-[79rem] ">
-          <div className="bg-[#0ea5e9] h-[25rem]  w-full ">
+      <div className="flex ">
+        <div className="max-h-[95rem] bg-[#cbd5e1] w-[79rem] ">
+          <div className="bg-[#0ea5e9] h-[25rem] w-full ">
             <div className="relative pt-32 pb-32 bg-lightBlue-500">
               <div className="px-4 md:px-6 mx-auto w-full">
                 <div>
@@ -180,7 +180,7 @@ function AdminHome() {
 
           <div className="flex">
             <div className="border -24  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
-              <p className="text-center mt-10">Weekly </p>
+              <p className="text-center mt-10">Weekly Bookings</p>
               <div className="px-16 py-16" >
                 <Bar data={data2} />
               </div>
@@ -194,14 +194,8 @@ function AdminHome() {
           </div>
 
           <div className="flex">
-            <div className="border ms-10 my-[28rem] bg-white rounded-xl w-[93%] max-h-[25rem] overflow-y-auto">
-
+            <div className="border ms-10 mt-[25rem] bg-white rounded-xl w-[93%] max-h-[25rem] mb-20 overflow-y-auto">
               <div className='flex'>
-
-          
-
-
-
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
                   <thead className="bg-gray-200">
                     <tr>
