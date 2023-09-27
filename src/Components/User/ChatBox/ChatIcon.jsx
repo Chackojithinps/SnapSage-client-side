@@ -4,7 +4,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import { getChatData, userSendMessage } from "../../../Utils/UserEndpoints";
-
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 function ChatIcon1() {
     
     const [chatopen, setChatopen] = useState(false);
@@ -60,12 +60,16 @@ function ChatIcon1() {
                         <p className="font-medium text-[25px] text-white ">Chat</p>
                         <DisabledByDefaultRoundedIcon className="me-0" style={{color:"white"}} onClick={handleChatData}/>
                     </div>
-                    <div className="px-5 flex mt-10 items-center justify-center">
-                        <p className="text-center ">
-                            WeddingWire Support WeddingWire has thousands of venues and
-                            wedding professionals to choose from with pricing, reviews and
+                    <div className="px-5 flex flex-col py-4 items-center justify-center">
+                        <div className="flex gap-2">
+                            <p className="font-bold">Snapsage Support</p>
+                            <SupportAgentIcon/>
+                        </div>
+                        <p className="text-center mt-3" style={{fontFamily:'sans-serif'}}>
+                            SnapSage has thousands of venues and
+                            Photography professionals to choose from with pricing, reviews and
                             more. I'd like to help you choose the ones that best fit your
-                            dream wedding. You can tell me a bit about what you are looking
+                            dream Photograhy. You can tell me a bit about what you are looking
                             for or you can also call us on 991-050-2284 and talk to a wedding
                             expert for free.
                         </p>

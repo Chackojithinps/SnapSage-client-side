@@ -12,7 +12,7 @@ import {
 } from "../../Store/userAuth";
 import { userNavbar } from "../../Utils/UserEndpoints";
 
-function UserHome({ setProfileId,setUserDetails,setChatopen }){
+function UserHome({setProfileId,setUserDetails,setChatopen}){
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.user.userToken);
@@ -32,8 +32,7 @@ function UserHome({ setProfileId,setUserDetails,setChatopen }){
   const getProfile = async () => {
     const res = await userNavbar();
     
-    if (res.data.success) {
-        
+    if (res.data.success) {        
       if(setUserDetails){
         console.log("userDetails in userNavabar : ",res.data.userDetail)
         setUserDetails(res.data.userDetail)
