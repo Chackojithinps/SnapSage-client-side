@@ -104,8 +104,6 @@ function Booking({
         <div className="flex flex-col gap-3">
           <p className="font-bold text-[25px]">{studio.companyName}</p>
 
-          
-
           <div className="flex">
                   <div className="flex text-[10px]">
                     <button
@@ -359,7 +357,7 @@ function Booking({
                   {" "}
                   Total Price :{" "}
                   <span className="text-red-600 text-[20px]">
-                    <span className="text-gray-400 ms-1  text-[15px] me-2" style={{ textDecoration: "line-through" }}>₹ {totalPrice} </span>₹{offerPrice} <span className="text-green-500 text-[15px] ms-1 font-medium">{percentage}% off</span>
+                    {allOffers.length>0 && <span className="text-gray-400 ms-1  text-[15px] me-2" style={{ textDecoration: "line-through" }}>₹ {totalPrice} </span>}₹{offerPrice}{allOffers.length>0 && <span className="text-green-500 text-[15px] ms-1 font-medium">{percentage}% off</span>}
                   </span>
                 </p>
               </div>

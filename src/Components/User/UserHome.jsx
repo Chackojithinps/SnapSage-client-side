@@ -12,7 +12,7 @@ import {
 } from "../../Store/userAuth";
 import { userNavbar } from "../../Utils/UserEndpoints";
 
-function UserHome({ setProfileId,setUserDetails }) {
+function UserHome({ setProfileId,setUserDetails,setChatopen }){
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.user.userToken);
@@ -41,6 +41,9 @@ function UserHome({ setProfileId,setUserDetails }) {
       if(setProfileId){
           console.log("res.data.userDetail : ",res.data.userDetail)
           setProfileId(res.data.userDetail._id)
+      }
+      if(setChatopen){
+        setChatopen(true)
       }
       dispatch(showProfileImage({profileData: res.data.userDetail}));
     }

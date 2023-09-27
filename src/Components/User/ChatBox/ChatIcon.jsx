@@ -9,6 +9,7 @@ function ChatIcon1() {
     
     const [chatopen, setChatopen] = useState(false);
     const [chat,setChat] = useState([])
+    const [chats,setChats] = useState(false)
     const [text,setText] = useState("")
     const [sendMessage,setSendMessage]= useState(false)
     const chatContainerRef = useRef(null);
@@ -25,28 +26,29 @@ function ChatIcon1() {
     const getChat =async()=>{
          const res = await getChatData()
          if(res.data.message){
-
             setChat(res.data.messageData)
-            // scrollToBottom();
-
          }
     } 
+
+    const handleClickchat =async()=>{
+        setChats(!chats)
+        setChatopen(!chatopen)
+    }
+
     const handleChatData = ()=>{
         setChatopen(!chatopen)
-        
     }
+
     const scrollToBottom = () => {
         if (chatContainerRef.current) {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       };
 
-      
-
     useEffect( ()=>{
        getChat()
        scrollToBottom(); 
-    },[chatopen,sendMessage])
+    },[chats,sendMessage])
     return (
         <div className="fixed right-10 cursor-pointer  bg-white-500 rounded full top-[42rem]">
             {chatopen ? (
@@ -104,15 +106,6 @@ function ChatIcon1() {
                         <input type="text" value={text} className="outline-none py-4 px-3" placeholder="Write your message ..."  onChange={(e)=>setText(e.target.value)}/>
                         <SendRoundedIcon style={{fontSize:"35px",marginRight:"10px",background:"",color:"red"}} onClick={handleSendmessage}/>
                     </div>
-                    {/* <div className="flex">
-                <div className="mx-4 ">
-                  <p className=" font-medium text-white w-[12rem]">Hello</p>
-                  <p className=" text-white text-[14px]">13:13</p>
-                </div>
-                <div className="">
-                  <p className=" text-[14px] text-white hover:text-black font-medium">12:09</p>
-                </div>
-              </div> */}
                 </div>
             ) : (
                 <div className="border-gray-500 fixed right-[-200rem] top-[6rem] bg-gray-500  h-[40rem] w-[20rem]">
@@ -124,7 +117,7 @@ function ChatIcon1() {
                 <div className="border w-[3rem] h-[3rem] flex items-center justify-center rounded-full ">
                     <ChatIcon
                         style={{ color: "red", fontSize: "3rem" }}
-                        onClick={() => setChatopen(!chatopen)}
+                        onClick={handleClickchat }
                     />
                 </div>
             )}
