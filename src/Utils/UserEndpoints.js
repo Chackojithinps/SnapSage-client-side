@@ -51,6 +51,7 @@ export const otpVerify = async (enteredOTP,userData) => {
 export const userNavbar = async () => {
     try {
         const data = await userAxiosInstance.get(`/getProfileData`);
+        console.log("data : : >>>>>>>>>>>",data)
         return data;
     } catch (error) {
         alert("userSignin ")

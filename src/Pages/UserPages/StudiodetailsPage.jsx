@@ -8,6 +8,7 @@ import Review from "../../Components/User/StudioDetails/Review";
 import Booking from "../../Components/User/StudioDetails/Booking";
 import UsersideFooter from "../../Components/User/Footer/UsersideFooter";
 import { getOfferData } from "../../Utils/UserEndpoints";
+import { PortableWifiOff } from "@mui/icons-material";
 
 function StudiodetailsPage() {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ function StudiodetailsPage() {
   const [text,setText] = useState("")
   const location = useLocation();
   const studio = location.state.studio;
-  
+  console.log("profile id _: ",profileId)
   const getOffers =async()=>{
     const res = await getOfferData(studio)
     if(res.data.success){
@@ -49,7 +50,7 @@ function StudiodetailsPage() {
   },[])
   return (
     <>
-      <UserHome studio={studio}   setProfileId={setProfileId} />
+      <UserHome studio={studio} setProfileId={setProfileId} />
       <div className="flex">
         <div>
           <StudioImages

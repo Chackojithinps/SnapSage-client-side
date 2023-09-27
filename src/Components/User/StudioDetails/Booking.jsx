@@ -33,10 +33,12 @@ function Booking({
   const profileOpen = useSelector((state) => state.user.status);
   
   const allOffers = offers.filter((offer) => {
-    return offer.isListed && (offer.oneTime ? !offer.user.some((userId) => userId === profileId) : true);
+    return offer.isListed && (offer.oneTime ? !offer.user.some((userId) => userId == profileId) : true);
   });
-
+  console.log("profileId : ",profileId)
+  console.log("allOffers  : ",allOffers)
   const offerLength = allOffers.length;
+  console.log("offerLength : ",offerLength)
   const percentage = allOffers.reduce(
     (total, offer) => total + offer.percentage,
     0

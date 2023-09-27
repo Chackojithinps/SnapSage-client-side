@@ -234,9 +234,7 @@ export const bookingData = async (searchInput) => {
         return { status: 'failed', message: error.response.data.error }
     }
 }
-
 // -------------------------------------------------------- get all Booking data for dashboard  --------------------------------------------------
-
 
 export const allbookingData = async () => {
     try {

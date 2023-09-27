@@ -31,10 +31,16 @@ function UserHome({ setProfileId,setUserDetails }) {
 
   const getProfile = async () => {
     const res = await userNavbar();
+    
     if (res.data.success) {
+        
       if(setUserDetails){
         console.log("userDetails in userNavabar : ",res.data.userDetail)
         setUserDetails(res.data.userDetail)
+      }
+      if(setProfileId){
+          console.log("res.data.userDetail : ",res.data.userDetail)
+          setProfileId(res.data.userDetail._id)
       }
       dispatch(showProfileImage({profileData: res.data.userDetail}));
     }
