@@ -35,12 +35,13 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
                     alert("http error : ",error.response.status)
                     console.log("HTTP Error: ", error.response.status);
                 }
-            } else {
-                // Handle network errors or other issues
-                alert('Network Error : ',error.message)
-                console.log("Network Error: ", error.message);
-            }
-            return Promise.reject(error);
+            } 
+            // else {
+            //     // Handle network errors or other issues
+            //     alert('Network Error : ',error.message)
+            //     console.log("Network Error: ", error.message);
+            // }
+            // return Promise.reject(error);
         })
     return instance
 }
