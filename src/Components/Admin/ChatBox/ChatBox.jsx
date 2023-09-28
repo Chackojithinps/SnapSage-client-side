@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { adminSendMessage, chatListsData, userChats } from "../../../Utils/AdminEndpoints";
+import { chatListsData, userChats } from "../../../Utils/AdminEndpoints";
 import { io } from "socket.io-client";
 import { socketApi } from "../../../Utils/Api";
 
 function ChatBox() {
   const Socket = io.connect(socketApi);
-
   const [chatLists, setChatLists] = useState([])
   const [chats,setChats] = useState([])
   const [userData,setUserData] = useState({})
@@ -105,7 +104,7 @@ function ChatBox() {
 
         </div>
       </div>
-      
+      {chats.length>0?
       <div className="h-[37rem] mt-5 rounded-br rounded-tr w-[55rem] border">
         <div className="flex justify-center">
           <div class="h-[37rem] flex flex-col w-[55rem] ">
@@ -159,7 +158,9 @@ function ChatBox() {
             </div>
           </div>
         </div>
-      </div>
+      </div>:<div className="flex items-center mb-36">
+        <p className="text-center  mx-[25rem]">You can chat with the user here</p>
+        </div>}
     </div>
   );
 }

@@ -17,6 +17,7 @@ function ChatIcon1({userDetails}) {
     const [sendMessage,setSendMessage]= useState(false)
 
     const chatContainerRef = useRef(null);
+    
     const handleSendmessage=async()=>{
         if (text.trim() !== '') {
             const newMessage = {
@@ -56,8 +57,10 @@ function ChatIcon1({userDetails}) {
       };
 
     useEffect( ()=>{
+        
         getChat()
         scrollToBottom(); 
+
     },[])
 
     useEffect(() => {
@@ -69,9 +72,8 @@ function ChatIcon1({userDetails}) {
        return()=>{
         Socket.disconnect()
       }
-       
-      }, [chat,sendMessage]);
 
+      }, [chat,sendMessage]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
