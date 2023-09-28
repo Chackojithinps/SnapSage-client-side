@@ -10,7 +10,6 @@ export const userSignin = async (email,password) => {
         });
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -24,7 +23,6 @@ export const userRegister = async (email) => {
           })
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -40,7 +38,6 @@ export const otpVerify = async (enteredOTP,userData) => {
         })
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -54,7 +51,6 @@ export const userNavbar = async () => {
         console.log("data : : >>>>>>>>>>>",data)
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -67,7 +63,6 @@ export const getProfile = async () => {
         const data = await userAxiosInstance.get(`/profile`)
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -80,7 +75,6 @@ export const getStudiosHome = async (search,location,category,pages) => {
         const data = await userAxiosInstance.get(`/getStudios?search=${search}&location=${location}&category=${category}&pages=${pages}`)
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -104,7 +98,6 @@ export const BookingData = async (input,studio,allOffers,offerPrice,selectedCate
           });
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -116,7 +109,6 @@ export const isuserBooked = async (studio) => {
         const data = await userAxiosInstance.get(`/isUserBooked?id=${studio._id}`);
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -128,7 +120,6 @@ export const getOfferData = async (studio) => {
         const data = await userAxiosInstance.get(`/getOffers?id=${studio.vendorId}`)
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -144,7 +135,6 @@ export const reviewData = async (studioId,rating,feedback) => {
         })
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -157,7 +147,6 @@ export const bookingLists = async () => {
         const data = await userAxiosInstance.get(`/bookings`)
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -169,7 +158,6 @@ export const bookingHistory = async () => {
         const data = await userAxiosInstance.get(`/bookingHistory`)
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -181,7 +169,6 @@ export const verifyPaymentData  = async (response,bookingId,amount,totalAmount) 
         const data = await userAxiosInstance.post(`/verifyPayment`,{response,bookingId,amount,totalAmount})
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -195,7 +182,6 @@ export const paymentData  = async (bookings,amount) => {
         })
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -208,7 +194,6 @@ export const getChat  = async () => {
         const data = await userAxiosInstance.get(`/getChats`)
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -219,7 +204,6 @@ export const getCategoriesData  = async () => {
         const data = await userAxiosInstance.get(`/getCategories`)
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -232,7 +216,6 @@ export const getChatData  = async () => {
         const data = await userAxiosInstance.get(`/getChats`)
         return data
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -249,8 +232,17 @@ export const userSendMessage = async (message) => {
         console.log("chatData : : : : : >>>>>>>>>>>>>>>>>>>>>>>>>> ",data)
         return data;
     } catch (error) {
-        alert("userSignin ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
 
+// -------------------------------------------------------------- getStudios search in Home ------------------------------------------------------------
+
+export const getSearchinHome = async (search) => {
+    try {
+        const data = await userAxiosInstance.get( `/getStudios?search=${search}` )
+        return data;
+    } catch (error) {
+        return { status: 'failed', message: error.response.data.error }
+    }
+}

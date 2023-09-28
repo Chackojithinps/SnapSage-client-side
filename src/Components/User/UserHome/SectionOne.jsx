@@ -1,16 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { showProfile } from '../../../Store/userAuth';
+import { getSearchinHome } from '../../../Utils/UserEndpoints';
 
 function SectionOne() {
+  const [input,setInput] = useState("")
   const dispatch = useDispatch()
   const profileOpen = useSelector((state)=>state.user.status)
   console.log("status : ",profileOpen)
   const navigate = useNavigate()
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    if(!input==""){
+       const res = await getSearchinHome(input)
+       if(res.data.success){
+        navigate('/studioLists', { state: res.data.studioDetails}); 
+      }
+      setInput("")
+    }
+   
+  }
+
   useEffect(()=>{
     dispatch(showProfile({ status: false }))
   },[])
+
   return (
     <>
       <div className='flex flex-col-reverse md:flex-row md:h-[24rem] w-full overscroll-none'>
@@ -24,11 +40,13 @@ function SectionOne() {
             </p>
             <form className='flex'>
               <input
+                value={input}
                 placeholder='Search for '
                 className=' my-5 py-3 px-4 outline-none  md:w-[14rem] lg:w-[18rem] rounded-bl rounded-tl'
                 style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}
+                onChange={(e)=>setInput(e.target.value)}
               />
-              <button className='py-3 w-[10rem] md:w-[6rem] lg:w-[10rem] h-[50px] my-5 bg-red-600 rounded-br rounded-tr'>
+              <button className='py-3 w-[10rem] md:w-[6rem] lg:w-[10rem] h-[50px] my-5 bg-red-600 rounded-br rounded-tr' onClick={handleSubmit}>
                 <span className='text-white text-[17px]'>Find</span>
               </button>
             </form>
