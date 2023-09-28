@@ -3,26 +3,36 @@ import React, { useEffect, useRef, useState } from "react";
 import ChatIcon from "@mui/icons-material/Chat";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import { getChatData, userSendMessage } from "../../../Utils/UserEndpoints";
+import { getChatData } from "../../../Utils/UserEndpoints";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-function ChatIcon1() {
-    
+import { io } from "socket.io-client";
+import { socketApi } from "../../../Utils/Api";
+
+function ChatIcon1({userDetails}) {
+    const Socket = io.connect(socketApi);
     const [chatopen, setChatopen] = useState(false);
     const [chat,setChat] = useState([])
     const [chats,setChats] = useState(false)
     const [text,setText] = useState("")
     const [sendMessage,setSendMessage]= useState(false)
+
     const chatContainerRef = useRef(null);
-
     const handleSendmessage=async()=>{
-        console.log("entered submission : ",text)
-        const res = await userSendMessage(text)
-        if(res.data.message){
-
+        if (text.trim() !== '') {
+            const newMessage = {
+              user:userDetails._id,
+              message: text,
+              sender:"user",
+            };
+            // Emit the message to the server
+            await Socket.emit('send_message', newMessage);
+            // Clear the input field
             setSendMessage(!sendMessage)
-            setText("")
-        }
+
+            setText('');
+          }
     }
+
     const getChat =async()=>{
          const res = await getChatData()
          if(res.data.message){
@@ -46,17 +56,30 @@ function ChatIcon1() {
       };
 
     useEffect( ()=>{
-       getChat()
+        getChat()
+        scrollToBottom(); 
+    },[])
+
+    useEffect(() => {
+        // Listen for incoming messages from the server
+         Socket.on('receive_message', (data) => {
+          setChat((prevMessages) => [...prevMessages, data]);
+        });
        scrollToBottom(); 
-    },[chats,sendMessage])
+       return()=>{
+        Socket.disconnect()
+      }
+       
+      }, [chat,sendMessage]);
+
     return (
-        <div className="fixed right-10 cursor-pointer  bg-white-500 rounded full top-[42rem]">
+        <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
                 <div
-                    className="border-gray-500 fixed right-[0rem] top-[0rem] bg-white  h-[47rem] w-[25rem]"
+                    className="border-gray-500 fixed right-[0rem] top-[0rem] bg-white h-[47rem] w-[25rem]"
                     style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
                 >
-                    <div className="flex h-[4rem] items-center px-4 bg-red-500 justify-between">
+                    <div className="flex h-[3rem] items-center px-4 bg-red-500 justify-between">
                         <p className="font-medium text-[25px] text-white ">Chat</p>
                         <DisabledByDefaultRoundedIcon className="me-0" style={{color:"white"}} onClick={handleChatData}/>
                     </div>
@@ -79,7 +102,6 @@ function ChatIcon1() {
                     </div>
                     <div  ref={chatContainerRef} className="flex flex-col h-[22rem]  overflow-y-scroll">
                         <div className="text-center w-full mt-5 text-gray-500 text-[15px]">
-                            {/* <p className="text-center">23/05/2023</p> */}
                         </div>
 
                         {chat.map((chat)=>(
@@ -98,7 +120,7 @@ function ChatIcon1() {
                                 <p className="text-right me-5 text-[13px] mt-1">{chat.time}</p>
 
                             </div>
-                            <img src={chat.user.image} alt="" className=" h-[3rem] w-[3rem] rounded-full" />
+                            <img src={userDetails.image} alt="" className=" h-[3rem] w-[3rem] rounded-full" />
 
                         </div>}
                          </div>
@@ -106,8 +128,8 @@ function ChatIcon1() {
                      
                     </div>
 
-                    <div className="border flex justify-between items-center mt-3 w-full border-gray-300">
-                        <input type="text" value={text} className="outline-none py-4 px-3" placeholder="Write your message ..."  onChange={(e)=>setText(e.target.value)}/>
+                    <div className="border flex justify-between items-center  w-full border-gray-300">
+                        <input type="text" value={text} className="outline-none py-3  px-3" placeholder="Write your message ..."  onChange={(e)=>setText(e.target.value)}/>
                         <SendRoundedIcon style={{fontSize:"35px",marginRight:"10px",background:"",color:"red"}} onClick={handleSendmessage}/>
                     </div>
                 </div>

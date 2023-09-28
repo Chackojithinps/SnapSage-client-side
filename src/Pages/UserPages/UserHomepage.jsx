@@ -7,13 +7,15 @@ import UsersideFooter from '../../Components/User/Footer/UsersideFooter'
 import ChatIcon1 from '../../Components/User/ChatBox/ChatIcon'
 
 function UserHomepage() {
-  // const [profileOpen,setProfileopen] = useState(false) 
+  // const [profileOpen,setProfileopen] = useState(false)
+  const [userDetails,setUserDetails] = useState({})
+
   const [chatopen,setChatopen] = useState(false)
   return (
     <div>
-       <UserHome setChatopen={setChatopen}/>
+       <UserHome setChatopen={setChatopen} setUserDetails={setUserDetails}/>
        <SectionOne/>
-       {chatopen && <ChatIcon1/>}
+       {chatopen && <ChatIcon1 userDetails={userDetails}/>}
        <SectionTwo/>
        <SectionThree/>
        <UsersideFooter/>

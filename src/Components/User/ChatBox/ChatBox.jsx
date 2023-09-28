@@ -100,7 +100,6 @@
 //     </div>
 //   );
 // }
-
 // {
 //   /* <p>INbox</p>
 //        <input type='text' className='border border-gray-400' onChange={(e)=>setCurrentMessage(e.target.value)}/>

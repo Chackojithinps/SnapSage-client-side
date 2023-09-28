@@ -1,34 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 import { adminSendMessage, chatListsData, userChats } from "../../../Utils/AdminEndpoints";
-
+import { io } from "socket.io-client";
+import { socketApi } from "../../../Utils/Api";
 
 function ChatBox() {
+  const Socket = io.connect(socketApi);
+
   const [chatLists, setChatLists] = useState([])
   const [chats,setChats] = useState([])
-  // const [id,setId] = useState()
   const [userData,setUserData] = useState({})
-  // const [image,setImage] = useState()
-  // const [name,setName]= useState("")
-  const [currentMessage,setCurrentMessage] = useState("")
+  const [text,setText] = useState("")
   const chatContainerRef = useRef(null);
 
   const handleuserChat = async(id,image,fname,lname)=>{
-    // console.log("id : ",id)
-    // setId(id)
-    // setImage(image)
     setUserData({id,image,fname,lname})
     const res = await userChats(id)
     if(res.data.message){
-      console.log("res.data.userChats",res.data.userChats)
       setChats(res.data.userChats)
       scrollToBottom()
     }
   }
 
   const handleSendmessage = async()=>{
-    console.log("entered _______________________________________________")
-    console.log(userData.id,currentMessage)
-     const res= await adminSendMessage(userData.id,currentMessage)
+    if (text.trim() !== '') {
+      const newMessage = {
+        user:userData.id,
+        message: text,
+        sender:"admin",
+      };
+      // Emit the message to the server
+      await Socket.emit('send_message', newMessage);
+      setText("");
+    }
   }
 
   const scrollToBottom = () => {
@@ -40,15 +43,23 @@ function ChatBox() {
   const getChatLists = async () => {
     const res = await chatListsData();
     if (res.data.message) {
-      console.log("res.data.chatLists : ", res.data.chatLists)
       setChatLists(res.data.chatLists)
     }
   }
- 
+  useEffect(() => {
+    // Listen for incoming messages from the server
+     Socket.on('receive_message', (data) => {
+      setChats((prevMessages) => [...prevMessages, data]);
+    });
+   scrollToBottom(); 
+   return()=>{
+    Socket.disconnect()
+  }
+  }, [chats]);
 
   useEffect(() => {
     getChatLists()
-  }, [])
+  }, [chats])
 
   return (
     <div className="flex" >
@@ -127,11 +138,6 @@ function ChatBox() {
                     <p className="text-end text-[10px] text-black">{chat.time}</p>
                     </div>
 
-                    {/* <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://picsum.photos/50/50"
-                      alt="User Avatar"
-                    /> */}
                   </div>}
                 </div>
                ))}
@@ -140,10 +146,11 @@ function ChatBox() {
             <div class="bg-gray-100  px-4 py-2">
               <div class="flex items-center">
                 <input
+                value={text}
                   class="w-full border outline-none mb-4 rounded-full py-2 px-4 mr-2"
                   type="text"
                   placeholder="Type your message..."
-                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  onChange={(e) => setText(e.target.value)}
                 />
                 <button onClick={handleSendmessage} class="bg-blue-500 mb-4  hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full">
                   Send
