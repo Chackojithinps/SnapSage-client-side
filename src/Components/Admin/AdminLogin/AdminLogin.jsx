@@ -3,31 +3,31 @@ import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { addAdminDetails } from '../../../Store/AdminAuth'
-import { adminAxiosInstance } from '../../../Utils/Axios'
 import { adminSignin } from '../../../Utils/AdminEndpoints'
-
 
 function AdminLogin() {
   const [email,setEmail] = useState()
   const [password,setPassword] = useState()
   const [checked,setCheckbox] =  useState(false)
- 
+  const [message,setMessage] = useState("")
   const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (checked) {
-        // const res = await adminAxiosInstance.post(`/login`, {
-        //   email: email,
-        //   password: password
-        // });
         const res = await adminSignin(email,password)
-  
         if (res.status === 200) {
-          localStorage.setItem("token",res.data.AdminToken)
-          dispatch(addAdminDetails({token:res.data.AdminToken}))
-          toast.success(res.data.message);
-          navigate('/admin')
+          if(res.data.message){
+            setMessage(res.data.message)
+            setTimeout(()=>{
+              setMessage("")
+            },4000)
+          }else{
+            localStorage.setItem("token",res.data.AdminToken)
+            dispatch(addAdminDetails({token:res.data.AdminToken}))
+            toast.success(res.data.successMessage);
+            navigate('/admin')
+          }
         } else {
           // If the response status is not 200, show an error toast with the message from the backend
           toast.error(res.data.message);
@@ -63,11 +63,15 @@ function AdminLogin() {
              <input type='checkbox' onChange={(e)=>setCheckbox(e.target.checked)} className='border border-gray-400 my-4'/>
              <span className='mx-2'>I accept the <span  className='text-purple-500'>Terms of use</span>T & <span  className='text-purple-500'>privacy policy</span></span>
              </div>
-             <div className='flex items-center justify-center my-6'>
+             <div className='flex items-center justify-center mt-6'>
                  <button className='border border-gray-500 py-1 px-2 w-full bg-purple-500 text-white rounded text-center ' onClick={handleSubmit}>Login</button>
 
              </div>
-             <p className='my-3 text-center'>Don't you have an account? <span className='font-bold hover:text-blue-500 hover:cursor-pointer' onClick={()=>navigate('/register')}>register</span> now</p>
+             <div className='mt-2'>
+                {message && <p className='text-red-500 text-center font-bold'>{message}</p>}
+
+                </div>
+             <p className=' text-center mt-6'>Don't you have an account? <span className='font-bold hover:text-blue-500 hover:cursor-pointer' onClick={()=>navigate('/register')}>register</span> now</p>
            </form>
          </div>
        </div>
