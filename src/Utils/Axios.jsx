@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserApi, AdminApi, VendorApi } from "./Api";
+import { AdminApi, UserApi, VendorApi } from "./Api";
 
 const TIMEOUT_DURATION = 110000;
 
