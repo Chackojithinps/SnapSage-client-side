@@ -71,8 +71,9 @@ export const getProfile = async () => {
 
 export const getStudiosHome = async (search,location,category,pages) => {
     try {
-        console.log("category : : : ",category)
+        // console.log("category : : : ",category)
         const data = await userAxiosInstance.get(`/getStudios?search=${search}&location=${location}&category=${category}&pages=${pages}`)
+        console.log("data. : : >......................>>>>>>>>>",data)
         return data;
     } catch (error) {
         return { status: 'failed', message: error.response.data.error }
