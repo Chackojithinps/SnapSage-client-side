@@ -10,7 +10,7 @@ function UserLogin() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [checked, setCheckbox] = useState(false)
-
+  const [message,setMessage] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -19,10 +19,19 @@ function UserLogin() {
       if (checked) {
         const res = await userSignin(email,password)
         if (res.status === 200){
-          localStorage.setItem("token", res.data.userDetail.token)
-          dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token}))
-          toast.success(res.data.message);
-          navigate('/')
+            if(res.data.message){
+              console.log("res.dat.messsdsdkfdjsfkljdsfkldsfjdsklf : ",res.data.message)
+              setMessage(res.data.message)
+              setTimeout(()=>{
+                setMessage("")
+              },4000)
+            }else{
+
+              localStorage.setItem("token", res.data.userDetail.token)
+              dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token}))
+              toast.success(res.data.successMessage);
+              navigate('/')
+            }
         } else {
           toast.error(res.data.message);
         }
@@ -52,8 +61,12 @@ function UserLogin() {
                   <input type='checkbox' onChange={(e) => setCheckbox(e.target.checked)} className='border border-gray-400 my-4' />
                   <span className='mx-2'>I accept the <span className='text-purple-500'>Terms of use</span>T & <span className='text-purple-500'>privacy policy</span></span>
                 </div>
-                <div className='flex items-center justify-center my-6'>
+                <div className='flex items-center justify-center mt-6'>
                   <button className='border border-gray-500 py-1 px-2 w-full bg-purple-500 text-white rounded text-center ' onClick={handleSubmit}>Login</button>
+
+                </div>
+                <div className='mt-2'>
+                {message && <p className='text-red-500 text-center font-bold'>{message}</p>}
 
                 </div>
                 <p className='my-3 text-center'>Don't you have an account? <span className='font-bold hover:text-blue-500 hover:cursor-pointer' onClick={() => navigate('/register')}>register</span> now</p>
