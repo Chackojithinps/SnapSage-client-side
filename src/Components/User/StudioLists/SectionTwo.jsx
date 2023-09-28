@@ -12,6 +12,7 @@ function SectionTwo() {
   const [page, setPage] = useState(0)
   const [totalPage, setTotalPage] = useState(0)
   const [pages, setPages] = useState(1)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -35,14 +36,39 @@ function SectionTwo() {
     return `${lowestPriceCategory.price}`;
   };
 
-  const handlePageChange=(index)=>{
+  const handlePageChange = (index) => {
     setPages(index)
   }
 
+  // const getStudios = async () => {
+  //   try {
+  //     setLoading(true)
+  //     const res = await getStudiosHome(search, location, category, pages);
+  //     setLoading(false)
+
+  //     if (res.data.success) {
+  //       const studiosWithAverageRating = res.data.studioDetails.map(
+  //         (studio) => ({
+  //           ...studio,
+  //           averageRating: calculateAverageRating(studio.review),
+  //           lowestPrice: getLowestPrice(studio.category),
+  //         })
+  //       );
+  //       setStudioDetails(studiosWithAverageRating);
+  //       setPage(res.data.page)
+  //       setTotalPage(res.data.totalPages)
+  //     }
+  //   } catch (error) {
+  //     console.log("getSTudios : ", error.message);
+  //   }
+  // };
+
   const getStudios = async () => {
     try {
-      const res = await getStudiosHome(search, location, category,pages);
-      if (res.data.success){
+      setLoading(true);
+      const res = await getStudiosHome(search, location, category, pages);
+      
+      if (res.data.success) {
         const studiosWithAverageRating = res.data.studioDetails.map(
           (studio) => ({
             ...studio,
@@ -51,17 +77,21 @@ function SectionTwo() {
           })
         );
         setStudioDetails(studiosWithAverageRating);
-        setPage(res.data.page)
-        setTotalPage(res.data.totalPages)
+        setPage(res.data.page);
+        setTotalPage(res.data.totalPages);
+      } else {
+        console.error("API request failed:", res.data.message);
       }
     } catch (error) {
-      console.log("getSTudios : ", error.message);
+      console.error("Error fetching studios:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getStudios();
-  }, [search, location, category,pages]);
+  }, [search, location, category, pages]);
 
   const getCategories = async () => {
     const res = await getCategoriesData()
@@ -73,8 +103,24 @@ function SectionTwo() {
   useEffect(() => {
     getCategories();
   }, []);
+  // if (loading) {
+  //   return(
+
+  //   <div class="w-full h-[35rem] flex justify-center items-center">
+  //     <div class="rounded-full h-20 w-20 bg-violet-800 animate-ping"></div>
+  //  </div>
+  //   )
+  // }
   return (
+
     <div>
+   {loading?
+   <div class="w-full h-[35rem] flex justify-center items-center">
+        <div class="rounded-full h-14 w-14 bg-violet-800 animate-ping"></div>
+    </div>:
+  
+    <div>
+
       <div className=' px-20 border h-[12rem] flex gap-2'>
         <div className="flex flex-col w-[50%]">
 
@@ -100,18 +146,15 @@ function SectionTwo() {
 
 
         <div className="px-2 mt-5 py-4 w-full text-right  rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
-          {/* <label for="cars">Choose a car:</label> */}
-          {/* <input type="text" placeholder="Search here ...." className="border border-[2px] outline-none py-3 w-[450px] px-6 border-500 "/> */}
+         
 
-          <select name="" id="" className="border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500" onChange={(e) => setCategory(e.target.value)}>
+          <select name="" id="" className="border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500" value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Choose Category</option>
             {categories.map((category) => (
               <option value={category.categoryName}>{category.categoryName}</option>
-
             ))}
-
           </select>
-          <select name="" id="cars" className="border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500 " onChange={(e) => setLocation(e.target.value)}>
+          <select name="" id="cars" className="border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500" value={location}  onChange={(e) => setLocation(e.target.value)}>
             <option value=''>Choose Location</option>
             <option value="kannur">Kannur</option>
             <option value="kozhikode">Kozhikode</option>
@@ -299,14 +342,13 @@ function SectionTwo() {
           </div>
         </div>
       }
-
       <div class="inline-flex rounded-xl mt-10 w-full">
         <ul class="flex items-center w-full justify-center mt-[5rem]">
 
           {Array.from({ length: totalPage }, (_, index) => (
             <li key={index} class="px-2">
               <button
-                onClick={()=>handlePageChange(index + 1)} // Define this function
+                onClick={() => handlePageChange(index + 1)} // Define this function
                 class={`w-9 h-9 rounded-md border hover:border-cyan-500 hover:text-indigo-500 ${index + 1 == page ? 'bg-red-400 text-white' : 'text-indigo-500'
                   }`}
               >
@@ -316,8 +358,9 @@ function SectionTwo() {
           ))}
         </ul>
       </div>
+      </div>}
     </div>
-  );
+  )
 }
 
 export default SectionTwo;

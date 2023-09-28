@@ -10,7 +10,6 @@ export const vendorLogin = async (email, password) => {
         });
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -23,7 +22,6 @@ export const AddPhotosData = async (studioId) => {
         const data = await vendorAxiosInstance.get(`/getStudioImages?id=${studioId}`)
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -36,7 +34,6 @@ export const uploadStudioImages = async (formData) => {
         const data = await vendorAxiosInstance.post(`/uploadStudioimg`, formData);
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -51,7 +48,6 @@ export const getStudioData = async () => {
         console.log("data ____________________ : ",data)
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -66,7 +62,6 @@ export const getCategoriesData = async (selectedStudio) => {
 
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -79,7 +74,6 @@ export const getCategoriesDatas = async () => {
         const data = await vendorAxiosInstance.get(`/getCategories`)
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -105,7 +99,6 @@ export const addstudioData = async (input, selectedCategories, categoryPrices) =
         return data;
 
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -118,7 +111,6 @@ export const registerData = async (formData) => {
         const data = await vendorAxiosInstance.post(`/register`, formData)
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -131,7 +123,6 @@ export const AddprofileImage = async (formData) => {
         const data = await vendorAxiosInstance.post(`/upload`, formData);
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -145,7 +136,6 @@ export const getProfileVendor = async () => {
         const data = await vendorAxiosInstance.get(`/profile`)
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -159,7 +149,6 @@ export const addOfferData = async (input) => {
         const data = await vendorAxiosInstance.post("/addOffer", { input });
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -173,7 +162,6 @@ export const listOfferData = async (id) => {
         const data = await vendorAxiosInstance.patch('/listOffer', { id })
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -187,7 +175,6 @@ export const unlistOfferData = async (id) => {
         const data = await vendorAxiosInstance.patch('/unlistOffer', { id })
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -202,7 +189,6 @@ export const getOfferDatas = async () => {
 
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -218,7 +204,6 @@ export const acceptBookingData = async (id,email) => {
         })
         return data;
     } catch (error) {
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -230,7 +215,6 @@ export const bookingData = async (searchInput) => {
         const data = await vendorAxiosInstance.get(`/bookings?search=${searchInput}`)
         return data;
     } catch (error){
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }
@@ -242,7 +226,6 @@ export const allbookingData = async () => {
         console.log("data >>>>>>>>>>>>>... ,",data)
         return data;
     } catch (error){
-        alert("vendorside ")
         return { status: 'failed', message: error.response.data.error }
     }
 }

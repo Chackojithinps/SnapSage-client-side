@@ -11,7 +11,6 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
     })
     instance.interceptors.request.use(config => {
         const token = localStorage.getItem(tokenName)
-        console.log("token in interceptro : ", token)
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -19,7 +18,6 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
     }, error => {
         return Promise.reject(error);
     })
-
     instance.interceptors.response.use(
         response => response,
         error => {
@@ -34,10 +32,12 @@ const createAxiosInstanceWithInterceptor = (baseURL, tokenName) => {
                 } else {
                     // Handle other HTTP error statuses or show a generic message
                     // You can also display user-friendly error messages here
+                    alert("http error : ",error.response.status)
                     console.log("HTTP Error: ", error.response.status);
                 }
             } else {
                 // Handle network errors or other issues
+                alert('Network Error : ',error.message)
                 console.log("Network Error: ", error.message);
             }
             return Promise.reject(error);
