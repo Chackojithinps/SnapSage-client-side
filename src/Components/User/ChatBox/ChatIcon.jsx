@@ -31,16 +31,9 @@ function ChatIcon1({userDetails}) {
             // Emit the message to the server
             await Socket.emit('send_message', newMessage);
             setCurrentMessage(text)
-            // Clear the input field
-            // setSendMessage(!sendMessage)
+          
             setText('');
           }
-        // const res = await userSendMessage(text)   
-        // if(res.data.message){
-        //     setChatMessage(res.data.chatData)
-        //     await Socket.emit('send_message', res.data.chatData);
-        //     setText("")
-        // }
     }
 
 
@@ -71,16 +64,16 @@ function ChatIcon1({userDetails}) {
         scrollToBottom(); 
     },[])
 
-    useEffect(() => {
+    useEffect(async() => {
         // Listen for incoming messages from the server
-         Socket.on('receive_message', (data) => {
+         await Socket.on('receive_message', (data) => {
           setChat((prevMessages) => [...prevMessages, data]);
         });
        scrollToBottom(); 
        return()=>{
         Socket.disconnect()
       }
-      }, [chat,currentMessage]);
+      }, [chat,currentMessage,Socket]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
