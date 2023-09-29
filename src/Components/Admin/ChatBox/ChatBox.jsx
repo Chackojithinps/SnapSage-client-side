@@ -9,6 +9,7 @@ function ChatBox() {
   const [chats,setChats] = useState([])
   const [userData,setUserData] = useState({})
   const [text,setText] = useState("")
+  const [sendMessage,setSendMessage] = useState(false)
   const chatContainerRef = useRef(null);
 
   const handleuserChat = async(id,image,fname,lname)=>{
@@ -29,6 +30,7 @@ function ChatBox() {
       };
       // Emit the message to the server
       await Socket.emit('send_message', newMessage);
+      setSendMessage(!sendMessage)
       setText("");
     }
   }
@@ -54,7 +56,7 @@ function ChatBox() {
    return()=>{
     Socket.disconnect()
   }
-  }, [Socket,chats]);
+  }, [sendMessage]);
 
   useEffect(() => {
     getChatLists()
