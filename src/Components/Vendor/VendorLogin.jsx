@@ -10,6 +10,7 @@ function VendorLogin() {
   const [password, setPassword] = useState();
   const [checked, setCheckbox] = useState(false);
   const [loader,setLoader] = useState(false)
+  const [message,setMessage] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -20,14 +21,21 @@ function VendorLogin() {
     try {
       e.preventDefault();
       if (checked) {
-        setLoader(true)
+      //  setLoader(true)
        const res = await vendorLogin(email,password)
-        setLoader(false)
+        // setLoader(false)
         if (res.status === 200){
-          toast.success(res.data.message);
-          localStorage.setItem("token",res.data.vendorDetail.token);
-          dispatch(addvendorDetails({token: res.data.vendorDetail.token }))
-          navigate("/vendor");
+          if(res.data.message){
+            setMessage(res.data.message)
+            setTimeout(()=>{
+              setMessage("")
+            },4000)
+          }else{
+            toast.success(res.data.successMessage);
+            localStorage.setItem("token",res.data.vendorDetail.token);
+            dispatch(addvendorDetails({token: res.data.vendorDetail.token }))
+            navigate("/vendor");
+          }
         } else {
           toast.error(res.data.message);
         }
@@ -89,13 +97,17 @@ function VendorLogin() {
                     <span className="text-purple-500">privacy policy</span>
                   </span>
                 </div>
-                <div className="flex items-center justify-center my-6">
+                <div className="flex items-center justify-center mt-6">
                   <button
                     className="border border-gray-500 py-1 px-2 w-full bg-purple-500 text-white rounded text-center "
                     onClick={handleSubmit}
                   >
                     Login
                   </button>
+                </div>
+                <div className='mt-2'>
+                {message && <p className='text-red-500 text-center font-bold'>{message}</p>}
+
                 </div>
                 <p className="my-3 text-center">
                   Don't you have an account?{" "}
