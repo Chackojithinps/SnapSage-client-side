@@ -57,10 +57,8 @@ function ChatIcon1({userDetails}) {
       };
 
     useEffect( ()=>{
-        
         getChat()
         scrollToBottom(); 
-
     },[])
 
     useEffect(() => {
@@ -72,8 +70,7 @@ function ChatIcon1({userDetails}) {
        return()=>{
         Socket.disconnect()
       }
-
-      }, [Socket]);
+      }, [chat]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
