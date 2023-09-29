@@ -67,13 +67,19 @@ function ChatIcon1({userDetails}) {
     useEffect(() => {
         // Listen for incoming messages from the server
           Socket.on('receive_message', (data) => {
-          setChat((prevMessages) => [...prevMessages, data]);
+          setChat((prevMessages) => (
+            console.log("preveMessage :LLLLLLLLL : : ",prevMessages),
+            [...prevMessages, data])
+          )
+
+          
+          console.log("data :?????????????????? ",data)
         });
        scrollToBottom(); 
        return()=>{
         Socket.disconnect()
       }
-      }, [chat,currentMessage,Socket]);
+      }, [currentMessage]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
