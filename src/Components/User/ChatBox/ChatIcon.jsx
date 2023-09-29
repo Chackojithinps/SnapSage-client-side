@@ -7,6 +7,7 @@ import { getChatData, userSendMessage } from "../../../Utils/UserEndpoints";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { io } from "socket.io-client";
 import { socketApi } from "../../../Utils/Api";
+import { CurrencyRuble } from "@mui/icons-material";
 
 function ChatIcon1({userDetails}) {
     const Socket = io.connect(socketApi);
@@ -14,29 +15,32 @@ function ChatIcon1({userDetails}) {
     const [chat,setChat] = useState([])
     const [chats,setChats] = useState(false)
     const [text,setText] = useState("")
-    const [chatMessage,setChatMessage] = useState("")
+    const [currentMessage,setCurrentMessage] = useState("")
+    // const [chatMessage,setChatMessage] = useState("")
     // const [sendMessage,setSendMessage]= useState(false)
     const chatContainerRef = useRef(null);
     
     const handleSendmessage=async()=>{
-        // if (text.trim() !== '') {
-        //     const newMessage = {
-        //       user:userDetails._id,
-        //       message: text,
-        //       sender:"user",
-        //     };
-        //     // Emit the message to the server
-        //     await Socket.emit('send_message', newMessage);
-        //     // Clear the input field
-        //     setSendMessage(!sendMessage)
-        //     setText('');
-        //   }
-        const res = await userSendMessage(text)   
-        if(res.data.message){
-            setChatMessage(res.data.chatData)
-            await Socket.emit('send_message', res.data.chatData);
-            setText("")
-        }
+        
+        if (text.trim() !== '') {
+            const newMessage = {
+              user:userDetails._id,
+              message: text,
+              sender:"user",
+            };
+            // Emit the message to the server
+            await Socket.emit('send_message', newMessage);
+            setCurrentMessage(text)
+            // Clear the input field
+            // setSendMessage(!sendMessage)
+            setText('');
+          }
+        // const res = await userSendMessage(text)   
+        // if(res.data.message){
+        //     setChatMessage(res.data.chatData)
+        //     await Socket.emit('send_message', res.data.chatData);
+        //     setText("")
+        // }
     }
 
 
@@ -76,7 +80,7 @@ function ChatIcon1({userDetails}) {
        return()=>{
         Socket.disconnect()
       }
-      }, [chatMessage,chats]);
+      }, [chat,currentMessage]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (

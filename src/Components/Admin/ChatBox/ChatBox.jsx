@@ -10,7 +10,7 @@ function ChatBox() {
   const [userData,setUserData] = useState({})
   const [text,setText] = useState("")
   // const [sendMessage,setSendMessage] = useState(false)
-  const [chatMessage,setChatMessage] = useState("")
+  const [currentMessage,setCurrentMessage] = useState("")
   const chatContainerRef = useRef(null);
 
   const handleuserChat = async(id,image,fname,lname)=>{
@@ -23,24 +23,26 @@ function ChatBox() {
   }
 
   const handleSendmessage = async()=>{
-    // if (text.trim() !== '') {
-    //   const newMessage = {
-    //     user:userData.id,
-    //     message: text,
-    //     sender:"admin",
-    //   };
-    //   // Emit the message to the server
-    //   await Socket.emit('send_message', newMessage);
-    //   setSendMessage(!sendMessage)
-    //   setText("");
-    // }
-    const res = await adminSendMessage(userData.id,text)
-
-    if(res.data.message){
-       setChatMessage(res.data.chatData)
-       await Socket.emit('send_message', res.data.chatData);
-       setText("")
+    
+    if (text.trim() !== '') {
+      const newMessage = {
+        user:userData.id,
+        message: text,
+        sender:"admin",
+      };
+      // Emit the message to the server
+      await Socket.emit('send_message', newMessage);
+      setCurrentMessage(text)
+      // setSendMessage(!sendMessage)//////
+      setText("");
     }
+    // const res = await adminSendMessage(userData.id,text)
+
+    // if(res.data.message){
+    //    setChatMessage(res.data.chatData)
+    //    await Socket.emit('send_message', res.data.chatData);
+    //    setText("")
+    // }//////////
   }
 
   const scrollToBottom = () => {
@@ -65,7 +67,7 @@ function ChatBox() {
    return()=>{
     Socket.disconnect()
   }
-  }, [chatMessage,chats]);
+  }, [currentMessage,chats]);
 
   useEffect(() => {
     getChatLists()
