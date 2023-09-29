@@ -54,7 +54,7 @@ function ChatBox() {
    return()=>{
     Socket.disconnect()
   }
-  }, [chats]);
+  }, [Socket,chats]);
 
   useEffect(() => {
     getChatLists()
