@@ -58,7 +58,7 @@ function ChatIcon1({userDetails}) {
     useEffect( ()=>{
         getChat()
         scrollToBottom(); 
-    },[chat,sendMessage])
+    },[])
 
     useEffect(() => {
         // Listen for incoming messages from the server
