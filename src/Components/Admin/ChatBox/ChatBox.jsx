@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { chatListsData, userChats } from "../../../Utils/AdminEndpoints";
+import { adminSendMessage, chatListsData, userChats } from "../../../Utils/AdminEndpoints";
 import { io } from "socket.io-client";
 import { socketApi } from "../../../Utils/Api";
 
@@ -9,7 +9,8 @@ function ChatBox() {
   const [chats,setChats] = useState([])
   const [userData,setUserData] = useState({})
   const [text,setText] = useState("")
-  const [sendMessage,setSendMessage] = useState(false)
+  // const [sendMessage,setSendMessage] = useState(false)
+  const [chatMessage,setChatMessage] = useState("")
   const chatContainerRef = useRef(null);
 
   const handleuserChat = async(id,image,fname,lname)=>{
@@ -22,16 +23,21 @@ function ChatBox() {
   }
 
   const handleSendmessage = async()=>{
-    if (text.trim() !== '') {
-      const newMessage = {
-        user:userData.id,
-        message: text,
-        sender:"admin",
-      };
-      // Emit the message to the server
-      await Socket.emit('send_message', newMessage);
-      setSendMessage(!sendMessage)
-      setText("");
+    // if (text.trim() !== '') {
+    //   const newMessage = {
+    //     user:userData.id,
+    //     message: text,
+    //     sender:"admin",
+    //   };
+    //   // Emit the message to the server
+    //   await Socket.emit('send_message', newMessage);
+    //   setSendMessage(!sendMessage)
+    //   setText("");
+    // }
+    const res = await adminSendMessage(userData.id,text)
+
+    if(res.data.message){
+       setChatMessage(res.data.chatData)
     }
   }
 
@@ -47,7 +53,7 @@ function ChatBox() {
       setChatLists(res.data.chatLists)
     }
   }
-  
+
   useEffect(() => {
     // Listen for incoming messages from the server
      Socket.on('receive_message', (data) => {
@@ -57,7 +63,7 @@ function ChatBox() {
    return()=>{
     Socket.disconnect()
   }
-  }, [chats,sendMessage]);
+  }, [chatMessage]);
 
   useEffect(() => {
     getChatLists()
