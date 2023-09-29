@@ -64,9 +64,9 @@ function ChatIcon1({userDetails}) {
         scrollToBottom(); 
     },[])
 
-    useEffect(async() => {
+    useEffect(() => {
         // Listen for incoming messages from the server
-         await Socket.on('receive_message', (data) => {
+          Socket.on('receive_message', (data) => {
           setChat((prevMessages) => [...prevMessages, data]);
         });
        scrollToBottom(); 
