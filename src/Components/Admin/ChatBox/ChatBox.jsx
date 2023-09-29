@@ -47,6 +47,7 @@ function ChatBox() {
       setChatLists(res.data.chatLists)
     }
   }
+  
   useEffect(() => {
     // Listen for incoming messages from the server
      Socket.on('receive_message', (data) => {
