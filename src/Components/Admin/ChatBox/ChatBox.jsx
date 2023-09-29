@@ -38,6 +38,8 @@ function ChatBox() {
 
     if(res.data.message){
        setChatMessage(res.data.chatData)
+       await Socket.emit('send_message', res.data.chatData);
+       setText("")
     }
   }
 
