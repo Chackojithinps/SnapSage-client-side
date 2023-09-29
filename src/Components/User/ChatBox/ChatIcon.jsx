@@ -76,7 +76,7 @@ function ChatIcon1({userDetails}) {
        return()=>{
         Socket.disconnect()
       }
-      }, [chatMessage]);
+      }, [chatMessage,chats]);
     return (
         <div className="fixed right-10 cursor-pointer bg-white-500 rounded full top-[40rem]">
             {chatopen ? (
