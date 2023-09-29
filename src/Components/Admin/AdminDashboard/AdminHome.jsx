@@ -180,7 +180,7 @@ function AdminHome() {
 
           <div className="flex">
             <div className="border -24  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
-              <p className="text-center mt-10 font-medium">Weekly Bookings</p>
+              <p className="text-center mt-10 font-medium">Monthly Bookings</p>
               <div className="px-16 py-16" >
                 <Bar data={data2} />
               </div>

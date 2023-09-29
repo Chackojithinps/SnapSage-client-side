@@ -190,7 +190,7 @@ function Vendordashboard() {
           <div className="flex">
 
           <div className="border py-10  ms-10 bg-white absolute top-[23rem] rounded-xl w-[50%] h-[30rem]">
-                <p className="text-center font-medium">Weekly Bookings</p>
+                <p className="text-center font-medium">Monthly Bookings</p>
               <div className="px-16 text-center mt-12" >
                 <Bar data={barChartData} />
               </div> 
