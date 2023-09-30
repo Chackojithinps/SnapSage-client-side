@@ -60,7 +60,7 @@ function Review({ studio }) {
   }, []);
   return (
     <div
-      className="mx-24  w-[55rem] h-[27rem] "
+      className="mx-5 md:mx-24 w-[28rem] md:w-[55rem] h-[27rem] "
       style={{ fontFamily: "Noto Serif" }}
     >
       <p
@@ -183,12 +183,12 @@ function Review({ studio }) {
         )}
       </div>
       {studio.review.length > 0 ?
-        (<div className="flex relative gap-7 my-5 w-[55rem]  overflow-x-auto">
+        (<div className="flex relative gap-7 my-5 w-[28rem] md:w-[55rem]  overflow-x-auto">
 
 
           {studio.review.map((review) => (
 
-            <div className="border border-gray-300 rounded-[7px] w-[16rem] h-[23rem]">
+            <div className="border border-gray-300 rounded-[7px] min-w-[16rem] h-[23rem]">
               <div className="flex  gap-2 w-[17rem] my-4 ms-4">
                 <div className="flex " >
                   {review.user.image ? <img
@@ -309,7 +309,7 @@ function Review({ studio }) {
 
 
                 <div>
-                  <p className=" text-gray-500 absolute top-[20rem] text-[12px] mx-4">review added on {formatDate(review.created)}</p>
+                  <p className=" text-gray-500 absolute top-[20rem] min-w-[16rem] md:w-[16rem] text-[12px] mx-4">review added on {formatDate(review.created)}</p>
                 </div>
               </div>
             </div>

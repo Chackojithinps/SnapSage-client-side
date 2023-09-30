@@ -94,7 +94,7 @@ function Booking({
   return (
     <>
       <div
-        className={`rounded-2xl px-7 py-7 w-[25rem] ${
+        className={`rounded-2xl mx-5 md:mx-0 px-7 mt-[9rem] md:mt-[12px] py-7 w-[28rem] md:w-[25rem] ${
           successMessage || open ? "opacity-70" : "opacity-1"
         }  my-4 sticky top-16 right-5 ${price ? "h-auto" : "h-[27rem]"} ${
           offer ? "h-[32rem]" : "h-[27rem]"

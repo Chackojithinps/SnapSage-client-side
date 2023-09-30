@@ -3,7 +3,7 @@ import TourOutlinedIcon from '@mui/icons-material/TourOutlined';
 function StudioAbout({studio}) {
     return (
         <div>
-            <div className='w-[58rem] ms-24 mt-6 flex flex-col gap-3'  >
+            <div className='w-[28rem] md:w-[58rem] ms-5 md:ms-24 mt-6 flex flex-col gap-3'  >
                 <h1 className='underline' style={{ fontFamily: 'Noto Serif' }}>About</h1>
                 <div className='flex gap-1 '>
 

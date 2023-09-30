@@ -51,7 +51,7 @@ function StudiodetailsPage() {
   return (
     <>
       <UserHome studio={studio} setProfileId={setProfileId} />
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <div>
           <StudioImages
             studio={studio}
@@ -76,7 +76,7 @@ function StudiodetailsPage() {
         </div>
       </div>
       
-      <div className={`mt-[15rem]`}>
+      <div className={`mt-[3rem] md:mt-[15rem]`}>
         <UsersideFooter />
       </div>
     </>
