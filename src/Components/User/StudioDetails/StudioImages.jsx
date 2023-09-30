@@ -48,7 +48,7 @@ import { useDispatch } from 'react-redux'
 import { showProfile } from '../../../Store/userAuth'
 
 
-function StudioImages({ studio, open, successMessage }) {
+function    StudioImages({ studio, open, successMessage }) {
    const dispatch = useDispatch()
 
    useEffect(() => {
@@ -57,14 +57,14 @@ function StudioImages({ studio, open, successMessage }) {
    return (
       <>
          <div className={`flex ${open || successMessage ? 'inset-0 opacity-80' : 'opacity-1'}`}>
-            <div className='w-[20rem] md:w-[60rem] flex h-[27rem] ms-5 md:ms-24 my-3'>
-               <div className='w-[65rem] h-[27rem] md:w-[27rem] md:h-[27rem]'>
-                  <img className='object-cover w-[65rem] h-[27rem] md:w-[27rem] md:h-[27rem] rounded-tl-xl rounded-bl-xl' src={studio.images.images[1]?.photos[0]} alt='' />
+            <div className='w-[15rem] md:w-[60rem] flex h-[27rem] ms-5 md:ms-24 my-3'>
+               <div className='w-[80rem] h-[27rem] md:w-[27rem] md:h-[27rem]'>
+                  <img className='object-cover w-[80rem] h-[27rem] md:w-[27rem] md:h-[27rem] rounded-tl-xl rounded-bl-xl' src={studio.images.images[1]?.photos[0]} alt='' />
 
                </div>
                <div className='grid grid-cols-1 md:grid-cols-2 gap-3 h-[27rem] w-[29rem] ms-3'>
-                  <div className='hidden md:block w-[5rem] h-[5rem] md:w-[14rem] md:h-[13rem]'>
-                     <img className=' w-[14rem] h-[13rem] object-cover' src={studio.images.images[1]?.photos[2]} alt='' />
+                  <div className='hidden md:block w-[12rem] h-[5rem] md:w-[14rem] md:h-[13rem]'>
+                     <img className=' w-[12rem] h-[13rem] object-cover' src={studio.images.images[1]?.photos[2]} alt='' />
 
                   </div>
                   <div className='w-[14rem]  -yellow-400 h-[13rem]'>
