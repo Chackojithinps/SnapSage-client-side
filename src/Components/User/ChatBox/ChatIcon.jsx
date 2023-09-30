@@ -7,7 +7,7 @@ import { getChatData, userSendMessage } from "../../../Utils/UserEndpoints";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { io } from "socket.io-client";
 import { socketApi } from "../../../Utils/Api";
-import { CurrencyRuble } from "@mui/icons-material";
+// import { CurrencyRuble } from "@mui/icons-material";
 
 function ChatIcon1({userDetails}) {
     const Socket = io.connect(socketApi);

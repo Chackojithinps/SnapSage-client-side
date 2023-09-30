@@ -44,19 +44,7 @@ function SectionTwo() {
             </div>
            </div>
 
-           <div class="flex flex-col md:flex-row border min-w-full md:max-w-[50%] md:hidden shadow-lg mx-6 h-[20rem] md:h-[11rem]">
-            <img class="h-[50%] md:h-full w-full md:w-[30rem] object-cover rounded-lg rounded-r-none pb-5/6" src="https://ik.imagekit.io/q5edmtudmz/FB_IMG_15658659197157667_wOd8n5yFyXI.jpg" alt="bag" />
-            <div class="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
-                <div class="flex items-center">
-                    <h2 class="text-xl text-gray-800 font-medium mr-auto" style={{fontFamily:'Noto Serif'}}></h2>
-                   
-                </div>
-                <p class="text-gray-700 mt-4">
-                </p>
-                <p className='text-red-600 font-bold'>
-                    Start your search </p>
-            </div>
-           </div>
+          
          </div>
          {/* End of card seciton------------------------------------------------ */}
          {/* Starts Small Card section---------------------------------------------------------- */}
@@ -91,7 +79,7 @@ function SectionTwo() {
                 </div>
             </div>
 
-            <div class="md:flex shadow-lg   mx-3 w-[31%] h-[11rem]"  style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+            <div class="md:flex shadow-lg  mx-3 w-[31%] h-[11rem]"  style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
                 <div class="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
                     <div class="flex items-center">
                         <h2 class="text-xl text-gray-800 font-medium mr-auto w-[18rem]" style={{fontFamily:'Noto Serif'}}>Drone Shoot</h2>

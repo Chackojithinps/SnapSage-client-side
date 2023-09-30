@@ -43,8 +43,7 @@ function Payment() {
         }else{
        
             const res= await paymentData(bookings._id,amount)
-            if(res.data.success){
-               
+            if(res.data.success){    
                 var amount1 = res.data.data.amount * 100
                 console.log(amount);
                 var options = {

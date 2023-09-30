@@ -61,12 +61,12 @@ function ChatBox() {
   useEffect(() => {
     // Listen for incoming messages from the server
      Socket.on('receive_message', (data) => {
-      
-      setChats((prevMessages) => (
+      setChats((prevMessages) => (  
         console.log("prevMessage : l:  :  :",prevMessages),
         [...prevMessages, data])
       )
     });
+    
    scrollToBottom(); 
    return()=>{
     Socket.disconnect()

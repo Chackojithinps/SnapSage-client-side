@@ -12,7 +12,7 @@ import {
 } from "../../Store/userAuth";
 import { userNavbar } from "../../Utils/UserEndpoints";
 
-function UserHome({setProfileId,setUserDetails,setChatopen}){
+function UserHome({ setProfileId, setUserDetails, setChatopen }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.user.userToken);
@@ -31,27 +31,27 @@ function UserHome({setProfileId,setUserDetails,setChatopen}){
 
   const getProfile = async () => {
     const res = await userNavbar();
-    
-    if (res.data.success) {        
-      if(setUserDetails){
-        console.log("userDetails in userNavabar : ",res.data.userDetail)
+
+    if (res.data.success) {
+      if (setUserDetails) {
+        console.log("userDetails in userNavabar : ", res.data.userDetail)
         setUserDetails(res.data.userDetail)
       }
-      if(setProfileId){
-          console.log("res.data.userDetail : ",res.data.userDetail)
-          setProfileId(res.data.userDetail._id)
+      if (setProfileId) {
+        console.log("res.data.userDetail : ", res.data.userDetail)
+        setProfileId(res.data.userDetail._id)
       }
-      if(setChatopen){
+      if (setChatopen) {
         setChatopen(true)
       }
-      dispatch(showProfileImage({profileData: res.data.userDetail}));
+      dispatch(showProfileImage({ profileData: res.data.userDetail }));
     }
   };
 
-  
+
   const profileData = useSelector((state) => state.user.profileData);
   useEffect(() => {
-    const userToken1= localStorage.getItem('token')
+    const userToken1 = localStorage.getItem('token')
     if (userToken1) {
       getProfile();
     }
@@ -60,7 +60,7 @@ function UserHome({setProfileId,setUserDetails,setChatopen}){
 
   return (
     <nav
-      className="md:flex w-full justify-evenly  h-10 border items-center bg-white md:h-24"
+      className="md:flex w-full justify-evenly h-10 border items-center bg-white md:h-24"
       style={{ fontFamily: "Noto Serif" }}
     >
       <div className="flex justify-center px-7 md:">
@@ -76,9 +76,8 @@ function UserHome({setProfileId,setUserDetails,setChatopen}){
         <AccountCircleOutlinedIcon />
       </div>
       <div
-        className={`absolute top-10 bg-white md:static transition-all duration-500 Alegreya-Sans-SC px-6 h-[100vh] md:h-auto w-80 md:w-auto ${
-          open ? "left-0" : "left-[-123rem]"
-        }`}
+        className={`absolute top-10 bg-white md:static transition-all duration-500 Alegreya-Sans-SC px-6 h-[100vh] md:h-auto w-80 md:w-auto ${open ? "left-0" : "left-[-123rem]"
+          }`}
       >
         <ul className="md:flex md:gap-10 bg-white" style={{ fontFamily: "Noto Serif" }}>
           <li
@@ -105,16 +104,24 @@ function UserHome({setProfileId,setUserDetails,setChatopen}){
           <li className="hover:text-red-400 my-7 md:my-0 md:ms-0  hover:cursor-pointer">
             CONTACT
           </li>
-          <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer">
-            LOG IN
-          </li>
-          <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer">
-            SIGN UP
-          </li>
+          {!userToken ?
+            <div>
+              <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer" onClick={() => navigate("/login")}>
+                LOG IN
+              </li>
+              <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer" onClick={() => navigate("/register")}>
+                SIGN UP
+              </li>
+            </div>:<div>
+            <li className="hover:text-red-400 my-7 md:hidden md:my-0 md:ms-0   hover:cursor-pointer" onClick={handleLogout}>
+                LOGOUT
+              </li>
+            </div>
+         }
         </ul>
       </div>
       {!userToken ? (
-        <div className="flex flex-col gap-1">
+        <div className=" md:flex flex-col gap-1 hidden ">
           <p
             className="hidden md:block text-[12px] text-black cursor-pointer hover:underline"
             onClick={() => navigate("/vendor")}
@@ -137,17 +144,17 @@ function UserHome({setProfileId,setUserDetails,setChatopen}){
           </div>
         </div>
       ) : (
-        <div className="flex gap-10">
+        <div className=" gap-10 hidden md:flex">
           <div className="flex gap-2 cursor-pointer" onClick={handleProfileBar}>
-          {profileData?<img
+            {profileData ? <img
               src={profileData?.image}
               alt=""
               className=" w-[40px] h-[40px] rounded-full"
-            />:<img
-             src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
-            alt=""
-            className=" w-[40px] h-[40px] rounded-full"
-          />}
+            /> : <img
+              src={`https://img.favpng.com/21/10/7/conservatorio-santa-cecilia-maulana-malik-ibrahim-state-islamic-university-malang-gold-lorem-ipsum-is-simply-dummy-text-of-the-printing-system-png-favpng-ZMuhDyyzHaHZjz8wE34CcysFR.jpg`}
+              alt=""
+              className=" w-[40px] h-[40px] rounded-full"
+            />}
             <ArrowDropDownIcon color="action" style={{ marginTop: "10px" }} />
           </div>
           <button
