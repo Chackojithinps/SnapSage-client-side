@@ -127,11 +127,12 @@ function SectionTwo() {
 
         <div>
 
-          <div className=' px-20 border h-[12rem] flex gap-2'>
-            <div className="flex flex-col w-[50%]">
+          <div className='px-5 md:px-20 border h-[12rem] flex gap-2'>
+
+            <div className="flex flex-col w-full md:w-[50%] mt-5 md:mt-0">
 
               <p className='text-gray-400 font-bold'>Studio / Studio Vendors</p>
-              <p className='font-bold text-[40px]'>Studio Vendors</p>
+              <p className='font-bold md:text-[40px] text-[30px]'>Studio Vendors</p>
               <form className='flex'>
                 <input onChange={(e) => setSearch(e.target.value)}
                   placeholder='Search for '
@@ -144,15 +145,15 @@ function SectionTwo() {
                 </button>
               </form>
             </div>
-            <div className="ms-[8rem]">
+            <div className="ms-[8rem] hidden md:block">
               <img className=" object-cover w-[100rem] h-[12rem]" src="/Images/Picsart_23-09-19_18-18-00-295.jpg" alt="" />
             </div>
 
           </div>
-          <div className="flex justify-end mx-16 px-3">
+          <div className="flex flex-col md:flex-row me-40 md:me-0 md:justify-end md:mx-16 px-3">
 
 
-            <div className="px-2 mt-5 py-4 w-full text-right  rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
+            <div className="px-2 mt-5 py-4 w-full text-right rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
 
 
               <select name="" id="" className="border-[2px] outline-none py-3 ms-3 w-[18rem] px-6 border-500" value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -161,7 +162,7 @@ function SectionTwo() {
                   <option value={category.categoryName}>{category.categoryName}</option>
                 ))}
               </select>
-              <select name="" id="cars" className="border-[2px] ms-3 py-3 w-[18rem] px-6 outline-none border-500" value={location} onChange={(e) => setLocation(e.target.value)}>
+              <select name="" id="cars" className="border-[2px] mt-3 md:mt-0 ms-3 py-3 w-[18rem] px-6 outline-none border-500" value={location} onChange={(e) => setLocation(e.target.value)}>
                 <option value=''>Choose Location</option>
                 <option value="kannur">Kannur</option>
                 <option value="kozhikode">Kozhikode</option>
@@ -186,10 +187,10 @@ function SectionTwo() {
             </div>
           </div>
           {studioDetails.length > 0 ?
-            <div class="grid-cols-1 mx-16 grid lg:grid-cols-4 md:grid-cols-2">
+            <div class="grid-cols-1 mt-10 md:mt-0 mx-5 md:mx-16 grid lg:grid-cols-4 md:grid-cols-2">
               {studioDetails.map((studio) => (
                 <div
-                  className="mx-3 flex flex-col mt-6 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  sm:shrink-0 sm:grow sm:basis-0"
+                  className="mx-3 w-[] flex flex-col mt-6 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  sm:shrink-0 sm:grow sm:basis-0"
                   style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
                 >
                   <div>
