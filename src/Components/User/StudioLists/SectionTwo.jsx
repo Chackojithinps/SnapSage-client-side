@@ -150,7 +150,7 @@ function SectionTwo() {
             </div>
 
           </div>
-          <div className="flex flex-col md:flex-row me-40 md:me-0 md:justify-end md:mx-16 px-3">
+          <div className="flex flex-col md:flex-row me-40 md:me-14 md:justify-end md:mx-16 px-3">
 
 
             <div className="px-2 mt-5 py-4 w-full text-right rounded h-[5rem]" style={{ fontFamily: "Noto Serif" }}>
