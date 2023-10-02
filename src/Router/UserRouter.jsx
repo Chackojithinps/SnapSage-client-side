@@ -44,7 +44,7 @@ function UserRouter() {
             <Route path='/bookings' element={userToken?<BookingsPage/>:<Navigate to='/login'/>}/>
             <Route path='/payment' element={userToken?<PaymentPages/>:<Navigate to='/login'/>}/>
             <Route path='/bookingHistory' element={userToken?<BookingHistoryPage/>:<Navigate to='/login'/>}/>
-            <Route path='/studioLists' element={userToken?<StudioListspage/>:<Navigate to='/login'/>}/>
+            <Route path='/studioLists' element={<StudioListspage/>}/>
             <Route path='/review' element={userToken?<ReviewPage/>:<Navigate to='/login'/>}/>
             <Route path='/chatBox' element={userToken1?<ChatBoxPage/>:<Navigate to='/login'/>}/>
             <Route path='/error404' element={<Error404Page/>}/>

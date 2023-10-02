@@ -34,6 +34,7 @@ function UserHome({ setProfileId, setUserDetails, setChatopen }) {
 
     if (res.data.success) {
       if(res.data.message == 'token expired'){
+        console.log("teoken expired _____________________________________________________________")
         dispatch(userLogout());
         localStorage.removeItem("token");
         navigate('/login')

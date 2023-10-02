@@ -42,7 +42,6 @@ function SectionTwo() {
     if (!categories || categories.length === 0) {
       return "N/A"; // Return "N/A" if there are no categories
     }
-
     // Find the category with the lowest price
     const lowestPriceCategory = categories.reduce((minCategory, category) => {
       return category.price < minCategory.price ? category : minCategory;
