@@ -33,6 +33,11 @@ function UserHome({ setProfileId, setUserDetails, setChatopen }) {
     const res = await userNavbar();
 
     if (res.data.success) {
+      if(res.data.message == 'token expired'){
+        dispatch(userLogout());
+        localStorage.removeItem("token");
+        navigate('/login')
+      }
       if (setUserDetails) {
         console.log("userDetails in userNavabar : ", res.data.userDetail)
         setUserDetails(res.data.userDetail)
