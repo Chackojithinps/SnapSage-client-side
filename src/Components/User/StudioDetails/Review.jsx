@@ -60,7 +60,7 @@ function Review({ studio }) {
   }, []);
   return (
     <div
-      className="mx-5 md:mx-24 w-[28rem] md:w-[55rem] h-[27rem] "
+      className="mx-5 md:mx-24 w-[25rem] md:w-[55rem] h-[27rem] "
       style={{ fontFamily: "Noto Serif" }}
     >
       <p
@@ -315,7 +315,7 @@ function Review({ studio }) {
             </div>
 
           ))}</div>
-        ) : (<div className="flex gap-7 my-5 w-[55rem] h-[20rem] justify-center items-center rounded border border-gray-500 overflow-x-auto">
+        ) : (<div className="flex gap-7 my-5 w-[25rem] md:w-[55rem] h-[20rem] justify-center items-center rounded border border-gray-500 overflow-x-auto">
           <p className="">No reviews</p>
         </div>)}
     </div>

@@ -64,7 +64,7 @@ function    StudioImages({ studio, open, successMessage }) {
                </div>
                <div className='grid grid-cols-1 md:grid-cols-2 gap-3 h-[27rem] w-[29rem] ms-3'>
                   <div className='hidden md:block w-[12rem] h-[5rem] md:w-[14rem] md:h-[13rem]'>
-                     <img className=' w-[12rem] h-[13rem] object-cover' src={studio.images.images[1]?.photos[2]} alt='' />
+                     <img className=' w-[14rem] h-[13rem] object-cover' src={studio.images.images[1]?.photos[2]} alt='' />
 
                   </div>
                   <div className='w-[14rem]  -yellow-400 h-[13rem]'>
