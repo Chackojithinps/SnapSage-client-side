@@ -183,7 +183,7 @@ function Review({ studio }) {
         )}
       </div>
       {studio.review.length > 0 ?
-        (<div className="flex relative gap-7 my-5 w-[28rem] md:w-[55rem]  overflow-x-auto">
+        (<div className="flex relative gap-4 md:gap-7 my-5 w-[25rem] md:w-[55rem]  overflow-x-auto">
 
 
           {studio.review.map((review) => (

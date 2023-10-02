@@ -321,7 +321,7 @@ function Booking({
       {/* -----------------------------------------------------Modal----------------------------------------- */}
       {open ? (
         <div
-          className="absolute top-[5rem] px-8 py-5 rounded-xl left-[26rem] bg-white w-[40rem] h-[35rem] "
+          className="fixed top-[5rem] px-8 py-5 rounded-xl left-[1rem] md:left-[26rem] bg-white w-[25rem] md:w-[40rem]  md:h-[35rem] "
           style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
         >
           <div className="flex flex-col">
@@ -342,14 +342,7 @@ function Booking({
 
             <div className="">
               <div className="flex">
-                {/* <p
-                  className="mt-2 font-bold"
-                  style={{ fontFamily: "Noto Serif" }}
-                >
-                  <span className="text-red-600 text-[20px]">
-                    Rs {totalPrice}
-                  </span>
-                </p> */}
+                
                 <p
                   className="mt-2 font-bold"
                   style={{ fontFamily: "Noto Serif" }}
@@ -389,14 +382,14 @@ function Booking({
                   placeholder="District"
                   name="district"
                   onChange={handleChange}
-                  className="border py-2 px-2 w-[18rem] rounded-[5px] outline-none"
+                  className="border py-2 px-2 w-[165px] md:w-[18rem] rounded-[5px] outline-none"
                 />
                 <input
                   type="text"
                   placeholder="City"
                   name="city"
                   onChange={handleChange}
-                  className="border py-2 px-2 w-[18rem] rounded-[5px] outline-none"
+                  className="border py-2 px-2 w-[165px] md:w-[18rem] rounded-[5px] outline-none"
                 />
                 {/* <input type='text' placeholder='Name and Surname' name='name' onChange={handleChange} className='border py-2 w-full px-2 rounded-[5px] outline-none' /> */}
               </div>
@@ -406,14 +399,14 @@ function Booking({
                   placeholder="Email"
                   name="email"
                   onChange={handleChange}
-                  className="border py-2 px-2 w-[18rem] rounded-[5px] outline-none"
+                  className="border py-2 px-2 w-[165px] md:w-[18rem] rounded-[5px] outline-none"
                 />
                 <input
                   type="number"
                   placeholder="Phone"
                   name="phone"
                   onChange={handleChange}
-                  className="border py-2 px-2 w-[18rem] rounded-[5px] outline-none"
+                  className="border py-2 px-2 w-[165px] md:w-[18rem] rounded-[5px] outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -422,7 +415,7 @@ function Booking({
                   placeholder="Event date"
                   name="eventDate"
                   onChange={handleChange}
-                  className="border py-2 w-[285px] text-gray-500 rounded-[5px] outline-none px-2"
+                  className="border py-2 w-full md:w-[285px] text-gray-500 rounded-[5px] outline-none px-2"
                 />
               </div>
             </div>
