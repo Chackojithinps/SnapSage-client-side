@@ -6,8 +6,6 @@ import toast from 'react-hot-toast'
 import { adduserDetails } from '../../Store/userAuth'
 import { userSignin } from '../../Utils/UserEndpoints'
 function UserLogin() {
-  console.log("Entered login for trying")
-
   
   const [checked, setCheckbox] = useState(false)
   const initialValues = { email: "", password: "" }
@@ -18,13 +16,8 @@ function UserLogin() {
   const navigate = useNavigate()
 
   const validate = (values) => {
-    console.log("values ________________" ,values)
     const errors = {}
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    // const hasUppercase = /[A-Z]/;
-    // const hasLowercase = /[a-z]/;
-    // const hasNumber = /\d/;
-
     if (!values.email) {
         errors.email = "Email is required!"
     } else if (!regex.test(values.email)) {
