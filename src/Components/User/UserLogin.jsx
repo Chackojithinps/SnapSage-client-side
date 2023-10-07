@@ -133,6 +133,11 @@ function UserLogin() {
 }
 
 const handleChange = (e) => {
+  
+  setFormErrors((prev)=>({
+    ...prev,
+    [e.target.name] :""
+  }))
   setFormValues((prev) => ({
     ...prev,
     [e.target.name]: e.target.value,
