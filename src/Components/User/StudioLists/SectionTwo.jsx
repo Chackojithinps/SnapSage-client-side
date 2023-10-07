@@ -19,6 +19,7 @@ function SectionTwo() {
   console.log("studioDetails :L ", studioDetails)
   const locationData = useLocation()
   let studio = locationData.state
+
   console.log("studio........................ : ", locationData.state)
   // if(studio){
   //   setStudioDetails(studio)
@@ -65,6 +66,8 @@ function SectionTwo() {
       const res = await getStudiosHome(search, location, category, pages);
 
       if (res.data.success) {
+        console.log("___________________________________________entered : ")
+        console.log("___________________________________________entered : ",res.data.sutidoDetails)
         const studiosWithAverageRating = res.data.studioDetails.map(
           (studio) => ({
             ...studio,
@@ -88,7 +91,15 @@ function SectionTwo() {
   useEffect(() => {
     if (initialLoad && locationData.state) {
       setInitialLoad(false);
-      setStudioDetails(locationData.state);
+      const studiosWithAverageRating = locationData.state.map(
+        (studio) => ({
+          ...studio,
+          averageRating: calculateAverageRating(studio.review),
+          lowestPrice: getLowestPrice(studio.category),
+        })
+      );
+      setStudioDetails(studiosWithAverageRating);
+      // setStudioDetails(locationData.state);
       
     }
   }, [locationData.state]);
