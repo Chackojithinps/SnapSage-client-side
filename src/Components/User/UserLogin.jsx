@@ -173,7 +173,6 @@ const handleChange = (e) => {
             toast.error(res.data.message);
           }
         }
-       
       } else {
         return;
       }
