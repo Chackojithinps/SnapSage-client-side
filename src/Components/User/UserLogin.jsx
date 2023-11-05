@@ -57,7 +57,6 @@ const handleChange = (e) => {
                   setMessage("")
                 },4000)
               }else{
-  
                 localStorage.setItem("token", res.data.userDetail.token)
                 dispatch(adduserDetails({ name: res.data.userDetail.userName, token: res.data.userDetail.token}))
                 toast.success(res.data.successMessage);

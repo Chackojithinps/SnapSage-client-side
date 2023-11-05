@@ -28,10 +28,11 @@ function Booking({
   const [offerPrice, setOfferPrice] = useState(0);
   const [input, setInput] = useState();
   const [offer, setOffer] = useState(false);
+  const [message, setMessage] = useState(false);
   var userToken = useSelector((state) => state.user.userToken);
 
   const profileOpen = useSelector((state) => state.user.status);
-  
+
   const allOffers = offers.filter((offer) => {
     return offer.isListed && (offer.oneTime ? !offer.user.some((userId) => userId == profileId) : true);
   });
@@ -60,7 +61,7 @@ function Booking({
   };
 
   const handleCheckboxChange = (categoryId, price) => {
-    if (selectedCategories.includes(categoryId)) {
+    if (selectedCategories.includes(categoryId)){
       setSelectedCategories((prevSelected) =>
         prevSelected.filter((selected) => selected !== categoryId)
       );
@@ -78,13 +79,21 @@ function Booking({
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ()=>{
     try {
       const res = await BookingData(input,studio,allOffers,offerPrice,selectedCategories)
       if (res.data.success) {
         //  toast.success("Request sent successfull");
-        setOpen(false);
-        setSuccessMessage(true);
+        if(res.data.message){
+          setMessage(res.data.message)
+          setTimeout(()=>{
+            setMessage("")
+          },5000)
+        }else{
+          setOpen(false);
+          setSuccessMessage(true);
+        }
+        
       }
     } catch (error) {
       console.log("bookingsubmit : ", error.message);
@@ -321,7 +330,7 @@ function Booking({
       {/* -----------------------------------------------------Modal----------------------------------------- */}
       {open ? (
         <div
-          className="fixed top-[5rem] px-8 py-5 rounded-xl left-[1rem] md:left-[26rem] bg-white w-[25rem] md:w-[40rem]  md:h-[35rem] "
+          className="fixed top-[5rem] px-8 py-5 rounded-xl left-[1rem] md:left-[26rem] bg-white w-[25rem] md:w-[40rem]  md:h-[37rem] "
           style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
         >
           <div className="flex flex-col">
@@ -430,6 +439,7 @@ function Booking({
             >
               Send
             </button>
+            <p className="text-red-500 text-center mt-4">{message}</p>
           </div>
         </div>
       ) : (

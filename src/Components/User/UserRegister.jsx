@@ -84,8 +84,7 @@ function UserRegister() {
             }, 5000);
             return;
           }
-        }
-        
+        }        
       }
     } catch (error) {
       console.log("registerfrontend", error.message)
