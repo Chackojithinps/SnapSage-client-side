@@ -93,7 +93,6 @@ function Booking({
           setOpen(false);
           setSuccessMessage(true);
         }
-        
       }
     } catch (error) {
       console.log("bookingsubmit : ", error.message);

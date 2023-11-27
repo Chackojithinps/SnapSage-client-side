@@ -40,6 +40,7 @@ function Payment() {
            setTimeout(()=>{
               setOpen(false)
            },3000)
+                                        
         }else{
        
             const res= await paymentData(bookings._id,amount)
@@ -54,7 +55,7 @@ function Payment() {
                     description: "India's best Mens Fashion website",
                     image: "/public/img/loo.png",
                     order_id: res.data.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                    handler: function (response) {
+                    handler: function (response){
                         verifyPayment(response,bookings._id,amount);
                         console.log("response : ", response)
                     },                 
@@ -62,7 +63,7 @@ function Payment() {
             var rzp1 = new window.Razorpay(options);
             rzp1.open();
         
-            }else{
+            } else{
                 console.log("Error happened")
             }
           }
